@@ -1,0 +1,32 @@
+body {
+    text-align: center;
+}
+#principal
+{
+    margin: 5px auto;
+    width: 800px;
+    text-align: left;
+    /*background-color: #e5edf4;
+    border: 1px solid #d4d4d4;*/
+}
+/*#contingut
+{
+  margin: 5px;
+  width: 590px;
+  background-color: #ffffff;
+  text-align: center;
+  font-family: arial;
+  font-size: 10px;
+
+}*/
+a {
+	color: #92B711;
+	border-bottom: 1px dashed #92B711;
+	text-decoration: none;
+}	
+a:hover {
+        color: #92B711;
+        border-bottom: 1px solid #92B711;
+        text-decoration: none;
+	background-color: #e5edf4;
+}
