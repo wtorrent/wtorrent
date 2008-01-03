@@ -42,6 +42,7 @@ if(isset($_REQUEST['create']))
 	} else {
 		echo 'Error, you must fill the form';
 	}
+	echo '</div>';
 }
 if(isset($_REQUEST['update']))
 {

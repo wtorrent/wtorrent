@@ -53,7 +53,7 @@ abstract class Web
         $this->_smarty->debugging		= false;
 		//$this->_smarty->caching     	= true;
 		// Forcem la compilacio per cada peticio nova
-		$this->_smarty->force_compile = true;
+		$this->_smarty->force_compile = false;
 		$this->_smarty->register_modifier('decode', array(&$this, 'decode'));
 		$this->_smarty->register_modifier('jsOutput', 'stringForJavascript');
 
