@@ -46,6 +46,26 @@
 				command('files', this.id);
 			}
 		}
+		var files = document.getElementsByClassName('but_fcheck');
+			for (var i = 0; i < files.length; i++) {
+			//$(erase[i].id).onclick = function () {
+			files[i].onclick = function () {
+				var file = document.getElementsByClassName('files' + this.id);
+				for (var i = 0; i < file.length; i++) {
+					file[i].checked = true;
+				}
+			}
+		}
+		var files = document.getElementsByClassName('but_funcheck');
+			for (var i = 0; i < files.length; i++) {
+			//$(erase[i].id).onclick = function () {
+			files[i].onclick = function () {
+				var file = document.getElementsByClassName('files' + this.id);
+				for (var i = 0; i < file.length; i++) {
+					file[i].checked = false;
+				}
+			}
+		}
 	}
 	function info() {
 		var info = document.getElementsByClassName('but_info');
@@ -62,6 +82,26 @@
 			//$(erase[i].id).onclick = function () {
 			trackers[i].onclick = function () {
 				command('trackers', this.id);
+			}
+		}
+		var trackers = document.getElementsByClassName('but_tcheck');
+			for (var i = 0; i < trackers.length; i++) {
+			//$(erase[i].id).onclick = function () {
+			trackers[i].onclick = function () {
+				var tracker = document.getElementsByClassName('trackers' + this.id);
+				for (var i = 0; i < tracker.length; i++) {
+					tracker[i].checked = true;
+				}
+			}
+		}
+		var trackers = document.getElementsByClassName('but_tuncheck');
+			for (var i = 0; i < trackers.length; i++) {
+			//$(erase[i].id).onclick = function () {
+			trackers[i].onclick = function () {
+				var tracker = document.getElementsByClassName('trackers' + this.id);
+				for (var i = 0; i < tracker.length; i++) {
+					tracker[i].checked = false;
+				}
 			}
 		}
 	}

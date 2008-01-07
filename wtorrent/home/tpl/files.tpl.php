@@ -40,6 +40,9 @@
 			</select>
 		{/if}
 	{/foreach}
-	{*<input type="submit" value="{$str.change_pr}" name="ch_pr" />*}<div style="display: inline; border: 1px solid #d4d4d4; padding: 3px; text-align: center; cursor: pointer;" class="but_files" id="{$web->getHash()}"> {$str.change_pr} </div></div>
+	<div class="but_files" id="{$web->getHash()}"> {$str.change_pr} </div> 
+	<div class="but_fcheck" id="{$web->getHash()}">{$str.check_all}</div>
+	<div class="but_funcheck" id="{$web->getHash()}">{$str.uncheck_all}</div>
+	</div>
 	</form>
 	

@@ -173,6 +173,11 @@ function command(command, param)
 		getTabLData('ttab' + param);
 		
 	} else {
+		if(command == 'erase')
+		{
+			if(!confirm("{/literal}{$str.conf_erase}{literal}"))
+				return;
+		}
 		var pars = 'cls=commands&tpl=commands&command=' + command + '&param=' + param;
 		var myAjax = new Ajax.Request( url, {
 			method: 'get', 
@@ -270,15 +275,10 @@ function resize() {
 </head>
 
 <body{if $web->registrado()} onload="init()"{/if}>
-<div style="width: 900px; height: 50px;position: relative; margin-left: auto; margin-right: auto;">
-	<div style="position: absolute; left: 150px; margin: 0px auto; width: 600px; height: 175px; top: 0px;">
+<div style="width: 900px; height: 100px;position: relative; margin-left: auto; margin-right: auto;">
+	<div style="position: absolute; left: 150px; margin: 0px auto; width: 600px; height: 100px; top: 0px;">
 		<img src="{$DIR_IMG}wLogo.png" />
 	</div>
-	{if $web->registrado()}
-	{*<div style="position: absolute; left: 650px; font-family: georgia; font-size: 10px; text-align: center;margin: 0px auto; background-color: #ffffff; width: 199px; height: 17px; top: 0px; border-bottom: 1px solid #d4d4d4; border-left: 1px solid #d4d4d4; border-right: 1px solid #d4d4d4;">
-		<div class="buttonT"><a href="{$SRC_INDEX}?logout">{$str.logout}</a></div>
-	</div>*}
-	{/if}
 </div>
 {if $web->registrado()}
 <div id="menu">

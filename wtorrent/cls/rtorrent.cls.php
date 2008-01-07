@@ -91,7 +91,7 @@ class rtorrent extends Web
 	}
 	public function getWidth($total, $menu_items)
 	{
-		return floor($total/count($menu_items)) - 1;
+		return floor($total/(count($menu_items)+1)) - 1;
 	}
 	public function Admin($id)
 	{

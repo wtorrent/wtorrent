@@ -33,5 +33,8 @@
 				<option value="1">{$str.enable}</option>
 				<option value="0">{$str.disable}</option>
 			</select>
-			{*<input type="submit" value="{$str.change_tr}" name="ch_tr" />*} <div style="display: inline; border: 1px solid #d4d4d4; padding: 3px; text-align: center; cursor: pointer;" class="but_trackers" id="{$web->getHash()}"> {$str.change_tr} </div></div>
+			<div class="but_trackers" id="{$web->getHash()}"> {$str.change_tr} </div>
+			<div class="but_tcheck" id="{$web->getHash()}">{$str.check_all}</div>
+			<div class="but_tuncheck" id="{$web->getHash()}">{$str.uncheck_all}</div>
+	</div>
 	</form>

@@ -93,7 +93,7 @@ img {
 #login { 
 	padding: 20px; 
 	width:300px; 
-	margin: 100px auto; 
+	margin: 30px auto; 
 	color:#5d5d5d;
 	text-align: center;
   	font-family: Verdana, Arial;
@@ -110,7 +110,7 @@ img {
 	padding-top: 1px;
 	padding-bottom: 6px;
 	width:600px; 
-	margin: 60px auto;
+	margin: 10px auto;
 	margin-bottom: 30px;
 	color:#5d5d5d;
 	text-align: center;
@@ -282,4 +282,15 @@ img {
 	font-size: 12px; 
 	font-weight: bold; 
 	padding-top: 20px;
+}
+.but_info, .but_files, .but_fcheck, .but_funcheck, .but_trackers, .but_tcheck, .but_tuncheck {
+	display: inline; 
+	border: 1px solid #d4d4d4; 
+	padding: 3px; 
+	text-align: center; 
+	cursor: pointer; 
+	margin: 0px 3px;
+}
+.but_info:hover, .but_files:hover, .but_fcheck:hover, .but_funcheck:hover, .but_trackers:hover, .but_tcheck:hover, .but_tuncheck:hover {
+	background-color: #e5edf4;
 }
