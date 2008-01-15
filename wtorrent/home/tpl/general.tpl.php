@@ -1,8 +1,8 @@
 <div style="width: 100%; font-family: arial; font-size: 11px; padding-left: 10px; padding-top: 10px; padding-bottom: 5px; text-align: left;">
-			<b style="color: #4C8CC4;">Torrent file:</b> {$web->getTorrent()|decode}
+			<b style="color: #4C8CC4;">Torrent file:</b> {$web->getTorrent()}
 	</div>
 	<div style="width: 100%; font-family: arial; font-size: 11px; padding-left: 10px; text-align: left;">
-			<b style="color: #4C8CC4;">Data path:</b> {$web->getDataPath()|decode}
+			<b style="color: #4C8CC4;">Data path:</b> {$web->getDataPath()}
 	</div>
 	<div style="height: 18px; width: 700px; margin-left: auto; margin-right: auto; margin-top: 10px;">
 		<div style="width: 171px; float: left; font-family: arial; font-size: 11px; padding: 2px;">
@@ -48,6 +48,6 @@
 	<br />
 	{if $web->getMessage() neq ''}
 	<div style="width: 100%; font-family: arial; font-size: 11px; padding: 2px;">
-			<b style="color: #4C8CC4;">rTorrent Message:</b> {$web->getMessage()|decode}
+			<b style="color: #4C8CC4;">rTorrent Message:</b> {$web->getMessage()}
 	</div>
 	{/if}

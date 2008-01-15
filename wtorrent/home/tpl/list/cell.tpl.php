@@ -14,7 +14,7 @@
 			{if $web->getState($hash) eq 0}
 				{assign var="color" value="black"}
 			{/if}
-			<span style="color: {$color};">{$web->getName($hash)|decode|truncate:76:". . ."}{if $web->isHashChecking($hash) eq true} [CHECKING HASH]{/if}</span>
+			<span style="color: {$color};">{$web->getName($hash)|truncate:76:". . ."}{if $web->isHashChecking($hash) eq true} [CHECKING HASH]{/if}</span>
 		</div>
 		<div id="tbContentCell" style="width: 55px;" onclick="servOC({$clau},'{$hash}','#cad9ea');">
 			{$web->getTotalSeeds($hash)} ({$web->getConnSeeds($hash)})

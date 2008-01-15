@@ -13,7 +13,7 @@
 	{foreach key=clau item=file from=$web->getFiles()}
 	<tr>
                 <td style="font-family: arial; font-size: 11px; padding: 2px 5px 2px 10px; text-align: left;">
-                        <input type="checkbox" id="{$clau}" class="files{$web->getHash()}" />&nbsp;&nbsp;{if $details.file_percent.$clau eq 100}<a href="{$ftp}{$ftp_data_dir|utf8_encode}{$file|utf8_encode}">{/if}{$file.name|decode}{if $details.file_percent.$clau eq 100}</a>{/if}
+                        <input type="checkbox" id="{$clau}" class="files{$web->getHash()}" />&nbsp;&nbsp;{if $details.file_percent.$clau eq 100}<a href="{$ftp}{$ftp_data_dir|utf8_encode}{$file|utf8_encode}">{/if}{$file.name}{if $details.file_percent.$clau eq 100}</a>{/if}
                 </td>
 		<td style="padding: 2px 5px 2px 5px; font-family: arial; font-size: 11px; text-align: center;">
 			{$web->getDone($clau)}
