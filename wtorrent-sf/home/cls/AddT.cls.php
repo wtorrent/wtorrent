@@ -22,55 +22,65 @@ class AddT extends rtorrent
   public function construct()
   {
 
-    if(isset($this->_files['uploadedfile']) and !$this->_request['torrenturl'])
+    if ( isset( $this->_files['uploadedfile'] ) and ! $this->_request['torrenturl'] )
     {
-      if(!$this->setClient())
+      if( ! $this->setClient() )
         return false;
-      $this->uploadTorrent($this->_files['uploadedfile'], $this->_request['download_dir'], $this->_request['start_now'], $this->_request['private']);
-    } elseif ($this->_request['torrenturl']) {
+        $this->uploadTorrent( $this->_files['uploadedfile'], $this->_request['download_dir'], $this->_request['start_now'], $this->_request['private'] );
+    } elseif ( $this->_request['torrenturl'] ) {
       $this->setClient();
-      $this->addRemoteTorrent($this->_request['torrenturl']);
+      $this->addRemoteTorrent( $this->_request['torrenturl'] );
     }
   }
 
-  private function addRemoteTorrent($url) {
+  // Add remote torrent
+  private function addRemoteTorrent( $url ) {
+    // Parsing url
     $purl = parse_url( $url );
-    $uploadfile = DIR_EXEC . DIR_TORRENTS . md5($purl['path']);
-		if(file_exists($uploadfile))
+    $uploadfile = DIR_EXEC . DIR_TORRENTS . md5( $url ) . ".torrent";
+    // Get md5 for avoid filename problems&Multiple torrents
+		if ( file_exists( $uploadfile ) )
 		{
-			$this->addMessage($this->_str['err_add_file']);
+			$this->addMessage( $this->_str['err_add_file'] );
 			return false;
 		}
-    $fh = fopen($uploadfile,'w');
-    if (!function_exists("curl_init")) {
-      $this->addMessage($this->_str['no_curl_function']);
+    $fh = fopen( $uploadfile, 'w' );
+    // Open a filehandle and check for curl function in php
+    if ( !function_exists("curl_init") ) {
+      $this->addMessage( $this->_str['no_curl_function'] );
       return;
     }
     $ua = curl_init();
-    $cookie = $this->getCookie($url);
-    if ($cookie != "")
+    $cookie = $this->getCookie( $url );
+    if ( ! empty($cookie) )
     {
       curl_setopt($ua, CURLOPT_COOKIE, $cookie);
     }
-    curl_setopt($ua, CURLOPT_PORT, $purl["port"]);
-    curl_setopt($ua, CURLOPT_URL, $url);
-    curl_setopt($ua, CURLOPT_VERBOSE, TRUE);
-    curl_setopt($ua, CURLOPT_HEADER, FALSE);
-    curl_setopt($ua, CURLOPT_USERAGENT, "Curl downloader");
+    curl_setopt($ua, CURLOPT_PORT,           $purl["port"] );
+    curl_setopt($ua, CURLOPT_URL,            $url);
+    curl_setopt($ua, CURLOPT_VERBOSE,        FALSE);
+    curl_setopt($ua, CURLOPT_HEADER,         FALSE);
+    // Dont put the header into the file
+    curl_setopt($ua, CURLOPT_USERAGENT,      "Mozilla");
     curl_setopt($ua, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ua, CURLOPT_SSL_VERIFYHOST, FALSE);
     curl_setopt($ua, CURLOPT_SSL_VERIFYPEER, FALSE);
+    // Avoid ssl problems
     curl_setopt($ua, CURLOPT_FOLLOWLOCATION, TRUE);
-    curl_setopt($ua, CURLOPT_FILE, $fh);
-    $file = curl_exec($ua);
+    // Follow the location
+    curl_setopt($ua, CURLOPT_FILE,           $fh);
+    $file = curl_exec( $ua );
+    // Execute the query
     curl_close($ua);
     fclose($fh);
     chmod( $uploadfile, PERM_TORRENTS);
+    // Setting up the permissions
     $torrent = new BDECODE($uploadfile);
+    // Try to load the torrent, and check is it valid or not
     if ($torrent->result['error']) {
       $this->addMessage($torrent->result['error']);
       @unlink($uploadfile);
-      return 1;
+      return false;
     }
     $message = new xmlrpcmsg("set_directory", array(new xmlrpcval($dir , 'string')));
     $result1 = $this->client->send($message);
@@ -100,18 +110,13 @@ class AddT extends rtorrent
     }
   }
 
-  private function CleanFileName($filename) {
-    $replaceItems = array("?", "&", "'", "\"", "+", "@");
-    $cleanName = str_replace($replaceItems, "", $filename);
-    $cleanName = preg_replace("/[^0-9a-z.]+/i",'_', $cleanName);
-    
-    return $cleanName;
-  }
   private function getCookie($url) {
-    $purl = parse_url($url);
+    // Getting cookie depends on hostname
+    $purl = parse_url( $url );
     $sql = "SELECT id,value, hostname FROM cookie where userid = " . $this->getIdUser() . " and hostname like '%".$purl['host']."%';";
     $res = $this->_db->query( $sql );
     $result = $res->fetchAll();
+    // Return the first even there are more than one, FIXTHIS
     return $result[0]['value'];
   }
 

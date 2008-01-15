@@ -34,13 +34,16 @@ class Cookie extends rtorrent
     $this->fetchCookies();
   }           
   public function getCookies() {
+    // Post all the cookies we know for cookies.tpl
     return $this->info;
   }
   public function addCookie($host,$value) {
+    // Insert the new cookie in the database
     $sql = "INSERT into cookie (userid,hostname,value) values (" . $this->getIdUser() .",'${host}','${value}');";
     $this->_db->query($sql);
   }
   public function fetchCookies() {
+    // Fetching all the cookies
     $sql = "SELECT id,value, hostname FROM cookie where userid = " . $this->getIdUser() . ";";
     $res = $this->_db->query( $sql );
     $result = $res->fetchAll();
