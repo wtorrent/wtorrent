@@ -173,6 +173,25 @@ function command(command, param)
 		getTabLData('ttab' + param);
 		
 	} else {
+		if(command == 'batch')
+		{
+			var params = [];
+			//$('debug').innerHTML = '';
+			var torrent = document.getElementsByClassName('torrent');
+			for (var i = 0; i < torrent.length; i++) {
+				if(torrent[i].checked === true)
+					params.push(torrent[i].id);
+			}
+			var number = $('actions').options[$('actions').selectedIndex].value;
+			if(number == 0)
+				command = 'stop';
+			if(number == 1)
+				command = 'start';
+			if(number == 2)
+				command = 'erase';
+		}
+		var param = params.join('~');     
+		param = encodeURIComponent(param);
 		if(command == 'erase')
 		{
 			if(!confirm("{/literal}{$str.conf_erase}{literal}"))

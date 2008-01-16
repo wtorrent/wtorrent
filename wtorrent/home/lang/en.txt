@@ -91,3 +91,7 @@ conf_erase = Are you sure you want to erase this torrent?
 
 check_all = Check All
 uncheck_all = Uncheck All
+action = Apply
+start = Start
+stop = Stop
+erase = Erase

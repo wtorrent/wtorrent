@@ -1,8 +1,8 @@
 <div id="tbBulk">
 	<div id="tbColTab"></div>
 	<div id="tbCell" style="cursor: pointer; background-color: #e5edf4; border-top: 0px solid #d4d4d4;" onmouseover="style.backgroundColor='#d5e991';" onmouseout="style.backgroundColor='#e5edf4'">	
-		<div id="tbContentCell" style="width: 45px; padding-left: 5px; padding-top: 6px; height: 24px;">
-			{if $web->getState($hash) eq 0}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}bullet_go.png" class="start" id="{$hash}" alt="Start" /></div>&nbsp;&nbsp;{else}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}cross.png"  class="stop" id="{$hash}" alt="Stop" /></div>&nbsp;&nbsp;{/if}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}delete.png" class="erase" id="{$hash}" alt="Delete" /></div>
+		<div id="tbContentCell" style="width: 60px; padding-left: 0px; padding-top: 6px; height: 24px;">
+			<input type="checkbox" id="{$hash}" class="torrent" style="margin-bottom: 5px;" />{if $web->getState($hash) eq 0}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}bullet_go.png" class="start" id="{$hash}" alt="Start" /></div>&nbsp;&nbsp;{else}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}cross.png"  class="stop" id="{$hash}" alt="Stop" /></div>&nbsp;&nbsp;{/if}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}delete.png" class="erase" id="{$hash}" alt="Delete" /></div>
 		</div>
 		<div id="tbContentCell" style="width: 380px; text-align: left; padding-left: 10px;" onclick="servOC({$clau},'{$hash}','#cad9ea');">
 			{if $web->getState($hash) eq 1 && $web->getPercent($hash) neq 100}
@@ -42,7 +42,7 @@
 			{else}
 				{assign var=ratio value="green"}
 			{/if}
-		<div id="tbContentCell" style="color: {$ratio}; width: 45px;" onclick="servOC({$clau},'{$hash}','#cad9ea');">
+		<div id="tbContentCell" style="color: {$ratio}; width: 35px;" onclick="servOC({$clau},'{$hash}','#cad9ea');">
 			{$web->getRatio($hash)}
 		</div>
 		<div id="tbContentCell" style="width: 60px;" onclick="servOC({$clau},'{$hash}','#cad9ea');">

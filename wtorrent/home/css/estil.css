@@ -283,7 +283,7 @@ img {
 	font-weight: bold; 
 	padding-top: 20px;
 }
-.but_info, .but_files, .but_fcheck, .but_funcheck, .but_trackers, .but_tcheck, .but_tuncheck {
+.but_check, .but_uncheck, .but_info, .but_files, .but_fcheck, .but_funcheck, .but_trackers, .but_tcheck, .but_tuncheck {
 	display: inline; 
 	border: 1px solid #d4d4d4; 
 	padding: 3px; 
@@ -291,6 +291,6 @@ img {
 	cursor: pointer; 
 	margin: 0px 3px;
 }
-.but_info:hover, .but_files:hover, .but_fcheck:hover, .but_funcheck:hover, .but_trackers:hover, .but_tcheck:hover, .but_tuncheck:hover {
+.but_check:hover, .but_uncheck:hover, .but_info:hover, .but_files:hover, .but_fcheck:hover, .but_funcheck:hover, .but_trackers:hover, .but_tcheck:hover, .but_tuncheck:hover {
 	background-color: #e5edf4;
 }

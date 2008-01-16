@@ -63,24 +63,22 @@ class Commands extends rtorrent
 	}
 	private function stop($hashes)
     {
-    	if(is_array($hashes))
-    		$hashes = array_keys($hashes);
-    	else 
+    	$hashes = explode('~', $hashes);
+    	if(!is_array($hashes))
     		$hashes = array($hashes);
     	
     	foreach($hashes as $hash)
     	{
     		$message = new xmlrpcmsg("d.stop", array(new xmlrpcval($hash, 'string')));
-			$result = $this->client->send($message);
+    		$result = $this->client->send($message);
     	}
     	
     	$this->addMessage($this->_str['info_tor_stop']);
     }
     private function start($hashes)
     {
-    	if(is_array($hashes))
-    		$hashes = array_keys($hashes);
-    	else 
+    	$hashes = explode('~', $hashes);
+    	if(!is_array($hashes))
     		$hashes = array($hashes);
     	
     	foreach($hashes as $hash)
@@ -93,9 +91,8 @@ class Commands extends rtorrent
     }
     private function erase($hashes)
     {
-    	if(is_array($hashes))
-    		$hashes = array_keys($hashes);
-    	else 
+    	$hashes = explode('~', $hashes);
+    	if(!is_array($hashes))
     		$hashes = array($hashes);
     	
     	foreach($hashes as $hash)
