@@ -150,14 +150,14 @@ create: function(opts) {
   function mid(mw) {
     var ds = [];
 
-    ds.push('<div style="position:relative; top:' + (th+bh) + 'px; height:2048px; ' +
+    ds.push('<div style="position:relative; top:' + (th+bh) + 'px; height:10240px; ' +
             ' margin:0 ' + (rw-r-cx) + 'px 0 ' + (lw-r-cx) + 'px; ' +
             ' padding:0; overflow:hidden;' +
             ' background-position:0 ' + (th > 0 ? -(r+cy+cs) : '0') + 'px;"' +
             ' class="' + iclass + '"></div>');
 
     var dd = '<div style="position:absolute; width:1px;' +
-        ' top:' + (th+bh) + 'px; height:2048px; padding:0; margin:0;';
+        ' top:' + (th+bh) + 'px; height:10240px; padding:0; margin:0;';
     for (var x=0; x<lw-r-cx; ++x) {
       ds.push(dd + ' left:' + x + 'px;' + op((x+1.0)/lw) + 
           '" class="' + sclass + '"></div>');
