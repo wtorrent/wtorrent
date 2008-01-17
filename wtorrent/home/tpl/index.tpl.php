@@ -189,9 +189,10 @@ function command(command, param)
 				command = 'start';
 			if(number == 2)
 				command = 'erase';
+				
+			var param = params.join('~');     
+			param = encodeURIComponent(param);
 		}
-		var param = params.join('~');     
-		param = encodeURIComponent(param);
 		if(command == 'erase')
 		{
 			if(!confirm("{/literal}{$str.conf_erase}{literal}"))
