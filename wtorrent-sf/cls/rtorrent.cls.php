@@ -20,13 +20,18 @@ Modified version of class done by David Marco Martinez
 class rtorrent extends Web
 {
 	protected $client;
-	private $menu = array('Main' => 'ListT',
-						'Add Torrent' => 'AddT',
-						'Feeds' => 'Feeds');
-	private $menu_admin = array('Main' => 'ListT',
-						'Add Torrent' => 'AddT',
-						'Feeds' => 'Feeds',
-						'Admin' => 'Admin');
+  private $menu = array(
+            'Main'             => 'ListT',
+            'Add Torrent'      => 'AddT',
+            'Feeds'            => 'Feeds',
+            'Cookie'           => 'Cookie'
+          );
+  private $menu_admin = array(
+            'Main'             => 'ListT',
+            'Add Torrent'      => 'AddT',
+            'Feeds'            => 'Feeds',
+            'Cookie'           => 'Cookie',
+            'Admin'            => 'Admin');
 	private $submenu	= array('General' => 'General&tpl=details',
 						'Files' => 'Files&tpl=details',
 						'Tracker' => 'Tracker&tpl=details');

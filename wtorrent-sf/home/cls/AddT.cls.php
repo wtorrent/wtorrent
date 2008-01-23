@@ -29,12 +29,12 @@ class AddT extends rtorrent
         $this->uploadTorrent( $this->_files['uploadedfile'], $this->_request['download_dir'], $this->_request['start_now'], $this->_request['private'] );
     } elseif ( $this->_request['torrenturl'] ) {
       $this->setClient();
-      $this->addRemoteTorrent( $this->_request['torrenturl'] );
+      $this->addRemoteTorrent( $this->_request['torrenturl'], $this->_request['download_dir'], $this->_request['start_now'], $this->_request['private'] );
     }
   }
 
   // Add remote torrent
-  private function addRemoteTorrent( $url ) {
+  private function addRemoteTorrent( $url, $dir, $start_now, $private ) {
     // Parsing url
     $purl = parse_url( $url );
     $uploadfile = DIR_EXEC . DIR_TORRENTS . md5( $url ) . ".torrent";
