@@ -41,7 +41,7 @@
                         		</select>
                         	{/if}
                         {/foreach}
-                        <div class="but_info" id="{$web->getHash()}"> {$str.change_pr} </div></div>
+                        <div class="but_bottom" onclick="command('info', '{$web->getHash()}');"> {$str.change_pr} </div></div>
                         </form>
                 </div>
 	</div>

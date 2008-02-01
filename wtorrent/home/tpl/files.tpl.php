@@ -40,9 +40,9 @@
 			</select>
 		{/if}
 	{/foreach}
-	<div class="but_files" id="{$web->getHash()}"> {$str.change_pr} </div> 
-	<div class="but_fcheck" id="{$web->getHash()}">{$str.check_all}</div>
-	<div class="but_funcheck" id="{$web->getHash()}">{$str.uncheck_all}</div>
+	<div class="but_bottom" onclick="command('files', '{$web->getHash()}');"> {$str.change_pr} </div> 
+	<div class="but_bottom" onclick="checkAllByClass('files{$web->getHash()}');">{$str.check_all}</div>
+	<div class="but_bottom" onclick="uncheckAllByClass('files{$web->getHash()}');">{$str.uncheck_all}</div>
 	</div>
 	</form>
 	

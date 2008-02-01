@@ -33,8 +33,8 @@
 				<option value="1">{$str.enable}</option>
 				<option value="0">{$str.disable}</option>
 			</select>
-			<div class="but_trackers" id="{$web->getHash()}"> {$str.change_tr} </div>
-			<div class="but_tcheck" id="{$web->getHash()}">{$str.check_all}</div>
-			<div class="but_tuncheck" id="{$web->getHash()}">{$str.uncheck_all}</div>
+			<div class="but_bottom" onclick="command('trackers', '{$web->getHash()}');"> {$str.change_tr} </div>
+			<div class="but_bottom" onclick="checkAllByClass('trackers{$web->getHash()}');">{$str.check_all}</div>
+			<div class="but_bottom" onclick="checkAllByClass('trackers{$web->getHash()}');">{$str.uncheck_all}</div>
 	</div>
 	</form>

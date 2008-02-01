@@ -31,270 +31,35 @@
 {literal}
 <script type="text/javascript">
 /* Ajax loading using prototype */
-var ifPri = (document.getElementById) ? document.getElementById('principal') : document.all['principal'];
-var ifCont = (document.getElementById) ? document.getElementById('contingut') : document.all['contingut'];
+var ifPri = $('principal');
+var ifCont = $('contingut');
+var loading = "{/literal}{$loading|jsOutput}{literal}";
+var loadingCommand = "{/literal}{$comm_loading|jsOutput}{literal}";
 var cont;
 var tab;
 var view = 'public';
 var url = '{/literal}{$SRC_INDEX}{literal}';
-function init () {
+var confirmMsg = "{/literal}{$str.conf_erase}{literal}";
+/*function init () {
 	var tabs = document.getElementsByClassName('tabs');
 	for (var i = 0; i < tabs.length; i++) {
 		$(tabs[i].id).onclick = function () {
-			getTabData(this.id);
+			load('content' , this.id);
 		}
 	}
 	var tabsL = document.getElementsByClassName('tabsL');
 	for (var i = 0; i < tabsL.length; i++) {
 		$(tabsL[i].id).onclick = function () {
-			getTabLData(this.id);
+			load(this.id);
 		}
 	}
-	var start = document.getElementsByClassName('start');
-	for (var i = 0; i < start.length; i++) {
-		start[i].onclick = function () {
-			command('start', this.id);
-		}
-	}
-	var stop = document.getElementsByClassName('stop');
-	for (var i = 0; i < stop.length; i++) {
-		stop[i].onclick = function () {
-			command('stop', this.id);
-		}
-	}
-	var erase = document.getElementsByClassName('erase');
-	for (var i = 0; i < erase.length; i++) {
-		//$(erase[i].id).onclick = function () {
-		erase[i].onclick = function () {
-			command('erase', this.id);
-		}
-	}
-}
-function getTabData(id) {
-	if(id == 'public') {
-		var pars = 'cls=ListT&tpl=ajax&view=public';
-		view = 'public';
-		tab = 1;
-	}
-	if(id == 'private') {
-		var pars = 'cls=ListT&tpl=ajax&view=private';
-		view = 'private';
-		tab = 1;
-	}
-	var myAjax = new Ajax.Request( url, {
-		method: 'get', 
-		parameters: pars, 
-		onLoading: showLoad, 
-		onComplete: showResponse
-	} );	
-}
-function getTabLData(id) {
-	cont = id;
-	var cls;
-	switch(id.substr(0,1))
-	{
-		case 'i':
-			cls = 'General';
-			break;
-		case 'f':
-			cls = 'Files';
-			break;
-		case 't':	
-			cls = 'Tracker';
-			break;
-		default:
-			break;
-	}
-	tab = 2;
-	var pars = 'cls=' + cls + '&tpl=details&hash=' + id.substr(4);
-	var myAjax = new Ajax.Request( url, {
-		method: 'get', 
-		parameters: pars, 
-		onLoading: showLoadT, 
-		onComplete: showResponseT
-	} );
-}
-function command(command, param)
-{
-	if(command == 'files')
-	{
-		var params = [];
-		//$('debug').innerHTML = '';
-		var files = document.getElementsByClassName('files' + param);
-		for (var i = 0; i < files.length; i++) {
-			if(files[i].checked === true)
-				params.push(files[i].id);
-		}
-		var param2 = params.join('~');     
-		param2 = encodeURIComponent(param2);
-		param1 = $('sf' + param).options[$('sf' + param).selectedIndex].value;
- 		//$('debug').innerHTML = 'par: ' + param + ' par1: ' + param1 + ' par2: ' + param2;
- 		var pars = 'cls=commands&tpl=commands&command=' + command + '&param=' + param + '&param1=' + param1 + '&param2=' + param2;
- 		var myAjax = new Ajax.Request( url, {
-			method: 'get', 
-			parameters: pars, 
-			onLoading: showLoadM, 
-			onComplete: showResponseM
-		} );
-		getTabLData('ftab' + param);
-		
-	} else if(command == 'info') {
-		
-		param1 = $('sp' + param).options[$('sp' + param).selectedIndex].value;
-		var pars = 'cls=commands&tpl=commands&command=' + command + '&param=' + param + '&param1=' + param1;
-		var myAjax = new Ajax.Request( url, {
-			method: 'get', 
-			parameters: pars, 
-			onLoading: showLoadM, 
-			onComplete: showResponseM
-		} );
-		getTabLData('itab' + param);
-		
-	} else if(command == 'trackers') {
-		
-		var params = [];
-		//$('debug').innerHTML = '';
-		var trackers = document.getElementsByClassName('trackers' + param);
-		for (var i = 0; i < trackers.length; i++) {
-			if(trackers[i].checked === true)
-				params.push(trackers[i].id);
-		}
-		var param2 = params.join('~');     
-		param2 = encodeURIComponent(param2);
-		param1 = $('st' + param).options[$('st' + param).selectedIndex].value;
- 		//$('debug').innerHTML = 'par: ' + param + ' par1: ' + param1 + ' par2: ' + param2;
- 		var pars = 'cls=commands&tpl=commands&command=' + command + '&param=' + param + '&param1=' + param1 + '&param2=' + param2;
- 		var myAjax = new Ajax.Request( url, {
-			method: 'get', 
-			parameters: pars, 
-			onLoading: showLoadM, 
-			onComplete: showResponseM
-		} );
-		getTabLData('ttab' + param);
-		
-	} else {
-		if(command == 'batch')
-		{
-			var params = [];
-			//$('debug').innerHTML = '';
-			var torrent = document.getElementsByClassName('torrent');
-			for (var i = 0; i < torrent.length; i++) {
-				if(torrent[i].checked === true)
-					params.push(torrent[i].id);
-			}
-			var number = $('actions').options[$('actions').selectedIndex].value;
-			if(number == 0)
-				command = 'stop';
-			if(number == 1)
-				command = 'start';
-			if(number == 2)
-				command = 'erase';
-				
-			var param = params.join('~');     
-			param = encodeURIComponent(param);
-		}
-		if(command == 'erase')
-		{
-			if(!confirm("{/literal}{$str.conf_erase}{literal}"))
-				return;
-		}
-		var pars = 'cls=commands&tpl=commands&command=' + command + '&param=' + param;
-		var myAjax = new Ajax.Request( url, {
-			method: 'get', 
-			parameters: pars, 
-			onLoading: showLoadM, 
-			onComplete: showResponseM
-		} );
-		getTabData(view);
-	}
-}
-function showLoadT () {
-	/*$('load').style.display = 'block';
-	$('debug').innerHTML = cont.slice(1) + ' - ' + cont.match("tab");*/
-	$(cont.slice(1)).innerHTML = "{/literal}{$loading|jsOutput}{literal}";
-}
-function showResponseT (originalRequest) {
-	var newData = originalRequest.responseText;
-	/*$('load').style.display = 'none';
-	$('debug').innerHTML = 'resp - '+ cont.slice(1) + ' - ' + cont.match("tab")+ newData;*/
-	var tab = $(cont.slice(1));
-	tab.innerHTML = newData;
-	if(cont.substr(0,1) == 'f')
-		files();
-	if(cont.substr(0,1) == 'i')
-		info();
-	if(cont.substr(0,1) == 't')
-		trackers();
-	/*var offset = $('c' + cont.slice(1)).offsetHeight - 100;
-	var height = $(cont.slice(1)).offsetHeight + offset;
-	$(cont.slice(1)).style.height = $('c' + cont.slice(1)).offsetHeight + "px";
-	//$(cont.slice(1)).style.height = "";
-	$('debug').innerHTML = ifCont.offsetHeight + " + " + offset;*/
-	/*ifCont.style.height = ifCont.offsetHeight + offset + "px";*/
-	/*ifCont.style.height = "";
-	var display = ifPri.style.display;
-	ifPri.style.display = 'none';
-	ifPri.style.display = display;*/
-	resize();
-}
-function showLoad () {
-	/*$('load').style.display = 'block';*/
-	$('contingut').innerHTML = "{/literal}{$loading|jsOutput}{literal}";
-	/*$('debug').innerHTML = 'load';*/
-}
-function showResponse (originalRequest) {
-	var newData = originalRequest.responseText;
-	/*$('debug').innerHTML = 'resp';
-	$('load').style.display = 'none';*/
-	//$('debug').innerHTML = 'resp - '+ cont.slice(1) + ' - ' + cont.match("tab")+ newData;
-	$('contingut').innerHTML = newData;
-	postAjax();
-	/*var offset = $('c' + cont.slice(1)).offsetHeight - 150;
-	var height = $(cont.slice(1)).offsetHeight + offset;
-	$(cont.slice(1)).style.height = $('c' + cont.slice(1)).offsetHeight + "px";
-	//$(cont.slice(1)).style.height = "";
-	$('debug').innerHTML = ifCont.offsetHeight + " + " + offset;
-	ifCont.style.height = ifCont.offsetHeight + offset + "px";*/
-	resize();
-	
-}
-function showLoadM () {
-	/*$('load').style.display = 'block';*/
-	$('messages').style.display = "block";
-	$('messages').innerHTML = "{/literal}{$comm_loading|jsOutput}{literal}";
-	/*$('debug').innerHTML = 'load';*/
-}
-function showResponseM (originalRequest) {
-	var newData = originalRequest.responseText;
-	/*$('debug').innerHTML = 'resp';
-	$('load').style.display = 'none';*/
-	//$('debug').innerHTML = 'resp - '+ cont.slice(1) + ' - ' + cont.match("tab")+ newData;
-	$('messages').innerHTML = newData;
-	/*postAjax();
-	var offset = $('c' + cont.slice(1)).offsetHeight - 150;
-	var height = $(cont.slice(1)).offsetHeight + offset;
-	$(cont.slice(1)).style.height = $('c' + cont.slice(1)).offsetHeight + "px";
-	//$(cont.slice(1)).style.height = "";
-	$('debug').innerHTML = ifCont.offsetHeight + " + " + offset;
-	ifCont.style.height = ifCont.offsetHeight + offset + "px";
-	resize();*/
-	
-}
-function resize() {
-	ifCont.style.height = "auto";
-	ifCont.style.display = "none";
-	ifCont.style.display = "";
-	var display = ifPri.style.display;
-	ifPri.style.height = "auto";
-	ifPri.style.display = 'none';
-	ifPri.style.display = display;	
-}
+}*/
 </script>
 {/literal}
 {/if}
 </head>
 
-<body{if $web->registrado()} onload="init()"{/if}>
+<body>
 <div style="width: 900px; height: 100px;position: relative; margin-left: auto; margin-right: auto;">
 	<div style="position: absolute; left: 150px; margin: 0px auto; width: 600px; height: 100px; top: 0px;">
 		<img src="{$DIR_IMG}wLogo.png" />
