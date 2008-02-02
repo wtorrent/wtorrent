@@ -1,5 +1,5 @@
 /**
- * RUZEE.ShadedBorder 0.5
+ * RUZEE.ShadedBorder 0.6.1
  * (c) 2006 Steffen Rusitschka
  *
  * RUZEE.ShadedBorder is freely distributable under the terms of an MIT-style license.
@@ -12,6 +12,7 @@ RUZEE.ShadedBorder = {
 
 create: function(opts) {
   var isie = /msie/i.test(navigator.userAgent) && !window.opera;
+  var isie6 = isie && !window.XMLHttpRequest;
   function sty(el, h) {
     for(k in h) {
       if (/ie_/.test(k)) {
@@ -27,7 +28,7 @@ create: function(opts) {
   }
   function op(v) {
     v = v<0 ? 0 : v;
-    v = v>0.99999 ? 0.99999 : v;
+    if (v>0.99999) return "";
     return isie ? " filter:alpha(opacity=" + (v*100) + ");" : " opacity:" + v + ';';
   }
 
@@ -35,6 +36,7 @@ create: function(opts) {
   var r = opts.corner || 0;
   var bor = 0;
   var bow = opts.border || 0;
+  var boo = opts.borderOpacity || 1;
   var shadow = sr != 0;
   var lw = r > sr ? r : sr;
   var rw = lw;
@@ -100,14 +102,14 @@ create: function(opts) {
         if (r > 0) {
           // draw border
           if (xc < 0 && yc < bor && yc >= r || yc < 0 && xc < bor && xc >= r) {
-            dsb.push(div + '" class="' + bclass + '"></div>');
+            dsb.push(div + op(boo) + '" class="' + bclass + '"></div>');
           } else
           if (d<bor && d>=r-1 && xc>=0 && yc>=0) {
             var dd = div;
             if (d>=bor-1) {
-              dd += op(bor-d);
+              dd += op((bor-d)*boo);
               doShadow = true;
-            }
+            } else dd += op(boo);
             dsb.push(dd + '" class="' + bclass + '"></div>');
           }
           
@@ -158,18 +160,20 @@ create: function(opts) {
 
     var dd = '<div style="position:absolute; width:1px;' +
         ' top:' + (th+bh) + 'px; height:10240px; padding:0; margin:0;';
-    for (var x=0; x<lw-r-cx; ++x) {
-      ds.push(dd + ' left:' + x + 'px;' + op((x+1.0)/lw) + 
-          '" class="' + sclass + '"></div>');
-    }
+    if (sr>0) {
+      for (var x=0; x<lw-r-cx; ++x) {
+        ds.push(dd + ' left:' + x + 'px;' + op((x+1.0)/lw) + 
+            '" class="' + sclass + '"></div>');
+      }
 
-    for (var x=0; x<rw-r-cx; ++x) {
-      ds.push(dd + ' right:' + x + 'px;' + op((x+1.0)/rw) + 
-          '" class="' + sclass + '"></div>');
+      for (var x=0; x<rw-r-cx; ++x) {
+        ds.push(dd + ' right:' + x + 'px;' + op((x+1.0)/rw) + 
+            '" class="' + sclass + '"></div>');
+      }
     }
 
     if (bow > 0) {
-      var su = ' width:' + bow + 'px;' + '" class="' + bclass + '"></div>';
+      var su = ' width:' + bow + 'px;' + op(boo) + '" class="' + bclass + '"></div>';
       ds.push(dd + ' left:' + (lw-bor-cx) + 'px;' + su);
       ds.push(dd + ' right:' + (rw-bor-cx) + 'px;' + su);
     }
@@ -184,11 +188,11 @@ create: function(opts) {
         ' width:100%; left:0px; ';
     var s = t ? cs : -cs;
     for (var y=0; y<h-s-cy-r; ++y) {
-      ds.push(dd + (t ? 'top:' : 'bottom:') + y + 'px;' + op((y+1)*1.0/h) + 
+      if (sr>0) ds.push(dd + (t ? 'top:' : 'bottom:') + y + 'px;' + op((y+1)*1.0/h) + 
           '" class="' + sclass + '"></div>');
     }
     if (y >= bow) {
-      ds.push(dd + (t ? 'top:' : 'bottom:') + (y - bow) + 'px;' +
+      ds.push(dd + (t ? 'top:' : 'bottom:') + (y - bow) + 'px;' + op(boo) +
           ' height:' + bow + 'px;" class="' + bclass + '"></div>');
     }
 
@@ -233,6 +237,10 @@ create: function(opts) {
       el.insertBefore(twc, iel); el.insertBefore(mwc, iel);
       el.insertBefore(bwc, iel);
 
+      if (isie6) {
+        el.onmouseover=function() { this.className+=" hover"; }
+        el.onmouseout=function() { this.className=this.className.replace(/ hover/,""); }
+      }
       if (isie) {
         function resize() {
           twc.style.width = bwc.style.width = mwc.style.width = el.offsetWidth + "px";
