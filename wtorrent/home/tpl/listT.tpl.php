@@ -10,6 +10,7 @@
 					<option value="0">{$str.stop}</option>
 					<option value="1">{$str.start}</option>
 					<option value="2">{$str.erase}</option>
+                    <option value="3">{$str.chash}</option>
 				</select>
 				<div class="but_bottom" onclick="command('batch','');"> {$str.action} </div> 
 				<div class="but_bottom" onclick="checkAllByClass('torrent');"> {$str.check_all} </div>
@@ -32,6 +33,7 @@
 					<option value="0">{$str.stop}</option>
 					<option value="1">{$str.start}</option>
 					<option value="2">{$str.erase}</option>
+                    <option value="3">{$str.chash}</option>
 				</select>
 				<div class="but_bottom" onclick="command('batch','');"> {$str.action} </div> 
 				<div class="but_bottom" onclick="checkAllByClass('torrent');"> {$str.check_all} </div>

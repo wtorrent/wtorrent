@@ -1,8 +1,8 @@
 <div id="tbBulk">
 	<div id="tbColTab"></div>
 	<div id="tbCell">
-		<div id="tbHeadCell" style="width: 60px;"></div>
-		<div id="tbHeadCell" style="width: 390px;"><b>{$str.tb_name}</b></div>
+		<div id="tbHeadCell" style="width: 75px;"></div>
+		<div id="tbHeadCell" style="width: 375px;"><b>{$str.tb_name}</b></div>
 		<div id="tbHeadCell" style="width: 55px;"><b>{$str.tb_seeds}</b></div>
 		<div id="tbHeadCell" style="width: 55px;"><b>{$str.tb_peers}</b></div>
 		<div id="tbHeadCell" style="width: 45px;"><b>{$str.tb_download}</b></div>
