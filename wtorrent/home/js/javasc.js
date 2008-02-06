@@ -228,8 +228,11 @@ function batch()
 		case '2':
 			command = 'erase';
 			break;
-        case '3':
+		case '3':
 			command = 'chash';
+			break;
+		case '4':
+			command = 'close';
 			break;
 	}
 			

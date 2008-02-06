@@ -32,7 +32,8 @@ class ListT extends rtorrent
 								'd.get_peers_complete=',
 								'd.is_hash_checking=',
 								'd.get_ratio=',
-								'd.get_tracker_size=');
+								'd.get_tracker_size=',
+								'd.is_active=',);
 	private $info_tracker = array('',
 								"",
 								't.get_scrape_complete=',
@@ -103,6 +104,10 @@ class ListT extends rtorrent
 	public function getState($hash)
 	{
 		return $this->torrents[$hash]['state'];
+	}
+	public function getActive($hash)
+	{
+		return $this->torrents[$hash]['is_active'];
 	}
 	public function getConnPeers($hash)
 	{
@@ -237,6 +242,7 @@ class ListT extends rtorrent
     		$this->torrents[$torrent[0]]['is_hash_checking'] = $torrent[10];
     		$this->torrents[$torrent[0]]['ratio'] = round($torrent[11]/1000,2);
     		$this->torrents[$torrent[0]]['num_trackers'] = $torrent[12];
+    		$this->torrents[$torrent[0]]['is_active'] = $torrent[13];
     		$this->torrents[$torrent[0]]['percent'] = floor(($this->torrents[$torrent[0]]['completed_chunks']/$this->torrents[$torrent[0]]['size_in_chunks'])*100);
     		
     		$this->torrents[$torrent[0]]['ETA'] = '--';

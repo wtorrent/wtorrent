@@ -34,10 +34,13 @@ class Commands extends rtorrent
     			case 'stop':
     				$this->stop($this->_request['param']);
     				break;
+    			case 'close':
+    				$this->close($this->_request['param']);
+    				break;
     			case 'erase':
     				$this->erase($this->_request['param']);
     				break;
-                case 'chash':
+    			case 'chash':
     				$this->chash($this->_request['param']);
     				break;
     			case 'set_down_limit':
@@ -77,6 +80,20 @@ class Commands extends rtorrent
     	}
     	
     	$this->addMessage($this->_str['info_tor_stop']);
+    }
+    private function close($hashes)
+    {
+    	$hashes = explode('~', $hashes);
+    	if(!is_array($hashes))
+    		$hashes = array($hashes);
+    	
+    	foreach($hashes as $hash)
+    	{
+    		$message = new xmlrpcmsg("d.close", array(new xmlrpcval($hash, 'string')));
+    		$result = $this->client->send($message);
+    	}
+    	
+    	$this->addMessage($this->_str['info_tor_close']);
     }
     private function chash($hashes)
     {
