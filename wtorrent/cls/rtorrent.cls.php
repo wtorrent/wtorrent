@@ -22,11 +22,13 @@ class rtorrent extends Web
 	protected $client;
 	private $menu = array('Main' => 'ListT',
 						'Add Torrent' => 'AddT',
-						'Feeds' => 'Feeds');
+						'Feeds' => 'Feeds',
+						'Cookie' => 'Cookie');
 	private $menu_admin = array('Main' => 'ListT',
 						'Add Torrent' => 'AddT',
 						'Feeds' => 'Feeds',
-						'Admin' => 'Admin');
+						'Admin' => 'Admin',
+						'Cookie' => 'Cookie');
 	private $submenu	= array('General' => 'General&tpl=details',
 						'Files' => 'Files&tpl=details',
 						'Tracker' => 'Tracker&tpl=details');

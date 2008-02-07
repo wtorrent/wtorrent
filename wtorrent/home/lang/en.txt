@@ -108,3 +108,16 @@ ch_bandwidth = Change bandwidth limits
 kb_units = Kbytes
 chash = Recheck Hash
 closet = Close
+
+
+cookie_host = Cookie host                                                                                                                                                                                                           
+cookie_value = Cookie value                                                                                                                                                                                                         
+cookie_add = Add                                                                                                                                                                                                                    
+cookie_edit = Edit                                                                                                                                                                                                                  
+cookie_erase = Erase                                                                                                                                                                                                                
+cookies_hostname = Hostname                                                                                                                                                                                                         
+cookies_value = Value                                                                                                                                                                                                               
+cookie_no_cookies = No cookies                                                                                                                                                                                                      
+cookie_tl_cookie_add = Add                                                                                                                                                                                                          
+tb_uploaded = Uploaded                                                                                                                                                                                                              
+no_curl_function = No curl function in php                                                                                                                                 
