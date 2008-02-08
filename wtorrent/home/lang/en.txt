@@ -85,7 +85,7 @@ tb_upload = UP(Kb)
 tb_done = Done
 tb_size = Size
 tb_percent = Percent
-tb_ratio = ratio
+tb_ratio = Ratio
 tb_eta = ETA
 
 err_conn = Error: could not connect to rtorrent
@@ -96,6 +96,7 @@ uncheck_all = Uncheck All
 action = Apply
 start = Start
 stop = Stop
+close = Close
 erase = Erase
 
 user = User

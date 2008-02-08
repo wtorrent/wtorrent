@@ -1,8 +1,9 @@
 <div id="tbBulk">
 	<div id="tbColTab"></div>
 	<div id="tbCell" style="cursor: pointer; background-color: #e5edf4; border-top: 0px solid #d4d4d4;" onmouseover="style.backgroundColor='#d5e991';" onmouseout="style.backgroundColor='#e5edf4'">	
-		<div id="tbContentCell" style="width: 75px; padding-left: 0px; padding-top: 6px; height: 24px; text-align: left;">
-			<input type="checkbox" id="{$hash}" class="torrent" style="margin-bottom: 5px;" />{if $web->getActive($hash) eq 0}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}bullet_go.png" onclick="command('start', '{$hash}');" alt="{$str.start}" title="{$str.start}" /></div>{else}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}cross.png"  onclick="command('stop', '{$hash}');" alt="{$str.stop}" title="{$str.stop}" /></div>&nbsp;{/if}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}delete.png" onclick="command('erase', '{$hash}');" alt="{$str.erase}" title="{$str.erase}" /></div>&nbsp;{if $web->isHashChecking($hash) neq true}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}c_hash.png" onclick="command('chash', '{$hash}');" alt="{$str.chash}" title="{$str.chash}" /></div>{/if}
+		<div id="tbContentCell" style="width: 96px; padding-left: 0px; padding-top: 6px; height: 24px; text-align: left;">
+			<input type="checkbox" id="{$hash}" class="torrent" style="margin-bottom: 5px;" />
+			{if $web->getState($hash) eq 0}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}bullet_go.png" onclick="command('start', '{$hash}');" alt="{$str.start}" title="{$str.start}" /></div>&nbsp;{else}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}cross.png"  onclick="command('stop', '{$hash}');" alt="{$str.stop}" title="{$str.stop}" /></div>&nbsp;{/if}<div style="cursor: pointer; display: inline;">{if $web->getOpen($hash) eq 0}<img src="{$DIR_IMG}lock_go.png" onclick="command('start', '{$hash}');" alt="{$str.start}" title="{$str.start}" />{else}<img src="{$DIR_IMG}lock_delete.png" onclick="command('close', '{$hash}');" alt="{$str.close}" title="{$str.close}" />{/if}</div>&nbsp;<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}delete.png" onclick="command('erase', '{$hash}');" alt="{$str.erase}" title="{$str.erase}" /></div>&nbsp;{if $web->isHashChecking($hash) neq true}<div style="cursor: pointer; display: inline;"><img src="{$DIR_IMG}c_hash.png" onclick="command('chash', '{$hash}');" alt="{$str.chash}" title="{$str.chash}" /></div>{/if}
 		</div>
 		<div id="tbContentCell" style="width: 365px; text-align: left; padding-left: 10px;" onclick="resizeInnerTab({$clau},'{$hash}');">
 			{if $web->getState($hash) eq 1 && $web->getPercent($hash) neq 100}
@@ -11,7 +12,7 @@
 			{if $web->getState($hash) eq 1 && $web->getPercent($hash) eq 100}
 				{assign var="color" value="blue"}
 			{/if}
-			{if $web->getState($hash) eq 0}
+			{if $web->getState($hash) eq 0 || $web->getOpen($hash) eq 0}
 				{assign var="color" value="black"}
 			{/if}
 			<span style="color: {$color};">{$web->getName($hash)|truncate:76:". . ."}{if $web->isHashChecking($hash) eq true} [CHECKING HASH]{/if}</span>
@@ -52,5 +53,5 @@
 </div>
 <div class="tbBulk" id="ihtr{$clau}" style="display: none; height: auto;">
 	<div id="tbColTab">{include file="tabsL.tpl.php" id=$clau hash=$hash}</div>
-			<div id="tab{$hash}" style="border: 1px solid #d4d4d4; border-top-width: 0px; width: 891px; float: left; display: block;"></div>
+			<div id="tab{$hash}" style="border: 1px solid #d4d4d4; border-top-width: 0px; width: 912px; float: left; display: block;"></div>
 </div>
