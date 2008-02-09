@@ -1,11 +1,11 @@
-function resizeInnerTab(i,hash) {
+function resizeInnerTab(hash) {
 	/* Get elements */
-	var trObj = $('ihtr' + i);
+	/*var trObj = $('ihtr' + i);
 	var ifPri = $('principal');
-	var ifCtab = $('tab' + hash);
+	var ifCtab = $('tab' + hash);*/
 	
 	//var height = ifCont.offsetHeight;
-	if (trObj != null) // If it's hidden, exapand
+	/*if (trObj != null) // If it's hidden, exapand
 	{
 		if (trObj.style.display=="none") 
 		{
@@ -15,24 +15,25 @@ function resizeInnerTab(i,hash) {
 			trObj.style.display="";
 			var display = ifPri.style.display;
 			/* Force redraw of the main widget */
-			ifPri.style.display = 'none';
+			/*ifPri.style.display = 'none';
 			ifPri.style.display = display;
 		}
 		else // If it's open close it
 		{
 			trObj.style.display="none";
 		}
-	}
+	}*/
+    if($('tab' + hash).innerHTML == "")
+    {
+        load('tab' + hash, 'info');
+    } else {
+        Effect.toggle('ttab' + hash, 'blind', {duration:0.5});
+    }
+    //Effect.BlindUp('id_of_element');
+    resize();
 }
 /* Resize to make shadedborders render the div again */
 function resize() {
-	/*ifCont.style.height = "auto";
-	ifCont.style.display = "none";
-	ifCont.style.display = "";
-	var display = ifPri.style.display;
-	ifPri.style.height = "auto";
-	ifPri.style.display = 'none';
-	ifPri.style.display = display;*/
 	Main.render('principal');
 }
 /* Check all elements of the specified class */
@@ -68,6 +69,7 @@ function getShowFunctions(frame)
 
 	functions[0] = (function (frame) { return function () { loadingContent(frame); } })(frame);
 	functions[1] = (function (frame) { return function (request) { responseContent(request, frame); } })(frame);
+    //functions[2] = (function (frame) { return function () { resizeFrame(frame); } })(frame);
 	
 	return functions;
 }	
@@ -109,21 +111,55 @@ function getFrame(content, frame)
 }
 /* Load LOADING content in the given frame */
 function loadingContent(frame) {
-	if(frame == 'messages')
-	{
-		$(frame).style.display = "block";
-		var loadingDiv = loadingCommand;
-	} else {
-		var loadingDiv = loading;
-	}
-	$(frame).innerHTML = loadingDiv;
+    switch(frame)
+    {
+        case 'messages':
+		    $(frame).style.display = "block";
+		    var loadingDiv = loadingCommand;
+            $(frame).innerHTML = loadingDiv;
+            break;
+        case 'content':
+		    var loadingDiv = loading;
+            $(frame).innerHTML = loadingDiv;
+            break;
+        default:
+            loadingTab(frame);
+            break;
+    }
+    //contractFrame(frame);
+}
+function loadingTab(frame)
+{
+    contractFrame('t' + frame);
+    var node1 = document.getElementById('node1');
+    var overlayCell = $('loadingCell').cloneNode(true);
+    var positions = findPos($('i' + frame));
+    overlayCell.setAttribute('id', 'l' + frame);
+    overlayCell.style.left = positions[0] + 'px';
+    overlayCell.style.top = positions[1] + 'px';
+    document.body.appendChild(overlayCell);
+    overlayCell.show();
+    //expandFrame(overlayCell);
+    new Effect.Opacity(overlayCell, {duration:0.2, from:0, to:0.6});
+    return;
 }
 /* Load AJAX RESPONSE in given content */
 function responseContent(originalRequest, frame) {
 	var newData = originalRequest.responseText;
-	$(frame).innerHTML = newData;
+    $(frame).innerHTML = newData;
+    if(frame != 'content' || frame != 'messages') {
+        var onFinish = (function (frame) { return function (obj) { $(frame).remove(); } })('l'+ frame);
+        new Effect.Opacity('l' + frame, {duration:0.2, from:0.6, to:0, afterFinish: onFinish});
+        window.setTimeout("expandFrame('t" + frame + "')", 100);
+    }
 	postAjax();
 	resize();
+}
+function expandFrame(frame) {
+    new Effect.BlindDown(frame, {duration:0.5});
+}
+function contractFrame(frame, onFinish) {
+    new Effect.BlindUp(frame, {duration:0.5, afterFinish: onFinish});
 }
 /* Process commands given through the ajax interface */
 function command(command, param)
@@ -162,6 +198,7 @@ function ajaxCall(frame, pars)
 	var functions = getShowFunctions(frame);
 	var showLoad = functions[0];
 	var showResponse = functions[1];
+    //var resizeDiv = functions[2];
 	// Dummy variable to avoid iexplorer cache
 	pars = pars + "&dummy=" + new Date().getTime();
 	var myAjax = new Ajax.Request( url, {
@@ -235,6 +272,12 @@ function batch()
 		case '2':
 			command = 'erase';
 			break;
+		case '3':
+			command = 'chash';
+			break;
+		case '4':
+			command = 'close';
+			break;
 	}
 			
 	var param = params.join('~');     
@@ -255,7 +298,7 @@ function defaultCall(command, param)
 	var call = new Array();
 	if(command == 'erase')
 	{
-		if(!confirm(confirm))
+		if(!confirm(confirmMsg))
 			return;
 	}
 	call[0] = 'cls=commands&tpl=commands&command=' + command + '&param=' + param;
@@ -263,4 +306,15 @@ function defaultCall(command, param)
 	call[2] = view;
 	
 	return call;
+}
+/* Find position of an element */
+function findPos(obj) {
+	var curleft = curtop = 0;
+	if (obj.offsetParent) {
+		do {
+			curleft += obj.offsetLeft;
+			curtop += obj.offsetTop;
+		} while (obj = obj.offsetParent);
+	}
+	return [curleft,curtop];
 }

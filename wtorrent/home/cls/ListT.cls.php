@@ -32,7 +32,9 @@ class ListT extends rtorrent
 								'd.get_peers_complete=',
 								'd.is_hash_checking=',
 								'd.get_ratio=',
-								'd.get_tracker_size=');
+								'd.get_tracker_size=',
+								'd.is_active=',
+								'd.is_open=',);
 	private $info_tracker = array('',
 								"",
 								't.get_scrape_complete=',
@@ -103,6 +105,14 @@ class ListT extends rtorrent
 	public function getState($hash)
 	{
 		return $this->torrents[$hash]['state'];
+	}
+	public function getOpen($hash)
+	{
+		return $this->torrents[$hash]['is_open'];
+	}
+	public function getActive($hash)
+	{
+		return $this->torrents[$hash]['is_active'];
 	}
 	public function getConnPeers($hash)
 	{
@@ -224,43 +234,46 @@ class ListT extends rtorrent
     				if($pr_torrent[$torrent[0]] != $this->getIdUser())
     					continue;
     			}
-    			$this->torrents[$torrent[0]]['private'] = $private;
-    			$this->torrents[$torrent[0]]['name'] = $torrent[1];
-    			$this->torrents[$torrent[0]]['down_rate'] = round($torrent[2]/1024,2);
-    			$this->torrents[$torrent[0]]['up_rate'] = round($torrent[3]/1024,2);
-    			$this->torrents[$torrent[0]]['chunk_size'] = $torrent[4];
-	    		$this->torrents[$torrent[0]]['completed_chunks'] = $torrent[5];
-    			$this->torrents[$torrent[0]]['size_in_chunks'] = $torrent[6];
-    			$this->torrents[$torrent[0]]['state'] = $torrent[7];
-    			$this->torrents[$torrent[0]]['peers'] = $torrent[8];
-    		$this->torrents[$torrent[0]]['seeds'] = $torrent[9];
-    		$this->torrents[$torrent[0]]['is_hash_checking'] = $torrent[10];
-    		$this->torrents[$torrent[0]]['ratio'] = round($torrent[11]/1000,2);
-    		$this->torrents[$torrent[0]]['num_trackers'] = $torrent[12];
-    		$this->torrents[$torrent[0]]['percent'] = floor(($this->torrents[$torrent[0]]['completed_chunks']/$this->torrents[$torrent[0]]['size_in_chunks'])*100);
-    		
-    		$this->torrents[$torrent[0]]['ETA'] = '--';
-    		if(($this->torrents[$torrent[0]]['percent'] != 100) && ($this->torrents[$torrent[0]]['down_rate'] != 0))
-				$this->torrents[$torrent[0]]['ETA'] = $this->formatETA(ceil((($this->torrents[$torrent[0]]['size_in_chunks'] - $this->torrents[$torrent[0]]['completed_chunks'])*$this->torrents[$torrent[0]]['chunk_size']/1024)/$this->torrents[$torrent[0]]['down_rate']*1000));
-    		
-    		if(SCRAMBLE === true)
-    			$this->torrents[$torrent[0]]['name'] = $this->scramble($this->torrents[$torrent[0]]['name']);
+				$this->torrents[$torrent[0]]['private'] = $private;
+				$this->torrents[$torrent[0]]['name'] = $torrent[1];
+				$this->torrents[$torrent[0]]['down_rate'] = round($torrent[2]/1024,2);
+				$this->torrents[$torrent[0]]['up_rate'] = round($torrent[3]/1024,2);
+				$this->torrents[$torrent[0]]['chunk_size'] = $torrent[4];
+				$this->torrents[$torrent[0]]['completed_chunks'] = $torrent[5];
+				$this->torrents[$torrent[0]]['size_in_chunks'] = $torrent[6];
+				$this->torrents[$torrent[0]]['state'] = $torrent[7];
+				$this->torrents[$torrent[0]]['peers'] = $torrent[8];
+				$this->torrents[$torrent[0]]['seeds'] = $torrent[9];
+				$this->torrents[$torrent[0]]['is_hash_checking'] = $torrent[10];
+				$this->torrents[$torrent[0]]['ratio'] = round($torrent[11]/1000,2);
+				$this->torrents[$torrent[0]]['num_trackers'] = $torrent[12];
+				$this->torrents[$torrent[0]]['is_active'] = $torrent[13];
+				$this->torrents[$torrent[0]]['is_open'] = $torrent[14];
 
-    		/*$array_post = array();
-    		$this->info_tracker[0] = $torrent[0];*/
-    		
-    		/*foreach($this->info_tracker as $param)
-				$array_post[] = new xmlrpcval($param, 'string');
-    		
-			$message = new xmlrpcmsg("t.multicall", $array_post);*/
-			//$resultT = ;
-			//$resultT = XMLRPC_request(RT_HOST, '/RPC2', 't.multicall' ,$array_post);
-			//print_r($Tresponses);
-			foreach($Tresponses[$key]->val as $tracker)
-			{
-				$this->torrents[$torrent[0]]['seeds_scrape'] += $tracker[0];
-				$this->torrents[$torrent[0]]['peers_scrape'] += $tracker[1];
-			}
+				$this->torrents[$torrent[0]]['percent'] = floor(($this->torrents[$torrent[0]]['completed_chunks']/$this->torrents[$torrent[0]]['size_in_chunks'])*100);
+
+				$this->torrents[$torrent[0]]['ETA'] = '--';
+				if(($this->torrents[$torrent[0]]['percent'] != 100) && ($this->torrents[$torrent[0]]['down_rate'] != 0))
+					$this->torrents[$torrent[0]]['ETA'] = $this->formatETA(ceil((($this->torrents[$torrent[0]]['size_in_chunks'] - $this->torrents[$torrent[0]]['completed_chunks'])*$this->torrents[$torrent[0]]['chunk_size']/1024)/$this->torrents[$torrent[0]]['down_rate']*1000));
+
+				if(SCRAMBLE === true)
+					$this->torrents[$torrent[0]]['name'] = $this->scramble($this->torrents[$torrent[0]]['name']);
+
+				/*$array_post = array();
+				$this->info_tracker[0] = $torrent[0];*/
+
+				/*foreach($this->info_tracker as $param)
+					$array_post[] = new xmlrpcval($param, 'string');
+
+				$message = new xmlrpcmsg("t.multicall", $array_post);*/
+				//$resultT = ;
+				//$resultT = XMLRPC_request(RT_HOST, '/RPC2', 't.multicall' ,$array_post);
+				//print_r($Tresponses);
+				foreach($Tresponses[$key]->val as $tracker)
+				{
+					$this->torrents[$torrent[0]]['seeds_scrape'] += $tracker[0];
+					$this->torrents[$torrent[0]]['peers_scrape'] += $tracker[1];
+				}
     		}
 			
     	}

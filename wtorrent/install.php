@@ -27,10 +27,12 @@ if(isset($_REQUEST['create']))
 			$sql_insert = "INSERT INTO tor_passwd VALUES(1,'" . $_REQUEST['userf'] . "','" . md5($_REQUEST['passwdf']) . "',1);";
 			$sql_create_torrents = "create table torrents(hash string, user int, private int);";
 			$sql_create_feeds =  "CREATE TABLE feeds(id integer primary key, url text, user integer);";
+			$sql_create_cookies = "CREATE TABLE cookie(id integer primary key, userid integer, value text, hostname text);";
 			$res1 = $db->query($sql_create);
 			$res2 = $db->query($sql_insert);
 			$res3 = $db->query($sql_create_torrents);
 			$res4 = $db->query($sql_create_feeds);
+			$res5 = $db->query($sql_create_cookies);
 			if($res1 !== false && $res2 !== false)
 				echo 'Database succesfully created, please delete install.php and enjoy wTorrent';
 			else

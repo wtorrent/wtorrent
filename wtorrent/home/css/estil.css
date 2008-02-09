@@ -129,7 +129,7 @@ img {
 	padding: 10px;
 	padding-top: 15px;   
 	margin: 0px auto 10px auto;
-    width: 950px;
+    width: 971px;
   	background-color: #ffffff;
   	text-align: center;
   	font-family: arial;
@@ -161,32 +161,32 @@ img {
 	
 }
 #tbBulk {
-	height: 25px; 
-	width: 930px; 
+	/*height: 25px; */ 
+	width: 949px;
 	margin: 0px auto; 
 	padding: 0px; 
 	margin-top: 0px;
-	clear: both; 
+	clear: both;
 }
 .tbBulk {
-	height: 25px; 
-	width: 930px; 
+	/*height: 25px;*/ 
+	width: 949px;
 	margin: 0px auto; 
 	padding: 0px; 
 	margin-top: 0px;
 	clear: both; 
 }
 #tbCell {
-	height: 25px; 
+	/*height: 25px;*/ 
 	font-weight: bold; 
-	width: 891px; 
+	width: 912px; 
 	float: left;
 	border: 1px solid #d4d4d4; 
 	background-color: #d7e4ef; 
 	font-size: 11px;
 }
 #tbColTab {
-	height: 25px; 
+	height: 31px; 
 	width: 31px; 
 	float: left;
 	background-color: transparent; 
@@ -196,7 +196,7 @@ img {
 	overflow:hidden; 
 	padding:0; 
 	margin:20px auto 0px auto; 
-	width:870px; 
+	width:889px; 
 	color:#444;
 }
 * html #tabs { 

@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -8,6 +7,7 @@
   <script src="{$DIR_JS}" type="text/javascript"></script>
   <script src="{$DIR_JSHADE}" type="text/javascript"></script>
   <script src="{$DIR_JSPROTO}" type="text/javascript"></script>
+  <script src="{$DIR_SCRIPTACULOUS}" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="{$DIR_CSS_ESTIL}" media="all" />
   {include file="loading.tpl.php" assign="loading"}
   {include file="comm_loading.tpl.php" assign="comm_loading"}
@@ -81,6 +81,9 @@ var confirmMsg = "{/literal}{$str.conf_erase}{literal}";
 <div style="display: none;">
 {include file="comm_loading.tpl.php"}
 {include file="loading.tpl.php"}
+</div>
+<div class="tbBulk" id="loadingCell" style="padding-top: 5px; background-color: #fff; display: none; top: 0; left: 0; height: 26px; text-align: center; position: absolute; z-index: 10;filter:alpha(opacity=0); -moz-opacity:0.0; opacity:0.0; ">
+	<img src="{$DIR_IMG}miniloader.gif" alt="loading" />
 </div>
 </body>
 
