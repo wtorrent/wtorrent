@@ -1,0 +1,124 @@
+err_login = Error: Login incorrect, please check user/password
+err_users_nosel = Error: No users selected for removal
+info_users_added = User added correctly
+err_users_add = No user/password set, please check input data
+info_users_deleted = User(s) deleted correctly
+info_tor_stop = Torrent(s) stoped correctly
+info_tor_close = Torrent(s) closed correctly
+info_tor_start = Torrent(s) started correctly
+info_tor_erase = Torrent(s) erased correctly
+info_tor_chash = Torrent(s) started checking hash correctly
+info_add_torrent = Torrent added correctly
+err_add_torrent = Error adding torrent
+err_add_dir = Error: Impossible to create file on given directory, please check permisions
+err_add_file = Error: File already exists in torrent directory, can't create .torrent
+info_add_upload = full directory path, end with /
+
+low = Low
+normal = Normal
+high = High
+idle = Idle
+change_pr = Change
+err_pr = Bad priority setting
+info_pr = Priority changed correctly
+
+file_off = Don't download
+file_normal = Normal
+file_high = High
+change_pr = Change priority
+start_now = Start now:
+private = Private:
+no_torrents = No torrents found
+pl_torrents = Public Torrents
+pr_torrents = Private Torrents
+
+down_limit = Download limit:
+up_limit = Upload limit:
+change_dlimit = Change download limit
+change_ulimit = Change upload limit
+
+info_down_limit = Download limit changed correctly
+err_down_limit = Error: download limit incorrect
+info_up_limit = Upload limit changed correctly
+err_up_limit = Error: upload limit incorrect
+
+logout = Logout
+info_logout = You are now logged out
+
+enable = Enable
+disable = Disable
+change_tr = Change
+info_ch_trackers = Trackers changed correctly
+
+tl_feeds = Feeds
+edit_feed = Edit Feed
+erase_feed = Erase Feed
+title_feeds = Title
+desc_feeds = Description
+view_feed = View Feed
+feed_add = Add Feed
+tl_feed_add = Add a new Feed
+info_add_feed = New feed added correctly
+info_erase_feed = Feed erased correctly
+no_feeds = No Feeds found, please add one
+feed_torrent = Torrent Name
+feed_date = Date
+feed_down_tor = Download torrent
+down_dir = Download directory
+download_dir = Change directory
+
+info_ch_dir = Download directory changed correctly
+err_ch_dir = Error changing download directory
+down_started = Download started
+
+log_in = You are not logged in or your session has expired, please reload page
+command_error = Error processing commands, please reload the page and try again.
+
+info_ch_files = File priority changed correctly
+err_ch_files = Error changing priority, please check your submit and try again
+
+tb_name = Name
+tb_seeds = Seeds
+tb_peers = Peers
+tb_download = DL(Kb)
+tb_upload = UP(Kb)
+tb_done = Done
+tb_size = Size
+tb_percent = Percent
+tb_ratio = Ratio
+tb_eta = ETA
+
+err_conn = Error: could not connect to rtorrent
+conf_erase = Are you sure you want to erase this torrent?
+
+check_all = Check All
+uncheck_all = Uncheck All
+action = Apply
+start = Start
+stop = Stop
+close = Close
+erase = Erase
+
+user = User
+admin = Admin
+conf_user_del = Are you sure you want to delete this user(s)?
+no_users = No users found
+add_user = Add User
+password = Password
+ch_bandwidth = Change bandwidth limits
+kb_units = Kbytes
+chash = Recheck Hash
+closet = Close
+
+
+cookie_host = Cookie host                                                                                                                                                                                                           
+cookie_value = Cookie value                                                                                                                                                                                                         
+cookie_add = Add                                                                                                                                                                                                                    
+cookie_edit = Edit                                                                                                                                                                                                                  
+cookie_erase = Erase                                                                                                                                                                                                                
+cookies_hostname = Hostname                                                                                                                                                                                                         
+cookies_value = Value                                                                                                                                                                                                               
+cookie_no_cookies = No cookies                                                                                                                                                                                                      
+cookie_tl_cookie_add = Add                                                                                                                                                                                                          
+tb_uploaded = Uploaded                                                                                                                                                                                                              
+no_curl_function = No curl function in php                                                                                                                                 

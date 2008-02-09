@@ -8,8 +8,10 @@
         	<div style="clear: both; height: 25px; text-align: left; margin-left: 43px; margin-top: 3px;"><img src="{$DIR_IMG}arrow_ltr.png" alt="arrow" />
 				<select id="actions">
 					<option value="0">{$str.stop}</option>
+		                        <option value="4">{$str.closet}</option>
 					<option value="1">{$str.start}</option>
 					<option value="2">{$str.erase}</option>
+		                        <option value="3">{$str.chash}</option>
 				</select>
 				<div class="but_bottom" onclick="command('batch','');"> {$str.action} </div> 
 				<div class="but_bottom" onclick="checkAllByClass('torrent');"> {$str.check_all} </div>
@@ -30,8 +32,10 @@
 			<div style="clear: both; height: 25px; text-align: left; margin-left: 43px; margin-top: 3px;"><img src="{$DIR_IMG}arrow_ltr.png" alt="arrow" />
 				<select id="actions">
 					<option value="0">{$str.stop}</option>
+		                        <option value="4">{$str.closet}</option>
 					<option value="1">{$str.start}</option>
 					<option value="2">{$str.erase}</option>
+					<option value="3">{$str.chash}</option>
 				</select>
 				<div class="but_bottom" onclick="command('batch','');"> {$str.action} </div> 
 				<div class="but_bottom" onclick="checkAllByClass('torrent');"> {$str.check_all} </div>
