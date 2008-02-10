@@ -33,6 +33,9 @@ class AddT extends rtorrent
 	}
   // Add remote torrent
   private function addRemoteTorrent( $url, $dir, $start_now, $private ) {
+    // Get Dir if user can only download to a certain directory
+    if($this->getForceDir() == 1)
+        $dir = $this->getDir();
     // Parsing url
     $purl = parse_url( $url );
     $uploadfile = DIR_EXEC . DIR_TORRENTS . md5( $url ) . ".torrent";
@@ -116,10 +119,25 @@ class AddT extends rtorrent
     // Return the first even there are more than one, FIXTHIS
     return $result[0]['value'];
   } 
-
+    public function getDir()
+    {
+        $sql = "SELECT dir FROM tor_passwd WHERE id = '" . $this->getIdUser() . "';";
+        $res = $this->_db->query( $sql );
+        $result = $res->fetch();
+        return $result['dir'];
+    }
+    public function getForceDir()
+    {
+        $sql = "SELECT force_dir FROM tor_passwd WHERE id = '" . $this->getIdUser() . "';";
+        $res = $this->_db->query( $sql );
+        $result = $res->fetch();
+        return $result['force_dir'];
+    }
 	private function uploadTorrent($fileU, $dir, $start_now, $private)
 	{
-		$uploadfile = DIR_EXEC . DIR_TORRENTS . basename($fileU['name']);
+		if($this->getForceDir() == 1)
+            $dir = $this->getDir();
+        $uploadfile = DIR_EXEC . DIR_TORRENTS . basename($fileU['name']);
 		if(!is_writable(DIR_EXEC . DIR_TORRENTS))
 		{
 			$this->addMessage($this->_str['err_add_dir']);

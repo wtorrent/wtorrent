@@ -19,7 +19,7 @@ class Admin extends rtorrent
 {
 	public function construct()
 	{
-		if(isset($this->_request['adduser'])) $this->addUser($this->_request['user'], $this->_request['passwd'], $this->_request['admin']);
+		if(isset($this->_request['adduser'])) $this->addUser($this->_request['user'], $this->_request['passwd'], $this->_request['admin'], $this->_request['default_dir'], $this->_request['force_dir']);
 		if(isset($this->_request['delete'])) $this->deleteUsers($this->_request['users']);
 		
 		if(!$this->setClient())
@@ -43,18 +43,21 @@ class Admin extends rtorrent
 
 	public function showUsers()
     {
-		$sql = "SELECT user, id, admin FROM tor_passwd";
+		$sql = "SELECT user, id, admin, dir, force_dir FROM tor_passwd";
 		$res = $this->_db->query( $sql );
 		$result = $res->fetchAll();
 		$num = count($result);
 		for($i = 0; $i < $num; $i++)
 		{
-			if(SCRAMBLE === true)
-				$result[$i]['user'] = $this->scramble($result[$i]['user']);
 			if($result[$i]['admin'] != 1)
 				$result[$i]['admin'] = 'No';
 			else 
 				$result[$i]['admin'] = 'Yes';
+                
+            if($result[$i]['force_dir'] != 1)
+				$result[$i]['force_dir'] = 'No';
+			else 
+				$result[$i]['force_dir'] = 'Yes';
 		}
 		//print_r($result);
 		return $result;
@@ -71,12 +74,13 @@ class Admin extends rtorrent
 			$this->addMessage($this->_str['err_users_nosel']);
 		}
     }
-    public function addUser($user, $passwd, $admin)
+    public function addUser($user, $passwd, $admin, $dir, $force_dir)
     {
 		if($user != '' && $passwd != '')
 		{
 			if($admin == 'on') $admin = 1;
-    		$sql = "insert into tor_passwd(user, passwd, admin) values('$user', '" . md5($passwd) . "', '" . $admin . "')";
+            if($force_dir == 'on') $force_dir = 1;
+    		$sql = "insert into tor_passwd(user, passwd, admin, dir, force_dir) values('$user', '" . md5($passwd) . "', '" . $admin . "', '$dir', '$force_dir')";
 			$this->_db->query( $sql );
 			$this->addMessage($this->_str['info_users_added']);
 		} else {

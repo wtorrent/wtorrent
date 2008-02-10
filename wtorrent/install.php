@@ -14,16 +14,15 @@
 	Install
 </div>
 <?php
-
 if(isset($_REQUEST['create']))
 {
-	echo '<div class="messages">';
+	echo '<div class="messages" style="display: block; margin-bottom: 10px;">';
 	if($_REQUEST['userf'] != '' && $_REQUEST['passwdf'] != '')
 	{
 		$db = new SQLiteDatabase(DB_FILE);
 		if(is_object($db))
 		{
-			$sql_create = "CREATE TABLE tor_passwd(id integer primary key, user text, passwd text, admin integer);";
+			$sql_create = "CREATE TABLE tor_passwd(id integer primary key, user text, passwd text, admin integer, dir text, force_dir integer);";
 			$sql_insert = "INSERT INTO tor_passwd VALUES(1,'" . $_REQUEST['userf'] . "','" . md5($_REQUEST['passwdf']) . "',1);";
 			$sql_create_torrents = "create table torrents(hash string, user int, private int);";
 			$sql_create_feeds =  "CREATE TABLE feeds(id integer primary key, url text, user integer);";
@@ -70,11 +69,11 @@ if(isset($_REQUEST['update']))
     	Welcome to wTorrent!<br />
     	Please input your desired username/password
     </div>
-	<form action="" method="POST">
+	<form action="install.php" method="POST">
 	<div style="height: 20px; width: 100%;"><div style="height: 20px; padding-top: 6px; font-size:12px; width: 80px; float: left; text-align: left;"><b>User:</b></div><div style="float: left;"><input type="text" name="userf" /></div></div><br />
 	<div style="height: 20px; width: 100%;"><div style="height: 20px; padding-top: 6px; font-size: 12px; width: 80px; float: left; text-align: left;"><b>Password:</b></div><div style="float: left;"> <input type="text" name="passwdf" /></div></div><br />
 	<div style="padding-bottom: 10px;"><input type="submit" value="Create" name="create" /></div>
-	<div style="padding-bottom: 10px;"><input type="submit" value="Update (only 20071014 and previous versions users)" name="update" /></div>
+	<!-- <div style="padding-bottom: 10px;"><input type="submit" value="Update (only 20071014 and previous versions users)" name="update" /></div> -->
 	</form>
     </div>
 </div>
