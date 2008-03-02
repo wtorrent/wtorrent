@@ -36,5 +36,6 @@
 			<div class="but_bottom" onclick="command('trackers', '{$web->getHash()}');"> {$str.change_tr} </div>
 			<div class="but_bottom" onclick="checkAllByClass('trackers{$web->getHash()}');">{$str.check_all}</div>
 			<div class="but_bottom" onclick="checkAllByClass('trackers{$web->getHash()}');">{$str.uncheck_all}</div>
+			<div class="but_bottom" onclick="invertAllByClass('trackers{$web->getHash()}');">{$str_invert_all}</div>
 	</div>
 	</form>

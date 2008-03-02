@@ -93,6 +93,7 @@ conf_erase = Are you sure you want to erase this torrent?
 
 check_all = Check All
 uncheck_all = Uncheck All
+invert_all = Invert Selection
 action = Apply
 start = Start
 stop = Stop

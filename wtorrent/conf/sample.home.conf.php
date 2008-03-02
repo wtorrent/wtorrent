@@ -67,6 +67,7 @@ define( 'DIR_JS',			'home/js/javasc.js' );
 define( 'DIR_JSHADE',		'home/js/shadedborder.js' );
 define( 'DIR_JSPROTO',		'home/js/prototype.js' );
 define( 'DIR_SCRIPTACULOUS','home/js/scriptaculous/scriptaculous.js');
+define( 'DIR_PROTOTIP',     'home/js/prototip.js');
 define( 'DIR_FAVICO',		'favicon.ico' );
 //define( 'USER_RTORRENT',	'rtorrent');
 

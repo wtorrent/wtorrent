@@ -7,7 +7,8 @@
   <script src="{$DIR_JS}" type="text/javascript"></script>
   <script src="{$DIR_JSHADE}" type="text/javascript"></script>
   <script src="{$DIR_JSPROTO}" type="text/javascript"></script>
-  <script src="{$DIR_SCRIPTACULOUS}" type="text/javascript"></script>
+  <script src="{$DIR_SCRIPTACULOUS}?load=effects" type="text/javascript"></script>
+  <script src="{$DIR_PROTOTIP}" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="{$DIR_CSS_ESTIL}" media="all" />
   {include file="loading.tpl.php" assign="loading"}
   {include file="comm_loading.tpl.php" assign="comm_loading"}
@@ -57,6 +58,7 @@ var confirmMsg = "{/literal}{$str.conf_erase}{literal}";
 </script>
 {/literal}
 {/if}
+	<link rel="shortcut icon" href="{$DIR_IMG}favicon.ico">
 </head>
 
 <body>

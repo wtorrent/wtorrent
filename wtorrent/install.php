@@ -14,6 +14,13 @@
 	Install
 </div>
 <?php
+if(file_exists(DB_FILE))
+{
+	echo '<div id="principal" class="principal" style="width: 500px;"><div style="font-size: 11px; margin-bottom: 12px; font-weight: bold;">';
+	echo 'wTorrent has already been configured.<br /> If you wish to re-run the install, please delete or move your db file.';
+	echo '</div></div></body></html>';
+	die();
+}
 if(isset($_REQUEST['create']))
 {
 	echo '<div class="messages" style="display: block; margin-bottom: 10px;">';
@@ -23,7 +30,7 @@ if(isset($_REQUEST['create']))
 		if(is_object($db))
 		{
 			$sql_create = "CREATE TABLE tor_passwd(id integer primary key, user text, passwd text, admin integer, dir text, force_dir integer);";
-			$sql_insert = "INSERT INTO tor_passwd VALUES(1,'" . $_REQUEST['userf'] . "','" . md5($_REQUEST['passwdf']) . "',1, '', 0);";
+			$sql_insert = "INSERT INTO tor_passwd VALUES(1,'" . $_REQUEST['userf'] . "','" . md5($_REQUEST['passwdf']) . "',1);";
 			$sql_create_torrents = "create table torrents(hash string, user int, private int);";
 			$sql_create_feeds =  "CREATE TABLE feeds(id integer primary key, url text, user integer);";
 			$sql_create_cookies = "CREATE TABLE cookie(id integer primary key, userid integer, value text, hostname text);";
@@ -45,7 +52,7 @@ if(isset($_REQUEST['create']))
 	}
 	echo '</div>';
 }
-if(isset($_REQUEST['update']))
+else if(isset($_REQUEST['update']))
 {
 	echo '<div class="messages">';
 	$db = new SQLiteDatabase(DB_FILE);
@@ -61,7 +68,6 @@ if(isset($_REQUEST['update']))
         	echo 'Could not connect to database, please check configuration';
 	echo '</div>';
 }
-
 ?>
 <div id="principal" class="principal" style="width: 500px;">
     <div id="contingut" class="contingut" style="width:450px; padding: 20px; padding-bottom: 0px; margin-top: 5px;">

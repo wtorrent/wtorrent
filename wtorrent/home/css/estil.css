@@ -160,6 +160,16 @@ img {
 	text-align: center;
 	
 }
+.tbContentCell {
+	height: 22px; 
+	text-align: left; 
+	padding-top: 8px;
+	float: left;
+	font-weight: normal;
+	font-size: 11px;
+	text-align: center;
+	
+}
 #tbBulk {
 	/*height: 25px; */ 
 	width: 949px;
@@ -293,4 +303,120 @@ img {
 }
 .but_bottom:hover {
 	background-color: #e5edf4;
+}
+/* Prototype Styles */
+.prototip { position: absolute; }
+.prototip .effectWrapper { position: relative; }
+.prototip .tooltip { position: relative; }
+.prototip .toolbar {
+	position: relative;
+	display: block;
+	}
+.prototip .toolbar .title {
+	display: block;
+	position: relative;
+	}
+.prototip .content { clear: both; }
+.iframeShim { 
+	position: absolute;
+	border: 0;
+	margin: 0;	
+    padding: 0;
+    background: none;
+}
+/* START STYLE (GREEN) */
+.prototip .green {
+	/*width: 150px;*/
+	color: #fff;
+}
+.prototip .green .content {
+	background: #347e21;
+	font: italic 14px Verdana, serif;
+	font-weight: bold;
+	color: #fff;
+	padding: 5px;
+}
+/*.prototip .green .content { padding: 5px; }
+.prototip .green .content { 
+	background: #8cdc77;
+	font: 11px Arial, Helvetica, sans-serif;
+	padding: 5px;
+	color: #000;
+}*/
+/* SEEDING STYLE (BLUE) */
+.prototip .blue {
+	/*width: 150px;*/
+	color: #fff;
+}
+.prototip .blue .content {
+	background: #202b9b;
+	font: italic 14px Verdana, serif;
+	font-weight: bold;
+	color: #fff;
+	padding: 5px; 
+}
+/*.prototip .blue .content { padding: 5px; }
+.prototip .blue .content { 
+	background: #8b95f0;
+	font: 11px Arial, Helvetica, sans-serif;
+	padding: 5px;
+}*/
+/* CLOSED STYLE (BLACK) */
+.prototip .black {
+	/*width: 150px;*/
+	color: #fff;
+}
+/*.prototip .black .toolbar {
+	background: #373737;
+	font: italic 14px Verdana, serif;
+	font-weight: bold;
+	color: #fff;
+}*/
+.prototip .black .content { 
+	padding: 5px; 
+	background: #373737;
+	font: italic 14px Verdana, serif;
+	font-weight: bold;
+	color: #fff; }
+/*.prototip .black .content { 
+	background: #b4b4b4;
+	font: 11px Arial, Helvetica, sans-serif;
+	padding: 5px;
+}*/
+/* CHECKING HASH STYLE (YELLOW) */
+.prototip .yellow {
+	/*width: 150px;*/
+	color: #fff;
+}
+.prototip .yellow .content {
+	background: #c6c42f;
+	font: italic 14px Verdana, serif;
+	font-weight: bold;
+	color: #fff;
+	padding: 5px;
+}
+/*.prototip .yellow .content { padding: 5px; }
+.prototip .yellow .content { 
+	background: #e9e89a;
+	font: 11px Arial, Helvetica, sans-serif;
+	padding: 5px;
+	color: #000;
+}*/
+/* RTORRENT MESSAGE STYLE (RED) */
+.prototip .red {
+	color: #fff;
+	width: 200px;
+}
+.prototip .red .toolbar {
+	background: #b90303;
+	font: italic 14px Verdana, serif;
+	font-weight: bold;
+	color: #fff;
+}
+.prototip .red .title { padding: 5px; }
+.prototip .red .content { 
+	background: #ec9c9c;
+	font: 11px Arial, Helvetica, sans-serif;
+	padding: 5px;
+	color: #000;
 }

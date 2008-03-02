@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
 This file is part of wTorrent.
 
@@ -34,7 +34,10 @@ class ListT extends rtorrent
 								'd.get_ratio=',
 								'd.get_tracker_size=',
 								'd.is_active=',
-								'd.is_open=',);
+								'd.is_open=',
+                                'd.get_message=',
+                                'd.get_creation_date=',
+                                );
 	private $info_tracker = array('',
 								"",
 								't.get_scrape_complete=',
@@ -162,6 +165,51 @@ class ListT extends rtorrent
 	{
 		return $this->getCorrectUnits($this->torrents[$hash]['completed_chunks'] * $this->torrents[$hash]['chunk_size']);
 	}
+    public function getTstate($hash)
+    {
+        return $this->torrents[$hash]['tstate'];
+    }
+    public function getTstyle($hash)
+    {
+    	switch($this->torrents[$hash]['tstate'])
+    	{
+    		case 'downloading':
+    			$return = 'green';
+    			break;
+    		case 'stoped':
+    			$return = 'black';
+    			break;
+    		case 'seeding':
+    			$return = 'blue';
+    			break;
+    		case 'closed':
+    			$return = 'black';
+    			break;
+    		case 'message':
+    			$return = 'red';
+    			break;
+    		case 'chash':
+    			$return = 'yellow';
+    			break;
+    	}
+        return $return;
+    }
+    public function getMessage($hash)
+    {
+        return $this->torrents[$hash]['message'];
+    }
+    public function getTooltipText($hash)
+    {
+        if($this->getTstate($hash) == 'message')
+            $return = $this->getMessage($hash);
+        else
+            $return = null;
+        return $return;
+    }
+    public function getCreationDate($hash)
+    {
+        return $this->torrents[$hash]['creation_date'];
+    }
 	private function getCorrectUnits($size)
     {
 		$size_units = 'bytes';
@@ -249,26 +297,34 @@ class ListT extends rtorrent
 				$this->torrents[$torrent[0]]['num_trackers'] = $torrent[12];
 				$this->torrents[$torrent[0]]['is_active'] = $torrent[13];
 				$this->torrents[$torrent[0]]['is_open'] = $torrent[14];
+                $this->torrents[$torrent[0]]['message'] = $torrent[15];
+                $this->torrents[$torrent[0]]['creation_date'] = $torrent[16];
 
 				$this->torrents[$torrent[0]]['percent'] = floor(($this->torrents[$torrent[0]]['completed_chunks']/$this->torrents[$torrent[0]]['size_in_chunks'])*100);
 
 				$this->torrents[$torrent[0]]['ETA'] = '--';
 				if(($this->torrents[$torrent[0]]['percent'] != 100) && ($this->torrents[$torrent[0]]['down_rate'] != 0))
 					$this->torrents[$torrent[0]]['ETA'] = $this->formatETA(ceil((($this->torrents[$torrent[0]]['size_in_chunks'] - $this->torrents[$torrent[0]]['completed_chunks'])*$this->torrents[$torrent[0]]['chunk_size']/1024)/$this->torrents[$torrent[0]]['down_rate']*1000));
-
-				if(SCRAMBLE === true)
-					$this->torrents[$torrent[0]]['name'] = $this->scramble($this->torrents[$torrent[0]]['name']);
-
-				/*$array_post = array();
-				$this->info_tracker[0] = $torrent[0];*/
-
-				/*foreach($this->info_tracker as $param)
-					$array_post[] = new xmlrpcval($param, 'string');
-
-				$message = new xmlrpcmsg("t.multicall", $array_post);*/
-				//$resultT = ;
-				//$resultT = XMLRPC_request(RT_HOST, '/RPC2', 't.multicall' ,$array_post);
-				//print_r($Tresponses);
+                
+                if($this->torrents[$torrent[0]]['state'] == 0)
+                {
+                    $this->torrents[$torrent[0]]['tstate'] = 'stoped';
+                } else {
+                    if($this->torrents[$torrent[0]]['percent'] != 100){
+                        $this->torrents[$torrent[0]]['tstate'] = 'downloading';
+                    } else {
+                        $this->torrents[$torrent[0]]['tstate'] = 'seeding';
+                    }
+                }
+                if($this->torrents[$torrent[0]]['is_open'] != 1)
+                    $this->torrents[$torrent[0]]['tstate'] = 'closed';
+                    
+                if($this->torrents[$torrent[0]]['message'] != '')
+                    $this->torrents[$torrent[0]]['tstate'] = 'message';
+                    
+                if($this->torrents[$torrent[0]]['is_hash_checking'] == 1)
+                    $this->torrents[$torrent[0]]['tstate'] = 'chash';                    
+                
 				foreach($Tresponses[$key]->val as $tracker)
 				{
 					$this->torrents[$torrent[0]]['seeds_scrape'] += $tracker[0];
@@ -282,20 +338,44 @@ class ListT extends rtorrent
     }
     private function formatETA($time)
     {
-		$time = $time/1000;
-		$sec = sprintf("%02d",floor(($time/60 - floor($time/60))*60));
-		$min =  sprintf("%02d",floor(($time/3600 - floor($time/3600))*60));
-		$hour =  sprintf("%02d",floor(($time/216000 - floor($time/216000))*60));
-	
-		if($hour > 23)
-		{
-			$days = floor($hour/24) . "d ";
-			$hour = sprintf("%02d",floor(($hour/24 - floor($hour/24))*24));
-		} else {
-			$days = '';
-		}
-
-		return $days . $hour.':'.$min.':'.$sec;
+      if (!is_array($periods)) {
+        $periods = array (
+          'weeks'     => 604800,
+          'days'      => 86400,
+          'hours'     => 3600,
+          'minutes'   => 60,
+          );
+      }
+ 
+      $seconds = (float) $time * 1000;
+      foreach ($periods as $period => $value) 
+      {
+        $count = floor($seconds / $value);
+        if ($count == 0) 
+          continue;
+ 
+        $values[$period] = $count;
+        $seconds = $seconds % $value;
+      }
+ 
+      foreach ($values as $key => $value) 
+      {
+        $segment_name = substr($key, 0, 1);
+        $segment = $value . $segment_name; 
+        // If ETA is weeks away, don't display minutes:       
+        if ($key == "minutes")
+          if ($values["weeks"] >= 1)
+            $segment = "";
+        
+        $array[] = $segment;
+      }
+      // If ETA is more then 30 weeks away, display "inf" instead of precise ETA: 
+      if ($values["weeks"] > 30)
+        $str = "inf";
+      else
+        $str = implode('', $array);
+      
+      return $str;
     }
 }
 ?>

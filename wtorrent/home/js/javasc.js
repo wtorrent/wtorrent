@@ -1,35 +1,10 @@
 function resizeInnerTab(hash) {
-	/* Get elements */
-	/*var trObj = $('ihtr' + i);
-	var ifPri = $('principal');
-	var ifCtab = $('tab' + hash);*/
-	
-	//var height = ifCont.offsetHeight;
-	/*if (trObj != null) // If it's hidden, exapand
-	{
-		if (trObj.style.display=="none") 
-		{
-			if(ifCtab.innerHTML == "") // If it's the first time load content
-			// Load general info in the new-opened div 
-			load('tab' + hash, 'info');
-			trObj.style.display="";
-			var display = ifPri.style.display;
-			/* Force redraw of the main widget */
-			/*ifPri.style.display = 'none';
-			ifPri.style.display = display;
-		}
-		else // If it's open close it
-		{
-			trObj.style.display="none";
-		}
-	}*/
     if($('tab' + hash).innerHTML == "")
     {
         load('tab' + hash, 'info');
     } else {
         Effect.toggle('ttab' + hash, 'blind', {duration:0.5});
     }
-    //Effect.BlindUp('id_of_element');
     resize();
 }
 /* Resize to make shadedborders render the div again */
@@ -50,7 +25,21 @@ function uncheckAllByClass(styleClass) {
 			elements[i].checked = false;
 		}
 }
+/* Invert selection */
+function invertAllByClass(styleClass) {
+	var elements = document.getElementsByClassName(styleClass);
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].checked = !elements[i].checked;
+		}
+}
 /* Function that does the AJAX loading process */
+/* Possible FRAMES:
+    'content': main div
+    'tab' + hash: every torrent div (tabs in the left not included)
+    'itab' + hash: div with the name of the torrent, erase, start... buttons
+    'ttab' + hash; div that contents 'tab' + hash and every torrent left tabs
+    'messages': messages frame
+*/
 function load(frame, content) {
 	if(frame == 'content') // Actions for frame 'content' (MAIN FRAME)
 	{
@@ -139,7 +128,6 @@ function loadingTab(frame)
     overlayCell.style.top = positions[1] + 'px';
     document.body.appendChild(overlayCell);
     overlayCell.show();
-    //expandFrame(overlayCell);
     new Effect.Opacity(overlayCell, {duration:0.2, from:0, to:0.6});
     return;
 }
@@ -147,7 +135,7 @@ function loadingTab(frame)
 function responseContent(originalRequest, frame) {
 	var newData = originalRequest.responseText;
     $(frame).innerHTML = newData;
-    if(frame != 'content' || frame != 'messages') {
+    if(frame != "content" && frame != "messages") {
         var onFinish = (function (frame) { return function (obj) { $(frame).remove(); } })('l'+ frame);
         new Effect.Opacity('l' + frame, {duration:0.2, from:0.6, to:0, afterFinish: onFinish});
         window.setTimeout("expandFrame('t" + frame + "')", 100);
@@ -317,4 +305,54 @@ function findPos(obj) {
 		} while (obj = obj.offsetParent);
 	}
 	return [curleft,curtop];
+}
+function torrentTip(elementId) {
+    /*switch(type)
+    {
+        case 'downloading':
+            var style = 'green';
+            var content = 'Downloading';
+            break;
+        case 'seeding':
+            var style = 'blue';
+            var content = 'Seeding';
+            break;
+        case 'stoped':
+            var style = 'black';
+            var content = 'Stoped';
+            break;
+        case 'closed':
+            var style = 'black';
+            var content= 'Closed';
+            break;
+        case 'chash':
+            var style = 'yellow';
+            var content= 'Checking hash';
+            break;
+        case 'message':
+            var style = 'red';
+            var title = 'rTorrent message';
+            break;
+    }*/
+    var content = $('tipContent' + elementId).cloneNode(true);
+    content.id = elementId + 'copy';
+    content.show();
+    new Tip(
+        'tip' + elementId,                 // the id of your element
+        content,                 // a string or an element
+        {  
+            //className: style,     // or your own class
+            closeButton: false,    // or true
+            duration: 0.3,         // duration of the effect, if used
+            delay: 0,             // seconds before tooltip appears
+            effect: 'appear',         // false, 'appear' or 'blind'
+            fixed: false,          // follow the mouse if false
+            hideAfter: false,      // hides after seconds of inactivity, not hovering the element or the tooltip
+            hideOn: 'mouseout',     // any other event, false or: { element: 'element|target|tip|closeButton|.close', event: 'click|mouseover|mousemove' }
+            hook: false,           // { target: 'topLeft|topRight|bottomLeft|bottomRight|topMiddle|bottomMiddle|leftMiddle|rightMiddle',tip: 'topLeft|topRight|bottomLeft|bottomRight|topMiddle|bottomMiddle|leftMiddle|rightMiddle' }
+            showOn: 'mousemove',   // or any other event
+            //title: title,          // or a string, example: 'tip title'
+            viewport: false         // keep within viewport, false when fixed or hooked
+        }
+    );
 }
