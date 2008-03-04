@@ -30,7 +30,7 @@ if(isset($_REQUEST['create']))
 		if(is_object($db))
 		{
 			$sql_create = "CREATE TABLE tor_passwd(id integer primary key, user text, passwd text, admin integer, dir text, force_dir integer);";
-			$sql_insert = "INSERT INTO tor_passwd VALUES(1,'" . $_REQUEST['userf'] . "','" . md5($_REQUEST['passwdf']) . "',1);";
+			$sql_insert = "INSERT INTO tor_passwd VALUES(1,'" . $_REQUEST['userf'] . "','" . md5($_REQUEST['passwdf']) . "',1, '', 0);";
 			$sql_create_torrents = "create table torrents(hash string, user int, private int);";
 			$sql_create_feeds =  "CREATE TABLE feeds(id integer primary key, url text, user integer);";
 			$sql_create_cookies = "CREATE TABLE cookie(id integer primary key, userid integer, value text, hostname text);";
