@@ -19,6 +19,7 @@ class ListT extends rtorrent
 {
 	private  $view;
 	private  $torrents = array();
+	private  $MAX_LENGTH_NAME = 55;
     private  $info_dowload = array('default', 
     							'd.get_hash=', 
     							'd.get_name=',
@@ -103,7 +104,12 @@ class ListT extends rtorrent
 	}
 	public function getName($hash)
 	{
-		return $this->torrents[$hash]['name'];
+		// Just in case the torrent name is too long return a shortened version.
+		$name = $this->torrents[$hash]['name'];
+		if(strlen($name) > $this->MAX_LENGTH_NAME){
+			$name = substr($name, 0, $this->MAX_LENGTH_NAME) . ' ...';
+		}
+		return $name;
 	}
 	public function getState($hash)
 	{
