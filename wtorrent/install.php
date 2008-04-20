@@ -51,6 +51,7 @@ if(isset($_REQUEST['create']))
 		echo 'Error, you must fill the form';
 	}
 	echo '</div>';
+	die();
 }
 else if(isset($_REQUEST['update']))
 {
