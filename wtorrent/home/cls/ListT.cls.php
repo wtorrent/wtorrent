@@ -111,6 +111,10 @@ class ListT extends rtorrent
 		}
 		return $name;
 	}
+	// public function getTags($hash)
+	// {
+	// 	return $this->torrents[$hash]['tags'];
+	// }
 	public function getState($hash)
 	{
 		return $this->torrents[$hash]['state'];
@@ -310,7 +314,7 @@ class ListT extends rtorrent
 
 				$this->torrents[$torrent[0]]['ETA'] = '--';
 				if(($this->torrents[$torrent[0]]['percent'] != 100) && ($this->torrents[$torrent[0]]['down_rate'] != 0))
-					$this->torrents[$torrent[0]]['ETA'] = $this->formatETA(ceil((($this->torrents[$torrent[0]]['size_in_chunks'] - $this->torrents[$torrent[0]]['completed_chunks'])*$this->torrents[$torrent[0]]['chunk_size']/1024)/$this->torrents[$torrent[0]]['down_rate']*1000));
+				$this->torrents[$torrent[0]]['ETA'] = $this->formatETA(ceil((($this->torrents[$torrent[0]]['size_in_chunks'] - $this->torrents[$torrent[0]]['completed_chunks']) * $this->torrents[$torrent[0]]['chunk_size'] / 1024) / $torrent[2]));
                 
                 if($this->torrents[$torrent[0]]['state'] == 0)
                 {
@@ -336,6 +340,17 @@ class ListT extends rtorrent
 					$this->torrents[$torrent[0]]['seeds_scrape'] += $tracker[0];
 					$this->torrents[$torrent[0]]['peers_scrape'] += $tracker[1];
 				}
+				// $this->torrents[$torrent[0]]['tags'] = Array();
+				// $sql = "SELECT tagid FROM tags_torrents WHERE hash = '" . $torrent[0] . "';";
+				// $res = $this->_db->query( $sql );
+				// 		        $result = $res->fetchAll();
+				// foreach($result as $tag){
+				// 	$sql = "SELECT value FROM tags WHERE id = '" . $tag['tagid'] . "';"; // Falta afegir lo del user
+				// 	$res = $this->_db->query( $sql );
+				// 	$rslt = $res->fetch();
+				// 	array_push($this->torrents[$torrent[0]]['tags'], $rslt['value']);
+				// }
+
     		}
 			
     	}
