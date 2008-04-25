@@ -20,9 +20,9 @@ class ListT extends rtorrent
 	private  $view;
 	private  $torrents = array();
 	private  $MAX_LENGTH_NAME = 55;
-    private  $info_dowload = array('default', 
-    							'd.get_hash=', 
-    							'd.get_name=',
+  private  $info_dowload = array('default', 
+   							'd.get_hash=', 
+   							'd.get_name=',
 								'd.get_down_rate=',
 								'd.get_up_rate=',
 								'd.get_chunk_size=',
@@ -36,9 +36,9 @@ class ListT extends rtorrent
 								'd.get_tracker_size=',
 								'd.is_active=',
 								'd.is_open=',
-                                'd.get_message=',
-                                'd.get_creation_date=',
-                                );
+                'd.get_message=',
+                'd.get_creation_date=',
+							);
 	private $info_tracker = array('',
 								"",
 								't.get_scrape_complete=',
@@ -252,111 +252,115 @@ class ListT extends rtorrent
 			
 		return $tt;
 	}
-    
+
 	private function getTorrents()
-    {
-    	//define("XMLRPC_DEBUG", 1);
-    	//$this->client->setDebug(2);
-    	foreach($this->info_dowload as $param)
+	{
+		//define("XMLRPC_DEBUG", 1);
+		//$this->client->setDebug(2);
+		foreach($this->info_dowload as $param)
 			$array_post[] = new xmlrpcval($param, 'string');
-		
+
 		//print_r(XMLRPC_prepare($array_post));
 		//print_r(XMLRPC_prepare($array_multi)); 
-		
-    	//$result = XMLRPC_request(RT_HOST , '/RPC2', 'd.multicall' ,$array_post);
+
+		//$result = XMLRPC_request(RT_HOST , '/RPC2', 'd.multicall' ,$array_post);
 		$message = new xmlrpcmsg("d.multicall", $array_post);
 		$result = $this->client->send($message);
-    	//print_r($result);
-    	// Multicall for tracker info (reduces load time on big torrent list
-    	$array_post = array();
-    	foreach($this->info_tracker as $param)
+		//print_r($result);
+		// Multicall for tracker info (reduces load time on big torrent list
+			$array_post = array();
+			foreach($this->info_tracker as $param)
 				$array_post[] = new xmlrpcval($param, 'string');
-		
-    	if(count($result->val)) {
-    		foreach($result->val as $torrent)
-    		{
-    			$array_post[0] = new xmlrpcval($torrent[0], 'string');
-    			$messages[] = new xmlrpcmsg("t.multicall", $array_post);
-    		}
-    		if(count($messages) > 0)
-    			$Tresponses = $this->client->multicall($messages);
-    		//print_r($responses);
-    		foreach($result->val as $key => $torrent)
-    		{
-    			// Check if the torrent is private and if the user can see it
-    			$private = false;
-    			$pr_torrent = $this->getPrivate();
-    			if(array_key_exists($torrent[0], $pr_torrent))
-    			{
-    				$private = true;
-    				if($pr_torrent[$torrent[0]] != $this->getIdUser())
-    					continue;
-    			}
-				$this->torrents[$torrent[0]]['private'] = $private;
-				$this->torrents[$torrent[0]]['name'] = $torrent[1];
-				$this->torrents[$torrent[0]]['down_rate'] = round($torrent[2]/1024,2);
-				$this->torrents[$torrent[0]]['up_rate'] = round($torrent[3]/1024,2);
-				$this->torrents[$torrent[0]]['chunk_size'] = $torrent[4];
-				$this->torrents[$torrent[0]]['completed_chunks'] = $torrent[5];
-				$this->torrents[$torrent[0]]['size_in_chunks'] = $torrent[6];
-				$this->torrents[$torrent[0]]['state'] = $torrent[7];
-				$this->torrents[$torrent[0]]['peers'] = $torrent[8];
-				$this->torrents[$torrent[0]]['seeds'] = $torrent[9];
-				$this->torrents[$torrent[0]]['is_hash_checking'] = $torrent[10];
-				$this->torrents[$torrent[0]]['ratio'] = round($torrent[11]/1000,2);
-				$this->torrents[$torrent[0]]['num_trackers'] = $torrent[12];
-				$this->torrents[$torrent[0]]['is_active'] = $torrent[13];
-				$this->torrents[$torrent[0]]['is_open'] = $torrent[14];
-                $this->torrents[$torrent[0]]['message'] = $torrent[15];
-                $this->torrents[$torrent[0]]['creation_date'] = $torrent[16];
 
-				$this->torrents[$torrent[0]]['percent'] = floor(($this->torrents[$torrent[0]]['completed_chunks']/$this->torrents[$torrent[0]]['size_in_chunks'])*100);
-
-				$this->torrents[$torrent[0]]['ETA'] = '--';
-				if(($this->torrents[$torrent[0]]['percent'] != 100) && ($this->torrents[$torrent[0]]['down_rate'] != 0))
-				$this->torrents[$torrent[0]]['ETA'] = $this->formatETA(ceil((($this->torrents[$torrent[0]]['size_in_chunks'] - $this->torrents[$torrent[0]]['completed_chunks']) * $this->torrents[$torrent[0]]['chunk_size'] / 1024) / $torrent[2]));
-                
-                if($this->torrents[$torrent[0]]['state'] == 0)
-                {
-                    $this->torrents[$torrent[0]]['tstate'] = 'stoped';
-                } else {
-                    if($this->torrents[$torrent[0]]['percent'] != 100){
-                        $this->torrents[$torrent[0]]['tstate'] = 'downloading';
-                    } else {
-                        $this->torrents[$torrent[0]]['tstate'] = 'seeding';
-                    }
-                }
-                if($this->torrents[$torrent[0]]['is_open'] != 1)
-                    $this->torrents[$torrent[0]]['tstate'] = 'closed';
-                    
-                if($this->torrents[$torrent[0]]['message'] != '')
-                    $this->torrents[$torrent[0]]['tstate'] = 'message';
-                    
-                if($this->torrents[$torrent[0]]['is_hash_checking'] == 1)
-                    $this->torrents[$torrent[0]]['tstate'] = 'chash';                    
-                
-				foreach($Tresponses[$key]->val as $tracker)
+			if(count($result->val)) {
+				foreach($result->val as $torrent)
 				{
-					$this->torrents[$torrent[0]]['seeds_scrape'] += $tracker[0];
-					$this->torrents[$torrent[0]]['peers_scrape'] += $tracker[1];
+					$array_post[0] = new xmlrpcval($torrent[0], 'string');
+					$messages[] = new xmlrpcmsg("t.multicall", $array_post);
 				}
-				// $this->torrents[$torrent[0]]['tags'] = Array();
-				// $sql = "SELECT tagid FROM tags_torrents WHERE hash = '" . $torrent[0] . "';";
-				// $res = $this->_db->query( $sql );
-				// 		        $result = $res->fetchAll();
-				// foreach($result as $tag){
-				// 	$sql = "SELECT value FROM tags WHERE id = '" . $tag['tagid'] . "';"; // Falta afegir lo del user
-				// 	$res = $this->_db->query( $sql );
-				// 	$rslt = $res->fetch();
-				// 	array_push($this->torrents[$torrent[0]]['tags'], $rslt['value']);
-				// }
+				if(count($messages) > 0)
+					$Tresponses = $this->client->multicall($messages);
+				//print_r($responses);
+				foreach($result->val as $key => $torrent)
+				{
+					// Check if the torrent is private and if the user can see it
+					$private = false;
+					$pr_torrent = $this->getPrivate();
+					if(array_key_exists($torrent[0], $pr_torrent))
+					{
+						$private = true;
+						if($pr_torrent[$torrent[0]] != $this->getIdUser())
+							continue;
+					}
+					$this->torrents[$torrent[0]]['private'] = $private;
+					$this->torrents[$torrent[0]]['name'] = $torrent[1];
+					$this->torrents[$torrent[0]]['down_rate'] = round($torrent[2]/1024,2);
+					$this->torrents[$torrent[0]]['up_rate'] = round($torrent[3]/1024,2);
+					$this->torrents[$torrent[0]]['chunk_size'] = $torrent[4];
+					$this->torrents[$torrent[0]]['completed_chunks'] = $torrent[5];
+					$this->torrents[$torrent[0]]['size_in_chunks'] = $torrent[6];
+					$this->torrents[$torrent[0]]['state'] = $torrent[7];
+					$this->torrents[$torrent[0]]['peers'] = $torrent[8];
+					$this->torrents[$torrent[0]]['seeds'] = $torrent[9];
+					$this->torrents[$torrent[0]]['is_hash_checking'] = $torrent[10];
+					$this->torrents[$torrent[0]]['ratio'] = round($torrent[11]/1000,2);
+					$this->torrents[$torrent[0]]['num_trackers'] = $torrent[12];
+					$this->torrents[$torrent[0]]['is_active'] = $torrent[13];
+					$this->torrents[$torrent[0]]['is_open'] = $torrent[14];
+					$this->torrents[$torrent[0]]['message'] = $torrent[15];
+					$this->torrents[$torrent[0]]['creation_date'] = $torrent[16];
 
-    		}
-			
-    	}
-    	//print_r($this->torrents);
-    	//XMLRPC_debug_print();*/
-    }
+					$this->torrents[$torrent[0]]['percent'] = floor(($this->torrents[$torrent[0]]['completed_chunks']/$this->torrents[$torrent[0]]['size_in_chunks'])*100);
+
+					$this->torrents[$torrent[0]]['ETA'] = '--';
+					if(($this->torrents[$torrent[0]]['percent'] != 100) && ($this->torrents[$torrent[0]]['down_rate'] != 0))
+						$this->torrents[$torrent[0]]['ETA'] = $this->formatETA(ceil((($this->torrents[$torrent[0]]['size_in_chunks'] - $this->torrents[$torrent[0]]['completed_chunks']) * $this->torrents[$torrent[0]]['chunk_size'] / 1024) / $torrent[2]));
+
+					if($this->torrents[$torrent[0]]['state'] == 0)
+					{
+						$this->torrents[$torrent[0]]['tstate'] = 'stoped';
+					} else {
+						if($this->torrents[$torrent[0]]['percent'] != 100){
+							$this->torrents[$torrent[0]]['tstate'] = 'downloading';
+						} else {
+							$this->torrents[$torrent[0]]['tstate'] = 'seeding';
+						}
+					}
+					if($this->torrents[$torrent[0]]['is_open'] != 1)
+						$this->torrents[$torrent[0]]['tstate'] = 'closed';
+
+					echo '----' . $this->torrent[$torrent[0]]['message'] . '-----';
+					
+					if(($this->torrents[$torrent[0]]['message'] != '') && ($this->torrents[$torrent[0]]['message'] != 'Tracker: [Tried all trackers.]'))
+						$this->torrents[$torrent[0]]['tstate'] = 'message';
+
+					echo '-----' . $this->torrent[$torrent[0]]['message'] . '------';
+					
+					if($this->torrents[$torrent[0]]['is_hash_checking'] == 1)
+						$this->torrents[$torrent[0]]['tstate'] = 'chash';                    
+
+					foreach($Tresponses[$key]->val as $tracker)
+					{
+						$this->torrents[$torrent[0]]['seeds_scrape'] += $tracker[0];
+						$this->torrents[$torrent[0]]['peers_scrape'] += $tracker[1];
+					}
+					// $this->torrents[$torrent[0]]['tags'] = Array();
+					// $sql = "SELECT tagid FROM tags_torrents WHERE hash = '" . $torrent[0] . "';";
+					// $res = $this->_db->query( $sql );
+					// 		        $result = $res->fetchAll();
+					// foreach($result as $tag){
+						// 	$sql = "SELECT value FROM tags WHERE id = '" . $tag['tagid'] . "';"; // Falta afegir lo del user
+						// 	$res = $this->_db->query( $sql );
+						// 	$rslt = $res->fetch();
+						// 	array_push($this->torrents[$torrent[0]]['tags'], $rslt['value']);
+						// }
+
+					}
+
+				}
+				//print_r($this->torrents);
+				//XMLRPC_debug_print();*/
+			}
     private function formatETA($time)
     {
       if (!is_array($periods)) {

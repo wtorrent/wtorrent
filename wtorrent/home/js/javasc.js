@@ -307,33 +307,6 @@ function findPos(obj) {
 	return [curleft,curtop];
 }
 function torrentTip(elementId) {
-    /*switch(type)
-    {
-        case 'downloading':
-            var style = 'green';
-            var content = 'Downloading';
-            break;
-        case 'seeding':
-            var style = 'blue';
-            var content = 'Seeding';
-            break;
-        case 'stoped':
-            var style = 'black';
-            var content = 'Stoped';
-            break;
-        case 'closed':
-            var style = 'black';
-            var content= 'Closed';
-            break;
-        case 'chash':
-            var style = 'yellow';
-            var content= 'Checking hash';
-            break;
-        case 'message':
-            var style = 'red';
-            var title = 'rTorrent message';
-            break;
-    }*/
     var content = $('tipContent' + elementId).cloneNode(true);
     content.id = elementId + 'copy';
     content.show();
@@ -341,17 +314,15 @@ function torrentTip(elementId) {
         'tip' + elementId,                 // the id of your element
         content,                 // a string or an element
         {  
-            //className: style,     // or your own class
             closeButton: false,    // or true
             duration: 0.3,         // duration of the effect, if used
             delay: 0,             // seconds before tooltip appears
-            effect: 'appear',         // false, 'appear' or 'blind'
+            effect: false,         // false, 'appear' or 'blind'
             fixed: false,          // follow the mouse if false
             hideAfter: false,      // hides after seconds of inactivity, not hovering the element or the tooltip
             hideOn: 'mouseout',     // any other event, false or: { element: 'element|target|tip|closeButton|.close', event: 'click|mouseover|mousemove' }
             hook: false,           // { target: 'topLeft|topRight|bottomLeft|bottomRight|topMiddle|bottomMiddle|leftMiddle|rightMiddle',tip: 'topLeft|topRight|bottomLeft|bottomRight|topMiddle|bottomMiddle|leftMiddle|rightMiddle' }
             showOn: 'mousemove',   // or any other event
-            //title: title,          // or a string, example: 'tip title'
             viewport: false         // keep within viewport, false when fixed or hooked
         }
     );

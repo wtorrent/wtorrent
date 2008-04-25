@@ -139,7 +139,7 @@ class rtorrent extends Web
 	public function setClient()
 	{
 		$this->client = new xmlrpc_client(RT_DIR, RT_HOST, RT_PORT);
-		// $this->client->setDebug(2);
+		//$this->client->setDebug(2);
 		if(RT_AUTH)
 			$this->client->setCredentials(RT_USER, RT_PASSWD);
     	$this->client->return_type = 'phpvals';
@@ -147,6 +147,7 @@ class rtorrent extends Web
     	
     	$message = new xmlrpcmsg("system.pid");
 		$result = $this->client->send($message);
+		// print_r($result);
 		if($result->errno != 0)
 		{
 			$this->addMessage($this->_str['err_conn']);
