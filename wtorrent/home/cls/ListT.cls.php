@@ -186,7 +186,7 @@ class ListT extends rtorrent
     		case 'downloading':
     			$return = 'green';
     			break;
-    		case 'stoped':
+    		case 'stopped':
     			$return = 'black';
     			break;
     		case 'seeding':
@@ -318,7 +318,7 @@ class ListT extends rtorrent
 
 					if($this->torrents[$torrent[0]]['state'] == 0)
 					{
-						$this->torrents[$torrent[0]]['tstate'] = 'stoped';
+						$this->torrents[$torrent[0]]['tstate'] = 'stopped';
 					} else {
 						if($this->torrents[$torrent[0]]['percent'] != 100){
 							$this->torrents[$torrent[0]]['tstate'] = 'downloading';
@@ -329,12 +329,8 @@ class ListT extends rtorrent
 					if($this->torrents[$torrent[0]]['is_open'] != 1)
 						$this->torrents[$torrent[0]]['tstate'] = 'closed';
 
-					echo '----' . $this->torrent[$torrent[0]]['message'] . '-----';
-					
 					if(($this->torrents[$torrent[0]]['message'] != '') && ($this->torrents[$torrent[0]]['message'] != 'Tracker: [Tried all trackers.]'))
 						$this->torrents[$torrent[0]]['tstate'] = 'message';
-
-					echo '-----' . $this->torrent[$torrent[0]]['message'] . '------';
 					
 					if($this->torrents[$torrent[0]]['is_hash_checking'] == 1)
 						$this->torrents[$torrent[0]]['tstate'] = 'chash';                    
