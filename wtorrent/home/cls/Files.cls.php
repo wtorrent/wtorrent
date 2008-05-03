@@ -17,70 +17,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 class Files extends rtorrent
 {
-	private  $files;
-	private  $hash;
-	private  $info_files = array('', '',
-								'f.get_path=', 
-    							'f.get_completed_chunks=', 
-    							'f.get_size_chunks=',
-    							'f.get_priority=');
-    private $position = 0;
+	private $hash;
 
-    public function construct()
+ 	public function construct()
 	{
 		$this->hash = $this->_request['hash'];
 		
 		if(!$this->setClient())
 			return false;
 			
-		if(isset($this->_request['ch_pr']) && count($this->_request['files']) > 0) $this->changePriorities($this->_request['files'], $this->_request['priority'], $this->hash);
-		$this->getTorrents($this->_request['hash']);
+		$array_f = array('f.get_path', 'f.get_completed_chunks', 'f.get_size_chunks','f.get_priority');
+		$this->multicall->f_multicall($this->hash, $array_f);
 	}
-	
-	
 	public function getHash()
 	{
 		return $this->hash;
 	}
 	public function getFiles()
 	{
-		return $this->files;
-	}
-	public function getName()
-	{
-		return $this->details['name'];
-	}
-	public function getTorrent()
-	{
-		return $this->details['torrent_file'];
-	}
-	public function getDataPath()
-	{
-		return $this->details['data_path'];
-	}
-	public function getPercent()
-	{
-		return $this->details['percent'];
-	}
-	public function getRatio()
-	{
-		return $this->details['ratio'];
+		$num = $this->torrents[$this->hash]->get_size_files();
+		for($i = 0; $i < $num; $i++)
+  	{		
+  		$files[$i]['name'] = $this->torrents[$this->hash]->f_get_path($i);
+  		$files[$i]['size_in_chunks'] = $this->torrents[$this->hash]->f_get_size_chunks($i);
+  		$files[$i]['completed_chunks'] = $this->torrents[$this->hash]->f_get_completed_chunks($i);
+  		$files[$i]['priority'] = $this->torrents[$this->hash]->f_get_priority($i);
+  		$files[$i]['percent'] = floor(($files[$i]['completed_chunks']/$files[$i]['size_in_chunks'])*100);
+  		$files[$i]['size'] = $files[$i]['size_in_chunks'] * $this->torrents[$this->hash]->get_chunk_size();
+  		$files[$i]['size_done'] = $files[$i]['completed_chunks'] * $this->torrents[$this->hash]->get_chunk_size();
+  	}
+		return $files;
 	}
 	public function getSize($key)
 	{
-		return $this->getCorrectUnits($this->files[$key]['size']);
+		return $this->getCorrectUnits($this->torrents[$this->hash]->f_get_size_chunks($key) * $this->torrents[$this->hash]->get_chunk_size());
 	}
 	public function getDone($key)
 	{
-		return $this->getCorrectUnits($this->files[$key]['size_done']);
-	}
-	public function getUp()
-	{
-		return $this->getCorrectUnits($this->details['bytes_up']);
+		return $this->getCorrectUnits($this->torrents[$this->hash]->f_get_completed_chunks($key) * $this->torrents[$this->hash]->get_chunk_size());
 	}
 	public function getPriorityStr($key)
 	{
-		switch($this->files[$key]['priority'])
+		switch($this->torrents[$this->hash]->f_get_priority($key))
 		{
 			case 0:
 				return $this->_str['file_off'];
@@ -98,71 +76,24 @@ class Files extends rtorrent
 		return array('0' => $this->_str['file_off'], '1' => $this->_str['file_normal'], '2' => $this->_str['file_high']);
 	}
 	private function getCorrectUnits($size)
-    {
+ 	{
 		$size_units = 'bytes';
 		if($size >= 1024)
 		{
-	    	$size /= 1024;
-	    	$size_units = 'Kb';
+   		$size /= 1024;
+   		$size_units = 'Kb';
 		}
 		if($size >= 1024)
 		{
-            $size /= 1024;
-            $size_units = 'Mb';
-        }
+    	$size /= 1024;
+      $size_units = 'Mb';
+		}
 		if($size >= 1024)
-        {
-            $size /= 1024;
-            $size_units = 'Gb';
-        }
-        return round($size, 2) .  $size_units;
-
-    }
-
-	private function getTorrents($hash)
     {
-    	
-    	$this->info_files[0] = $hash;
-    	
-		foreach($this->info_files as $param)
-			$array_post[] = new xmlrpcval($param, 'string');
-		
-		// Get chunk size
-		$message = new xmlrpcmsg("d.get_chunk_size", array(new xmlrpcval($hash, 'string')));
-		$result = $this->client->send($message);
-		$chunk_size = $result->val;
-		// Get file info
-    	$message = new xmlrpcmsg("f.multicall", $array_post);
-		$result = $this->client->send($message);
-    	//print_r($result);
-    	foreach($result->val as $key => $file)
-    	{
-    		if(SCRAMBLE === true)
-    			$file[0] = $this->scramble($file[0]);
-    			
-    		$this->files[$key]['name'] = $file[0];
-    		$this->files[$key]['size_in_chunks'] = $file[2];
-    		$this->files[$key]['completed_chunks'] = $file[1];
-    		$this->files[$key]['priority'] = $file[3];
-    		$this->files[$key]['percent'] = floor(($this->files[$key]['completed_chunks']/$this->files[$key]['size_in_chunks'])*100);
-    		$this->files[$key]['size'] = $this->files[$key]['size_in_chunks'] * $chunk_size;
-    		$this->files[$key]['size_done'] = $this->files[$key]['completed_chunks'] * $chunk_size;
-    	}
-    	//print_r($this->files);
-    }
-    private function changePriorities($files, $priorities, $hash)
-    {
-    	$f_index = array_keys($files);
-    	//print_r($f_index);
-    	
-    	foreach($f_index as $param)
-			$array_post[] = new xmlrpcmsg('f.set_priority', array(new xmlrpcval($hash, 'string'), new xmlrpcval($param, 'int'), new xmlrpcval($priorities, 'int')));
-		
-		//print_r($array_post);	
-		$responses = $this->client->multicall($array_post);
-		
-		$mesage = new xmlrpcmsg('d.update_priorities', array(new xmlrpcval($hash, 'string')));
-		$this->client->send($mesage);
-    }
+    	$size /= 1024;
+      $size_units = 'Gb';
+		}
+    return round($size, 1) .  $size_units;
+  }
 }
 ?>

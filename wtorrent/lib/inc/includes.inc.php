@@ -21,6 +21,8 @@ Class done by David Marco Martinez
 require_once( 'lib/smarty/Smarty.class.php' );
 require_once( 'lib/cls/Web.cls.php');
 require_once( 'cls/rtorrent.cls.php' );
+require_once( 'cls/torrent.cls.php' );
+require_once( 'cls/multicall.cls.php' );
 require_once( 'lib/xmlrpc/xmlrpc.inc.php' );
 require_once( 'lib/inc/utils.inc.php' );
 require_once( 'lib/inc/string.inc.php' );

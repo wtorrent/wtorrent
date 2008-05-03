@@ -176,8 +176,8 @@ function command(command, param)
 	// Execute the command through ajax
 	ajaxCall(frame, call[0]);
 	// Update the page (after 500ms to give rtorrent time to process the command (also set the frame to loading)
-	loadingContent(call[1]);
-	window.setTimeout("load('" + call[1] + "', '" + call[2] + "')", 500);
+	//loadingContent(call[1]);
+	window.setTimeout("load('" + call[1] + "', '" + call[2] + "')", 100);
 }
 
 function ajaxCall(frame, pars)

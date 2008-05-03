@@ -17,184 +17,175 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 class Commands extends rtorrent
 {
-    /////////////////////////////////// C O N S T R U C T O R A S  Y  D E S T R U C T O R A ///////////////////////////////////
-
-    public function construct()
+	public function construct()
 	{
-    	if(isset($this->_request['command']) && $this->_request['command'] != '' && isset($this->_request['param']) && $this->_request['param'] != '') 
-    	{
-    		if(!$this->setClient())
-    			return false;
-    			
-    		switch($this->_request['command'])
-    		{
-    			case 'start':
-    				$this->start($this->_request['param']);
-    				break;
-    			case 'stop':
-    				$this->stop($this->_request['param']);
-    				break;
-    			case 'close':
-    				$this->close($this->_request['param']);
-    				break;
-    			case 'erase':
-    				$this->erase($this->_request['param']);
-    				break;
-    			case 'chash':
-    				$this->chash($this->_request['param']);
-    				break;
-    			case 'set_down_limit':
-    				$this->setDownLimit($this->_request['param']);
-    				break;
-    			case 'set_up_limit':
-    				$this->setUploadLimit($this->_request['param']);
-    				break;
-    			case 'files':
-    				$this->changeFiles($this->_request['param'], $this->_request['param1'], $this->_request['param2']);
-    				break;
-    			case 'info':
-    				$this->changePriority($this->_request['param'], $this->_request['param1']);
-    				break;
-    			case 'trackers':
-    				$this->changeTrackers($this->_request['param'], $this->_request['param1'], $this->_request['param2']);
-    				break;
-    			default:
-    				$this->addMessage($this->_str['command_error']);
-    				break;
-    				
-    		}
-    	} else {
-    		$this->addMessage($this->_str['command_error']);
-    	}
+		if(isset($this->_request['command']) && $this->_request['command'] != '' && isset($this->_request['param']) && $this->_request['param'] != '') 
+		{
+			if(!$this->setClient())
+				return false;
+
+			switch($this->_request['command'])
+			{
+				case 'start':
+				$this->start($this->_request['param']);
+				break;
+				case 'stop':
+				$this->stop($this->_request['param']);
+				break;
+				case 'close':
+				$this->close($this->_request['param']);
+				break;
+				case 'erase':
+				$this->erase($this->_request['param']);
+				break;
+				case 'chash':
+				$this->chash($this->_request['param']);
+				break;
+				case 'set_down_limit':
+				$this->setDownLimit($this->_request['param']);
+				break;
+				case 'set_up_limit':
+				$this->setUploadLimit($this->_request['param']);
+				break;
+				case 'files':
+				$this->changeFiles($this->_request['param'], $this->_request['param1'], $this->_request['param2']);
+				break;
+				case 'info':
+				$this->changePriority($this->_request['param'], $this->_request['param1']);
+				break;
+				case 'trackers':
+				$this->changeTrackers($this->_request['param'], $this->_request['param1'], $this->_request['param2']);
+				break;
+				default:
+				$this->addMessage($this->_str['command_error']);
+				break;
+
+			}
+		} else {
+			$this->addMessage($this->_str['command_error']);
+		}
 	}
 	private function stop($hashes)
+	{
+		$hashes = explode('~', $hashes);
+		if(!is_array($hashes))
+			$hashes = array($hashes);
+
+		foreach($hashes as $hash)
+		{
+			$this->torrents[$hash]->stop(true);
+		}
+		$this->multicall->call();
+
+		$this->addMessage($this->_str['info_tor_stop']);
+	}
+	private function close($hashes)
+	{
+		$hashes = explode('~', $hashes);
+		if(!is_array($hashes))
+			$hashes = array($hashes);
+
+		foreach($hashes as $hash)
+		{
+			$this->torrents[$hash]->close(true);
+		}
+		$this->multicall->call();
+
+		$this->addMessage($this->_str['info_tor_close']);
+	}
+	private function chash($hashes)
+	{
+		$hashes = explode('~', $hashes);
+   	if(!is_array($hashes))
+   		$hashes = array($hashes);
+   	
+   	foreach($hashes as $hash)
+   	{
+   		$this->torrents[$hash]->check_hash(true);
+   	}
+		$this->multicall->call();
+   	
+   	$this->addMessage($this->_str['info_tor_chash']);
+	}
+	private function start($hashes)
+	{
+ 		$hashes = explode('~', $hashes);
+   	if(!is_array($hashes))
+   		$hashes = array($hashes);
+   	
+   	foreach($hashes as $hash)
+   	{
+   		$this->torrents[$hash]->start(true);
+   	}
+		$this->multicall->call();
+   	
+   	$this->addMessage($this->_str['info_tor_start']);
+	}
+  private function erase($hashes)
+	{
+  	$hashes = explode('~', $hashes);
+    if(!is_array($hashes))
+    	$hashes = array($hashes);
+    	
+    foreach($hashes as $hash)
     {
-    	$hashes = explode('~', $hashes);
-    	if(!is_array($hashes))
-    		$hashes = array($hashes);
-    	
-    	foreach($hashes as $hash)
-    	{
-    		$message = new xmlrpcmsg("d.stop", array(new xmlrpcval($hash, 'string')));
-    		$result = $this->client->send($message);
-    	}
-    	
-    	$this->addMessage($this->_str['info_tor_stop']);
+    	$this->torrents[$hash]->erase();
+			$this->erase_db($hash);
     }
-    private function close($hashes)
-    {
-    	$hashes = explode('~', $hashes);
-    	if(!is_array($hashes))
-    		$hashes = array($hashes);
     	
-    	foreach($hashes as $hash)
-    	{
-    		$message = new xmlrpcmsg("d.close", array(new xmlrpcval($hash, 'string')));
-    		$result = $this->client->send($message);
-    	}
-    	
-    	$this->addMessage($this->_str['info_tor_close']);
-    }
-    private function chash($hashes)
-    {
-    	$hashes = explode('~', $hashes);
-    	if(!is_array($hashes))
-    		$hashes = array($hashes);
-    	
-    	foreach($hashes as $hash)
-    	{
-    		$message = new xmlrpcmsg("d.check_hash", array(new xmlrpcval($hash, 'string')));
-    		$result = $this->client->send($message);
-    	}
-    	
-    	$this->addMessage($this->_str['info_tor_chash']);
-    }
-    private function start($hashes)
-    {
-    	$hashes = explode('~', $hashes);
-    	if(!is_array($hashes))
-    		$hashes = array($hashes);
-    	
-    	foreach($hashes as $hash)
-    	{
-    		$message = new xmlrpcmsg("d.start", array(new xmlrpcval($hash, 'string')));
-			$result = $this->client->send($message);
-    	}
-    	
-    	$this->addMessage($this->_str['info_tor_start']);
-    }
-    private function erase($hashes)
-    {
-    	$hashes = explode('~', $hashes);
-    	if(!is_array($hashes))
-    		$hashes = array($hashes);
-    	
-    	foreach($hashes as $hash)
-    	{
-    		$message = new xmlrpcmsg("d.erase", array(new xmlrpcval($hash, 'string')));
-			$result = $this->client->send($message);
-			$sql = "delete from torrents where hash = '" . $hash . "'";
-			$this->_db->query($sql);
-    	}
-    	
-    	$this->addMessage($this->_str['info_tor_erase']);
-    }
-    private function setDownLimit($limit)
-    {
-    	$message = new xmlrpcmsg("set_download_rate", array(new xmlrpcval($limit*1024, 'int')));
-		$result = $this->client->send($message);
-		//print_r($result);
-		if($result->errno == 0)
+    $this->addMessage($this->_str['info_tor_erase']);
+	}
+	private function setDownLimit($limit)
+	{
+  	$result = $this->set_download_rate($limit*1024);
+		if($result)
 			$this->addMessage($this->_str['info_down_limit']);
 		else
 			$this->addMessage($this->_str['err_down_limit']);	
-    }
-    private function setUploadLimit($limit)
-    {
-    	$message = new xmlrpcmsg("set_upload_rate", array(new xmlrpcval($limit*1024, 'int')));
-		$result = $this->client->send($message);
-		if($result->errno == 0)
-			$this->addMessage($this->_str['info_up_limit']);
+	}
+  private function setUploadLimit($limit)
+	{
+  	$result = $this->set_upload_rate($limit*1024);
+		if($result)
+			$this->addMessage($this->_str['info_down_limit']);
 		else
-			$this->addMessage($this->_str['err_up_limit']);	
-    }
-    private function changeFiles($hash, $priority, $files)
-    {
-    	$files = explode('~', $files);
+			$this->addMessage($this->_str['err_down_limit']);
+	}
+  private function changeFiles($hash, $priority, $files)
+	{
+		$files = explode('~', $files);
     	
-    	foreach($files as $param)
-			$array_post[] = new xmlrpcmsg('f.set_priority', array(new xmlrpcval($hash, 'string'), new xmlrpcval($param, 'int'), new xmlrpcval($priority, 'int')));
+		foreach($files as $param)
+			$this->torrents[$hash]->f_set_priority($param, $priority, true);
 		
-		$result = $this->client->multicall($array_post);
+		$result = $this->multicall->call();
 		
-		if($result->errno == 0)
+		if($result)
 			$this->addMessage($this->_str['info_ch_files']);
 		else
 			$this->addMessage($this->_str['err_ch_files']);
 			 
-		$mesage = new xmlrpcmsg('d.update_priorities', array(new xmlrpcval($hash, 'string')));
-		$this->client->send($mesage);
-    }
-    private function changePriority($hash, $priority)
-    {
-    	$message = new xmlrpcmsg("d.set_priority", array(new xmlrpcval($hash, 'string'), new xmlrpcval($priority, 'int')));
-		$result = $this->client->send($message);
-		if($result->errno == 0)
-			$this->addMessage($this->_str['info_pr']);
-    	else 
-    		$this->addMessage($this->_str['err_pr']);
-    }
-    private function changeTrackers($hash, $enabled, $t_index)
-    {
-    	$t_index = explode('~', $t_index);
-    	//print_r($f_index);
-    	
-    	foreach($t_index as $param)
-			$array_post[] = new xmlrpcmsg('t.set_enabled', array(new xmlrpcval($hash, 'string'), new xmlrpcval($param, 'int'), new xmlrpcval($enabled, 'int')));
+		$this->torrents[$hash]->update_priorities();
+	}
+  private function changePriority($hash, $priority)
+	{
+		$result = $this->torrents[$hash]->d_set_priority($priority);
 		
-		//print_r($array_post);	
-		$responses = $this->client->multicall($array_post);
+		if($result)
+			$this->addMessage($this->_str['info_pr']);
+    else 
+			$this->addMessage($this->_str['err_pr']);
+	}
+  private function changeTrackers($hash, $enabled, $trackers)
+	{
+		$trackers = explode('~', $trackers);
+    	
+		foreach($trackers as $param)
+			$this->torrents[$hash]->t_set_enabled($param, $enabled, true);
+		
+		$this->multicall->call();
+		
 		$this->addMessage($this->_str['info_ch_trackers']);
-    }
+	}
 }
 ?>

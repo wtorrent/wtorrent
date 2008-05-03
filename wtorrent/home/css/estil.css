@@ -67,6 +67,7 @@ img {
 	border: 1px solid #FF6600;
 	cursor: default;
 	display: none;
+	height: 12px;
 }
 .messages:hover {
 	filter:alpha(opacity=100); 
