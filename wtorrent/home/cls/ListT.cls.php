@@ -192,6 +192,8 @@ class ListT extends rtorrent
 
 		if($this->torrents[$hash]->is_hash_checking() == 1)
 			$return = 'chash';
+			
+		return $return;
 	}
 	public function getTstyle($hash)
 	{
