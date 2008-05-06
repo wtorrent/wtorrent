@@ -7,7 +7,7 @@
     {/if}
 	<div id="tbCell" style="cursor: pointer; background-color: #e5edf4; border-top: 0px solid #d4d4d4;{if isset($bg_cell)} background-image: url({$bg_cell});{/if}" onmouseover="style.backgroundColor='#d5e991';" onmouseout="style.backgroundColor='#e5edf4'">	
 		<div id="tbContentCell" style="width: 96px; padding-left: 0px; padding-top: 6px; height: 24px; text-align: left;">
-			<input type="checkbox" id="{$hash}" class="torrent" style="margin-bottom: 5px;" />
+			<input type="checkbox" id="{$hash}" class="torrent" style="margin: 0 0 5px 3px;" />
 			{if $web->getState($hash) eq 0 || $web->getOpen($hash) eq 0}
                 <div style="cursor: pointer; display: inline;">
                     <img src="{$DIR_IMG}bullet_go.png" onclick="command('start', '{$hash}');" alt="{$str.start}" title="{$str.start}" />

@@ -33,13 +33,6 @@
 {literal}
 <script language="javascript" type="text/javascript">
 function postAjax() {
-    /* Render the lateral torrents tabs */
-	var tabsL = document.getElementsByClassName('tabsLeft');
-	for (var i=0; i < tabsL.length; i++) {
-		var tabs = tabsL[i].getElementsByTagName('li');
-		for(var j = 0; j < tabs.length; j++)
-			tabL.render(tabs[j]);
-	}
     /* Render the tips */
     var tips = $$('.torrent');
     for(var i = 0; i < tips.length; i++)

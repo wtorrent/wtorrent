@@ -5,11 +5,6 @@ function resizeInnerTab(hash) {
     } else {
         Effect.toggle('ttab' + hash, 'blind', {duration:0.5});
     }
-    resize();
-}
-/* Resize to make shadedborders render the div again */
-function resize() {
-	Main.render('principal');
 }
 /* Check all elements of the specified class */
 function checkAllByClass(styleClass) {
@@ -103,32 +98,32 @@ function loadingContent(frame) {
     switch(frame)
     {
         case 'messages':
-		    $(frame).style.display = "block";
-		    var loadingDiv = loadingCommand;
-            $(frame).innerHTML = loadingDiv;
-            break;
+		    	$(frame + '_box').style.display = "block";
+		    	var loadingDiv = loadingCommand;
+          $(frame).innerHTML = loadingDiv;
+          break;
         case 'content':
-		    var loadingDiv = loading;
-            $(frame).innerHTML = loadingDiv;
-            break;
+		    	var loadingDiv = loading;
+          $(frame).innerHTML = loadingDiv;
+          break;
         default:
-            loadingTab(frame);
-            break;
+          loadingTab(frame);
+          break;
     }
     //contractFrame(frame);
 }
 function loadingTab(frame)
 {
     contractFrame('t' + frame);
-    var node1 = document.getElementById('node1');
     var overlayCell = $('loadingCell').cloneNode(true);
     var positions = findPos($('i' + frame));
     overlayCell.setAttribute('id', 'l' + frame);
-    overlayCell.style.left = positions[0] + 'px';
+    overlayCell.style.left = (positions[0] + 31) + 'px';
     overlayCell.style.top = positions[1] + 'px';
     document.body.appendChild(overlayCell);
     overlayCell.show();
-    new Effect.Opacity(overlayCell, {duration:0.2, from:0, to:0.6});
+		//overlayCell.setOpacity(0.6);
+    //new Effect.Opacity(overlayCell, {duration:0.2, from:0, to:0.6});
     return;
 }
 /* Load AJAX RESPONSE in given content */
@@ -137,11 +132,12 @@ function responseContent(originalRequest, frame) {
     $(frame).innerHTML = newData;
     if(frame != "content" && frame != "messages") {
         var onFinish = (function (frame) { return function (obj) { $(frame).remove(); } })('l'+ frame);
-        new Effect.Opacity('l' + frame, {duration:0.2, from:0.6, to:0, afterFinish: onFinish});
-        window.setTimeout("expandFrame('t" + frame + "')", 100);
+        //new Effect.Opacity('l' + frame, {duration:0.2, from:0.6, to:0, afterFinish: onFinish});
+        //$('l' + frame).setOpacity(0);
+				$('l' + frame).remove();
+				window.setTimeout("expandFrame('t" + frame + "')", 100);
     }
 	postAjax();
-	resize();
 }
 function expandFrame(frame) {
     new Effect.BlindDown(frame, {duration:0.5});

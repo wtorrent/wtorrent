@@ -24,7 +24,8 @@ class rtorrent extends Web
 	protected $torrents;
 	protected $data;
 	
-	private $menu = array('Main' => 'ListT',
+	private $menu = array(
+						'Main' => 'ListT',
 						'Add Torrent' => 'AddT',
 						'Feeds' => 'Feeds',
 						'Cookie' => 'Cookie');
