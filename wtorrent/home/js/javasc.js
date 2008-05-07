@@ -74,7 +74,7 @@ function getContent(id)
 			break;
 		default:
 			var pars = 'cls=ListT&tpl=ajax&view=' + id;
-			view = 'public';
+			view = id;
 			tab = 1;
 			break;
 	}
@@ -330,4 +330,7 @@ function torrentTip(elementId) {
             viewport: false         // keep within viewport, false when fixed or hooked
         }
     );
+}
+function refresh() {
+	load('content', view);
 }

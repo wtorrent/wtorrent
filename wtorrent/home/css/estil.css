@@ -457,3 +457,11 @@ img {
 	-moz-opacity: 0.6;
 	filter:alpha(opacity=60);
 }
+#refresh {
+	background: transparent url(../img/refresh.png) no-repeat;
+	width: 73px;
+	height: 73px;
+	clear: both;
+	margin: 0 auto;
+	cursor: pointer;
+}
