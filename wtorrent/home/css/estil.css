@@ -243,15 +243,69 @@ img {
 	float:left; 
 }
 .tabs {
-	background: transparent url(../img/tabs/bg_tab.png) no-repeat;
-	width: 166px;
 	height: 31px;
 	margin: 1px 0 0 0;
-	padding: 13px 0 0 0;
+	padding: 7px 0 0 0;
 	text-decoration:none;
 	color: #444;
   cursor: pointer;
 	font: normal normal bold 10px verdana, arial;
+}
+.tabs div.left {
+	background: transparent url(../img/tabs/bg_tabs_l.png) no-repeat;
+	width: 18px;
+	height: 24px;
+	float: left;
+	clear: left;
+}
+.tabs div.text {
+	background: transparent url(../img/tabs/bg_tabs_t.png) repeat-x;
+	height: 24px;
+	clear: none;
+	float: left;
+	padding: 6px 0 0 0;
+}
+.tabs div.middle {
+	background: transparent url(../img/tabs/bg_tabs_m.png) no-repeat;
+	width: 26px;
+	height: 24px;
+	clear: none;
+	float: left;
+}
+.tabs div.right {
+	background: transparent url(../img/tabs/bg_tabs_r.png) no-repeat;
+	width: 19px;
+	height: 24px;
+	float: left;
+	clear: right;
+}
+.tabs div.rtorrent_left {
+	background: transparent url(../img/tabs/bg_tabs_rtorrent_l.png) no-repeat;
+	width: 26px;
+	height: 24px;
+	clear: none;
+	float: left;
+}
+.tabs div.rtorrent_text {
+		background: transparent url(../img/tabs/bg_tabs_rtorrent_t.png) repeat-x;
+		height: 24px;
+		clear: none;
+		float: left;
+		padding: 6px 0 0 0;
+}
+.tabs div.rtorrent_right {
+	background: transparent url(../img/tabs/bg_tabs_rtorrent_r.png) no-repeat;
+	width: 19px;
+	height: 24px;
+	float: left;
+	clear: right;
+}
+.tabs div.rtorrent_middle {
+	background: transparent url(../img/tabs/bg_tabs_rtorrent_m.png) no-repeat;
+	width: 26px;
+	height: 24px;
+	float: left;
+	clear: none;
 }
 .tabs:hover {
 	color: #5699d6;

@@ -29,8 +29,8 @@ change_pr = Change priority
 start_now = Start now:
 private = Private:
 no_torrents = No torrents found
-pl_torrents = Public Torrents
-pr_torrents = Private Torrents
+pl_torrents = public
+pr_torrents = private
 
 down_limit = Download limit:
 up_limit = Upload limit:

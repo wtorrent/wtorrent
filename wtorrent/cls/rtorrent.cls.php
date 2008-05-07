@@ -23,6 +23,7 @@ class rtorrent extends Web
 	protected $multicall;
 	protected $torrents;
 	protected $data;
+	protected $rtorrent_view;
 	
 	private $menu = array(
 						'Main' => 'ListT',
@@ -177,7 +178,7 @@ class rtorrent extends Web
 	}
 	/* Initializes torrent objects */
 	protected function setTorrents() {
-		$message = new xmlrpcmsg("d.multicall", array(new xmlrpcval('default', 'string'),new xmlrpcval('d.get_hash=', 'string')));
+		$message = new xmlrpcmsg("d.multicall", array(new xmlrpcval($this->rtorrent_view, 'string'),new xmlrpcval('d.get_hash=', 'string')));
 		$result = $this->client->send($message);
 		if(is_array($result->val))
 		{
@@ -188,22 +189,29 @@ class rtorrent extends Web
 			/* Mark torrents as public/private and assign owners */
 			$private_torrents = $this->getPrivate();
 			$hashes = $this->getHashes();
-			foreach($hashes as $hash)
+			if(!empty($hashes))
 			{
-				if(array_key_exists($hash, $private_torrents))
+				foreach($hashes as $hash)
 				{
-					$this->data[$hash]['private'] = true;
-					$this->data[$hash]['owner'] = $private_torrents[$hash];
-				} else {
-					$this->data[$hash]['private'] = false;
-					$this->data[$hash]['owner'] = 0;
+					if(array_key_exists($hash, $private_torrents))
+					{
+						$this->data[$hash]['private'] = true;
+						$this->data[$hash]['owner'] = $private_torrents[$hash];
+					} else {
+						$this->data[$hash]['private'] = false;
+						$this->data[$hash]['owner'] = 0;
+					}
 				}
 			}
 		}
 	}
 	protected function getHashes()
 	{
-		return array_keys($this->torrents);
+		if(!empty($this->torrents))
+		{
+			$return = array_keys($this->torrents);
+		}
+		return $return;
 	}
 	protected function erase_db($hash)
 	{
@@ -240,6 +248,39 @@ class rtorrent extends Web
 			$return = false;
 		}
 		return $return;
+	}
+	/* User Interface methods */
+	private function get_info_rtorrent($method, $multicall, $update)
+	{
+		if($update || !isset($this->data[$method]))
+		{
+			$message = new xmlrpcmsg($method);
+		}
+		
+		if(isset($message))
+		{
+			if($multicall === true)
+			{
+				$return = $this->multicall->add($message, $this->hash);
+			}
+			else
+			{
+				$result = $this->client->send($message);
+				$return = $this->checkError($result);
+				if($return)
+				{
+					$this->data[$method] = $result->val;
+					$return = $result->val;
+				}
+			}
+		} else {
+			$return = $this->data[$method];
+		}
+		return $return;
+	}
+	public function view_list($multicall = false, $update = false)
+	{
+		return $this->get_info_rtorrent('view_list', $multicall, $update);
 	}
 }
 ?>

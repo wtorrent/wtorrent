@@ -60,15 +60,23 @@ function getShowFunctions(frame)
 /* Get URL to change the content of the Top tabs */
 function getContent(id)
 {
-	if(id == 'public') {
-		var pars = 'cls=ListT&tpl=ajax&view=public';
-		view = 'public';
-		tab = 1;
-	}
-	if(id == 'private') {
-		var pars = 'cls=ListT&tpl=ajax&view=private';
-		view = 'private';
-		tab = 1;
+	switch(id)
+	{
+		case 'public':
+			var pars = 'cls=ListT&tpl=ajax&view=public';
+			view = 'public';
+			tab = 1;
+			break;
+		case 'private':
+			var pars = 'cls=ListT&tpl=ajax&view=private';
+			view = 'private';
+			tab = 1;
+			break;
+		default:
+			var pars = 'cls=ListT&tpl=ajax&view=' + id;
+			view = 'public';
+			tab = 1;
+			break;
 	}
 	return pars;
 }

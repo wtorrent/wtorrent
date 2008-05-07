@@ -22,25 +22,51 @@ class ListT extends rtorrent
  
   public function construct()
 	{
-		if($this->_request['view'] == 'public') $this->view = 'public';
-		if($this->_request['view'] == 'private') $this->view = 'private';
-		if(!isset($this->_request['view'])) $this->view = 'public';
+		/*if(($this->_request['view'] == 'public') || !isset($this->_request['view'])) {
+			$this->view = 'public';
+			$this->rtorrent_view = 'default';
+		} 
+		if($this->_request['view'] == 'private') {
+			$this->view = 'private';
+			$this->rtorrent_view = 'default';
+		}
+		if(isset($this->_request['view']) && ) $this->view = $this->_request['view'];*/
+		switch($this->_request['view'])
+		{
+			case 'public':
+				$this->view = 'public';
+				$this->rtorrent_view = 'default';
+				break;
+			case 'private':
+				$this->view = 'private';
+				$this->rtorrent_view = 'default';
+				break;
+			default:
+				if(isset($this->_request['view']))
+				{
+					$this->view = 'public';
+					$this->rtorrent_view = $this->_request['view'];
+				} else {
+					$this->view = 'public';
+					$this->rtorrent_view = 'default';
+				}
+				break;
+		}
 		
 		if(!$this->setClient())
 			return false;
 		
 		/* d multicall with all the necessary info to generate the torrent list */
 		$array_d = array('d.get_name', 'd.get_down_rate', 'd.get_up_rate', 'd.get_chunk_size','d.get_completed_chunks','d.get_size_chunks','d.get_state','d.get_peers_accounted','d.get_peers_complete','d.is_hash_checking','d.get_ratio','d.get_tracker_size','d.is_active','d.is_open','d.get_message','d.get_creation_date');
- 		$this->multicall->d_multicall($array_d);
+ 		$this->multicall->d_multicall($array_d, $this->rtorrent_view);
 		// t multicall
 		$array_t = array('t.get_scrape_complete', 't.get_scrape_incomplete');
 		$hashes = $this->getHashes(); // Retrieve hashes
-		foreach($hashes as $hash)
-			$this->multicall->t_multicall($hash, $array_t);
-		
-		if(isset($this->_request['start'])) $this->start($this->_request['start']);
-		if(isset($this->_request['stop'])) $this->stop($this->_request['stop']);
-		if(isset($this->_request['erase'])) $this->erase($this->_request['erase']);
+		if(!empty($hashes))
+		{
+			foreach($hashes as $hash)
+				$this->multicall->t_multicall($hash, $array_t);
+		}
 	}
 
 	public function getView()
@@ -50,10 +76,12 @@ class ListT extends rtorrent
 	public function getPublicHashes()
 	{
 		$hashes = $this->getHashes();
-		foreach($hashes as $hash)
-			if($this->torrents[$hash]->get_private() === false)
-				$return[] = $hash;
-				
+		if(!empty($hashes))
+		{
+			foreach($hashes as $hash)
+				if($this->torrents[$hash]->get_private() === false)
+					$return[] = $hash;
+		}		
 		return $return;
 	}
 	public function getPublicHashesNum()
@@ -84,6 +112,16 @@ class ListT extends rtorrent
 			$i++;
 				
 		return $i;
+	}
+	public function getViews()
+	{
+		$array_filter = array('main', 'default', 'scheduler', 'name');
+		foreach($this->view_list() as $view)
+		{
+			if(!in_array($view, $array_filter))
+				$return[] = $view; 
+		}
+		return $return;
 	}
 	public function getName($hash)
 	{

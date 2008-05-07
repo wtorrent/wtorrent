@@ -85,14 +85,17 @@ class multicall
 		if($this->checkError($result))
 		{
 			$i = 0;
-			foreach($this->data as &$torrent)
+			if(!empty($this->data))
 			{
-				$num = count($result->val[$i]);
-				for($j = 0; $j < $num; $j++)
+				foreach($this->data as &$torrent)
 				{
-					$torrent[$methods[$j]] = $result->val[$i][$j];
+					$num = count($result->val[$i]);
+					for($j = 0; $j < $num; $j++)
+					{
+						$torrent[$methods[$j]] = $result->val[$i][$j];
+					}
+					$i++;
 				}
-				$i++;
 			}
 			$return = true;
 		} else {
