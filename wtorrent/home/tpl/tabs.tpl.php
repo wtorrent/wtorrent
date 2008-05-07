@@ -23,7 +23,6 @@
 			</div>
 		</div>
 	</li>
-	{/if}
 	{foreach item=view from=$web->getViews() name="views"}
 	<li>
 		<div class="tabs" onclick="load('content', '{$view}');">
@@ -42,4 +41,5 @@
 			</div>
 	</li>
 	{/foreach}
+	{/if}
 </ul>
