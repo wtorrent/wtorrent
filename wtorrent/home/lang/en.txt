@@ -126,3 +126,17 @@ no_curl_function = No curl function in php
 
 default_dir = Default directory
 force_default = Force default dir only
+
+ip = IP
+speed = Speed (Kb)
+connection = Connection
+percent_done = % Done
+encryption = Encrypted
+client = Client
+down = DL (Kb)
+incoming = Incoming
+outgoing = Outgoing
+yes = Yes
+no = No
+up_peer = UP Peer (Kb)
+down_peer = DL Peer (Kb)

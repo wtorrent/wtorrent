@@ -186,6 +186,10 @@ class torrent
 	{
 		return $this->get_info('d.get_peers_complete', $multicall, $update);
 	}
+	public function get_peers_connected($multicall = false, $update = false)
+	{
+		return $this->get_info('d.get_peers_connected', $multicall, $update);
+	}
 	public function is_hash_checking($multicall = false, $update = false)
 	{
 		return $this->get_info('d.is_hash_checking', $multicall, $update);
@@ -316,6 +320,39 @@ class torrent
 	public function f_get_priority($param, $multicall = false, $update = false)
 	{
 		return $this->get_info_object('f.get_priority', $param, $multicall, $update);
+	}
+	/* Peers methods */
+	public function p_get_address($param, $multicall = false, $update = false)
+	{
+		return $this->get_info_object('p.get_address', $param, $multicall, $update);
+	}
+	public function p_get_down_rate($param, $multicall = false, $update = false)
+	{
+		return $this->get_info_object('p.get_down_rate', $param, $multicall, $update);
+	}
+	public function p_get_up_rate($param, $multicall = false, $update = false)
+	{
+		return $this->get_info_object('p.get_up_rate', $param, $multicall, $update);
+	}
+	public function p_is_incoming($param, $multicall = false, $update = false)
+	{
+		return $this->get_info_object('p.is_incoming', $param, $multicall, $update);
+	}
+	public function p_get_completed_percent($param, $multicall = false, $update = false)
+	{
+		return $this->get_info_object('p.get_completed_percent', $param, $multicall, $update);
+	}
+	public function p_is_encrypted($param, $multicall = false, $update = false)
+	{
+		return $this->get_info_object('p.is_encrypted', $param, $multicall, $update);
+	}
+	public function p_get_peer_rate($param, $multicall = false, $update = false)
+	{
+		return $this->get_info_object('p.get_peer_rate', $param, $multicall, $update);
+	}
+	public function p_get_client_version($param, $multicall = false, $update = false)
+	{
+		return $this->get_info_object('p.get_client_version', $param, $multicall, $update);
 	}
 	/* wTorrent specific atributes */
 	public function get_private()

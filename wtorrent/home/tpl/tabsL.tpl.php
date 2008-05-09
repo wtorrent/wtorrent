@@ -16,6 +16,11 @@
 					
 				</div>
 			</li>
+			<li>
+				<div id="ptab{$hash}" class="tabsL peers" onclick="load('tab{$hash}', 'peers');">
+					
+				</div>
+			</li>
 {/if}
 </ul>
 </div>

@@ -228,7 +228,8 @@ img {
 	height: 31px; 
 	width: 31px; 
 	float: left;
-	background-color: transparent; 
+	background-color: transparent;
+	clear: right;
 }
 /* The tabs */
 #tabs {
@@ -341,6 +342,9 @@ img {
 }
 .trackers {
 	background: transparent url(../img/tabsL/trackers.png) no-repeat;
+}
+.peers {
+	background: transparent url(../img/tabsL/peers.png) no-repeat;
 }
 .noTorrents {
 	height: 30px; 

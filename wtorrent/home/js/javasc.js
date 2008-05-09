@@ -95,6 +95,9 @@ function getFrame(content, frame)
 		case 'trackers':	
 			cls = 'Tracker';
 			break;
+		case 'peers':
+			cls = 'Peers';
+			break;
 		default:
 			break;
 	}

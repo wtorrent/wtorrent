@@ -85,6 +85,6 @@
 	</div>
 </div>
 <div class="tbBulk" id="ttab{$hash}" style="display: none; height: auto;">
-	<div id="tbColTab">{include file="tabsL.tpl.php" id=$clau hash=$hash}</div>
-    <div id="tab{$hash}" style="border: 1px solid #d4d4d4; border-top-width: 0px; width: 912px; float: left; display: block;"></div>
+	<div id="tbColTab" style="height: 125px;">{include file="tabsL.tpl.php" id=$clau hash=$hash}</div>
+    <div id="tab{$hash}" style="border: 1px solid #d4d4d4; border-top-width: 0px; width: 912px; float: left; display: block; min-height: 125px;"></div>
 </div>
