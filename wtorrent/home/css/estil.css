@@ -355,6 +355,15 @@ img {
 	font-weight: bold; 
 	padding-top: 20px;
 }
+.noPeers {
+	height: 20px; 
+	width: 100%; 
+	text-align: center; 
+	font-style: italic; 
+	font-size: 12px; 
+	font-weight: bold; 
+	padding-top: 8px;
+}
 .but_bottom {
 	display: inline; 
 	border: 1px solid #d4d4d4; 

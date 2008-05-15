@@ -140,3 +140,4 @@ yes = Yes
 no = No
 up_peer = UP Peer (Kb)
 down_peer = DL Peer (Kb)
+no_peers = No peers found

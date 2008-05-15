@@ -8,8 +8,8 @@
 		<td style="width: 50px; padding: 5px; text-align: center;">{$str.encryption}</td>
 		<td style="width: 50px; padding: 5px; text-align: center;">{$str.down}</td>
 		<td style="width: 150px; padding: 5px; text-align: center;">{$str.client}</td>
-	</tr>	
-	{foreach key=clau item=peer from=$web->getPeers()}
+	</tr>
+{foreach key=clau item=peer from=$web->getPeers()}
 	<tr style="font-family: arial; font-size: 11px;">
 		<td style="font-weight: bold; padding: 4px 4px 4px 20px; text-align: left">
 			{$peer.ip}
@@ -44,5 +44,10 @@
 			{$peer.client}
 		</td>
 	</tr>
-	{/foreach}
 </table>
+{foreachelse}
+</table>
+<div class="noPeers">
+	{$str.no_peers}
+</div>
+{/foreach}

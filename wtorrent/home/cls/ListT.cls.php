@@ -88,29 +88,35 @@ class ListT extends rtorrent
 	{
 		$hashes = $this->getHashes();
 		$i = 0;
-		foreach($hashes as $hash)
-			if($this->torrents[$hash]->get_private() === false)
-				$i++;
-				
+		if(!empty($hashes))
+		{
+			foreach($hashes as $hash)
+				if($this->torrents[$hash]->get_private() === false)
+					$i++;
+		}		
 		return $i;
 	}
 	public function getPrivateHashes()
 	{
 		$hashes = $this->getHashes();
-		foreach($hashes as $hash)
-			if(($this->torrents[$hash]->get_private() === true) && ($this->torrents[$hash]->get_owner() == $this->getIdUser()))
-				$return[] = $hash;
-				
+		if(!empty($hashes))
+		{
+			foreach($hashes as $hash)
+				if(($this->torrents[$hash]->get_private() === true) && ($this->torrents[$hash]->get_owner() == $this->getIdUser()))
+					$return[] = $hash;
+		}
 		return $return;
 	}
 	public function getPrivateHashesNum()
 	{
 		$hashes = $this->getHashes();
 		$i = 0;
-		foreach($hashes as $hash)
-		if(($this->torrents[$hash]->get_private() === false) && ($this->torrents[$hash]->get_owner() == $this->getIdUser()))
-			$i++;
-				
+		if(!empty($hashes))
+		{
+			foreach($hashes as $hash)
+				if(($this->torrents[$hash]->get_private() === false) && ($this->torrents[$hash]->get_owner() == $this->getIdUser()))
+				$i++;
+		}		
 		return $i;
 	}
 	public function getViews()
