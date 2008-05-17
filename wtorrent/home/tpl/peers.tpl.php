@@ -44,7 +44,6 @@
 			{$peer.client}
 		</td>
 	</tr>
-</table>
 {foreachelse}
 </table>
 <div class="noPeers">
