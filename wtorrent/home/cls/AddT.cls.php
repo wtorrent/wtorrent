@@ -17,22 +17,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 class AddT extends rtorrent
 {
-    /////////////////////////////////// C O N S T R U C T O R A S  Y  D E S T R U C T O R A ///////////////////////////////////
 
-    public function construct()
+	public function construct()
 	{
-    if ( isset( $this->_files['uploadedfile'] ) and ! $this->_request['torrenturl'] )
-    {   
-      if( ! $this->setClient() )
-        return false;
-        $this->uploadTorrent( $this->_files['uploadedfile'], $this->_request['download_dir'], $this->_request['start_now'], $this->_request['private'] );
-    } elseif ( $this->_request['torrenturl'] ) { 
-      $this->setClient();
-      $this->addRemoteTorrent( $this->_request['torrenturl'], $this->_request['download_dir'], $this->_request['start_now'], $this->_request['private'] );
-    }   
+    if(!$this->setClient())
+			return false;
+
+		if ( isset( $this->_files['uploadedfile'] ) and ! $this->_request['torrenturl'] )
+		{   
+			$this->uploadTorrent( $this->_files['uploadedfile'], $this->_request['download_dir'], $this->_request['start_now'], $this->_request['private'] );
+		} elseif ( $this->_request['torrenturl'] ) { 
+			$this->addRemoteTorrent( $this->_request['torrenturl'], $this->_request['download_dir'], $this->_request['start_now'], $this->_request['private'] );
+		}   
 	}
   // Add remote torrent
-  private function addRemoteTorrent( $url, $dir, $start_now, $private ) {
+  private function addRemoteTorrent( $url, $dir, $start_now, $private ) 
+	{
     // Get Dir if user can only download to a certain directory
     if($this->getForceDir() == 1)
         $dir = $this->getDir();
@@ -110,7 +110,8 @@ class AddT extends rtorrent
       @unlink($uploadfile);
     }
   }
-  private function getCookie($url) {
+  private function getCookie($url) 
+	{
     // Getting cookie depends on hostname
     $purl = parse_url( $url );
     $sql = "SELECT id,value, hostname FROM cookie where userid = " . $this->getIdUser() . " and hostname like '%".$purl['host']."%';";
@@ -119,25 +120,25 @@ class AddT extends rtorrent
     // Return the first even there are more than one, FIXTHIS
     return $result[0]['value'];
   } 
-    public function getDir()
-    {
-        $sql = "SELECT dir FROM tor_passwd WHERE id = '" . $this->getIdUser() . "';";
-        $res = $this->_db->query( $sql );
-        $result = $res->fetch();
-        return $result['dir'];
-    }
-    public function getForceDir()
-    {
-        $sql = "SELECT force_dir FROM tor_passwd WHERE id = '" . $this->getIdUser() . "';";
-        $res = $this->_db->query( $sql );
-        $result = $res->fetch();
-        return $result['force_dir'];
-    }
+	public function getDir()
+	{
+		$sql = "SELECT dir FROM tor_passwd WHERE id = '" . $this->getIdUser() . "';";
+		$res = $this->_db->query( $sql );
+		$result = $res->fetch();
+		return $result['dir'];
+	}
+	public function getForceDir()
+	{
+		$sql = "SELECT force_dir FROM tor_passwd WHERE id = '" . $this->getIdUser() . "';";
+		$res = $this->_db->query( $sql );
+		$result = $res->fetch();
+		return $result['force_dir'];
+	}
 	private function uploadTorrent($fileU, $dir, $start_now, $private)
 	{
 		if($this->getForceDir() == 1)
-            $dir = $this->getDir();
-        $uploadfile = DIR_EXEC . DIR_TORRENTS . basename($fileU['name']);
+			$dir = $this->getDir();
+		$uploadfile = DIR_EXEC . DIR_TORRENTS . basename($fileU['name']);
 		if(!is_writable(DIR_EXEC . DIR_TORRENTS))
 		{
 			$this->addMessage($this->_str['err_add_dir']);
@@ -148,13 +149,13 @@ class AddT extends rtorrent
 			$this->addMessage($this->_str['err_add_file']);
 			return false;
 		}
-		
+
 		$res[] = move_uploaded_file($fileU['tmp_name'], $uploadfile);
 		chmod( $uploadfile, PERM_TORRENTS);
-		
+
 		$message = new xmlrpcmsg("set_directory", array(new xmlrpcval($dir , 'string')));
 		$result1 = $this->client->send($message);
-		
+
 		if($start_now == 'on')
 			$method = 'load_start';
 		else
@@ -167,14 +168,14 @@ class AddT extends rtorrent
 			$sql =  "insert into torrents values('" . $hash . "', '" . $this->getIdUser() . "', '1');";
 			$this->_db->query($sql);
 		}
-			// sha.new( bencode ( bdecode( open('file.torrent', 'rb').read() )['info'] ) ).hexdigest()
-			
+		// sha.new( bencode ( bdecode( open('file.torrent', 'rb').read() )['info'] ) ).hexdigest()
+
 		$message = new xmlrpcmsg($method, array(new xmlrpcval($uploadfile , 'string')));
 		$result2 = $this->client->send($message);
-		
+
 		/*print_r($result1);
 		print_r($result2);*/
-		
+
 		if(($result1->errno == 0) && ($result2->errno == 0) && ($res[0] !== false))
 			$this->addMessage($this->_str['info_add_torrent']);
 		else

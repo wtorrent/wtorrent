@@ -15,8 +15,8 @@
         	</div>
 			{/if}
 			{*<tr>
-				<td style="padding: 5px;">{$feed.title}</td>
-				<td style="padding: 5px;">{$feed.description}</td>
+				<td style="padding: 5px;">{$feed.title|truncate:50}</td>
+				<td style="padding: 5px;">{$feed.description|trucate:50}</td>
 				<td style="padding: 5px; padding-top: 0px;"><a href="{$SRC_INDEX}?cls={$web->getCls()}&view={$feed.id}" title="{$str.view_feed}"><img src="{$DIR_IMG}feed_go.png" alt="{$str.view_feed}" /></a>&nbsp;&nbsp;<a href="{$SRC_INDEX}?cls={$web->getCls()}&edit={$feed.id}" title="{$str.edit_feed}"><img src="{$DIR_IMG}feed_edit.png" alt="{$str.edit_feed}" /></a>&nbsp;&nbsp;<a href="{$SRC_INDEX}?cls={$web->getCls()}&erase={$feed.id}" title="{$str.erase_feed}"><img src="{$DIR_IMG}feed_delete.png" alt="{$str.erase_feed}" /></a></td>
 			</tr>*}
 			<div style="width: 850px; height: 24px; margin: 0px auto; margin-bottom: 0px; border: 1px solid #d4d4d4; border-width: 0px 1px 0px 1px; font-size: 11px;">

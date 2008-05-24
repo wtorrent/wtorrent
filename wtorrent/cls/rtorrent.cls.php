@@ -282,5 +282,61 @@ class rtorrent extends Web
 	{
 		return $this->get_info_rtorrent('view_list', $multicall, $update);
 	}
+	/* Upload/Download rate functions */
+	public function get_down_rate($multicall = false, $update = false)
+	{
+		return $this->get_info_rtorrent('get_down_rate', $multicall, $update);
+	}
+	public function get_up_rate($multicall = false, $update = false)
+	{
+		return $this->get_info_rtorrent('get_up_rate', $multicall, $update);
+	}
+	/* rTorrent info functions */
+	public function getDownload() 
+	{
+		return round($this->get_down_rate()/1024,2) . 'Kb';
+	}
+	public function getUpload() 
+	{
+		return round($this->get_up_rate()/1024,2) . 'Kb';
+	}
+	/* Disk related functions */
+	public function getFreeSpace()
+	{
+		 return $this->getCorrectUnits(disk_free_space(DIR_DOWNLOAD));
+	}
+	public function getUsedSpace()
+	{
+		return $this->getCorrectUnits(disk_total_space(DIR_DOWNLOAD) - disk_free_space(DIR_DOWNLOAD));
+	}
+	public function getTotalSpace()
+	{
+		return $this->getCorrectUnits(disk_total_space(DIR_DOWNLOAD));
+	}
+	public function getUsedPercent()
+	{
+		return round((disk_total_space(DIR_DOWNLOAD) - disk_free_space(DIR_DOWNLOAD))/disk_total_space(DIR_DOWNLOAD)*100,0);
+	}
+	/* Format units functions */
+	public function getCorrectUnits($size)
+ 	{
+		$size_units = 'bytes';
+		if($size >= 1024)
+		{
+   		$size /= 1024;
+   		$size_units = 'Kb';
+		}
+		if($size >= 1024)
+		{
+    	$size /= 1024;
+      $size_units = 'Mb';
+		}
+		if($size >= 1024)
+    {
+    	$size /= 1024;
+      $size_units = 'Gb';
+		}
+    return round($size, 1) .  $size_units;
+  }
 }
 ?>

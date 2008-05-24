@@ -20,7 +20,10 @@ class Cookie extends rtorrent
   private $info = array();
   public function construct()
   {
-    if(isset($this->_request['add_cookie']))
+    if(!$this->setClient())
+			return false;
+			
+		if(isset($this->_request['add_cookie']))
     {
       if ($this->_request['cookie_host'] and $this->_request['cookie_value']) {
         $this->addCookie($this->_request['cookie_host'],$this->_request['cookie_value']);

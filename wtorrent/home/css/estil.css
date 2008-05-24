@@ -105,15 +105,15 @@ img {
 	float: left;
 	clear: left;
 	background: transparent url(../img/menu/bg_menu_l.png) no-repeat;
-	height: 56px;
-	width: 39px;
+	height: 95px;
+	width: 26px;
 }
 #menu_c
 {
 	float: left;
 	clear: none;
 	background: transparent url(../img/menu/bg_menu_c.png) repeat-x;
-	height: 56px;
+	height: 95px;
 	width: 600px;
 }
 #menu_r
@@ -121,8 +121,8 @@ img {
 	float: left;
 	clear: right;
 	background: transparent url(../img/menu/bg_menu_r.png) no-repeat;
-	height: 56px;
-	width: 39px;
+	height: 95px;
+	width: 27px;
 }
 #menu a {
 	text-decoration: none;
@@ -477,4 +477,35 @@ img {
 	clear: both;
 	margin: 0 auto;
 	cursor: pointer;
+}
+#server_info {
+	clear: both;
+	width: 600px;
+	padding: 10px 0 0 0;
+}
+.prog_bar_cont {
+	width: 300px;
+	height: 5px;
+	text-align: left;
+	clear: none;
+	float: left;
+	margin: 5px 5px 0 5px;
+	border: 1px solid #ccc;
+}
+.prog_bar {
+	height: 5px;
+	background-color: #dfe96d;
+}
+#space {
+	clear: both;
+	width: 540px;
+	height: 15px;
+	margin: 0 auto;
+}
+.space_text {
+	float: left;
+}
+#speed {
+	clear: both;
+	margin: 5px auto 0 auto;
 }

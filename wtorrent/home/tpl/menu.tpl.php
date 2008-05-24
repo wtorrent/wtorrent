@@ -10,6 +10,25 @@
 		<a style="width: {math equation="x + 1" x=$width}px;" href="{$SRC_INDEX}?logout"><img src="{$DIR_IMG}menu/disconnect.png" />{$str.logout}</a>
 		{/if}
 	{/foreach}
+	<div id="server_info">
+		<div id="space">
+			<div class="space_text">
+				{$str.space} 
+			</div>
+			<div class="prog_bar_cont">
+				<div class="prog_bar" style="width: {$web->getUsedPercent()}%">
+
+				</div>
+			</div>
+			<div class="space_text">
+				{$web->getUsedSpace()}/{$web->getTotalSpace()} {$str.free} {$web->getFreeSpace()}
+			</div>
+		</div>
+		<div id="speed">
+			{$str.dw_rate} {$web->getDownload()}
+			{$str.up_rate} {$web->getUpload()}
+		</div>
+	</div>
 </div>
 <div id="menu_r">
 	

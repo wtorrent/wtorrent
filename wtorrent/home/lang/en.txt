@@ -141,3 +141,8 @@ no = No
 up_peer = UP Peer (Kb)
 down_peer = DL Peer (Kb)
 no_peers = No peers found
+
+space = Space:
+dw_rate = Download rate:
+up_rate = Upload rate:
+free = Free: 

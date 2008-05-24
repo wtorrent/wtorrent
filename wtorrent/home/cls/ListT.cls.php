@@ -22,15 +22,6 @@ class ListT extends rtorrent
  
   public function construct()
 	{
-		/*if(($this->_request['view'] == 'public') || !isset($this->_request['view'])) {
-			$this->view = 'public';
-			$this->rtorrent_view = 'default';
-		} 
-		if($this->_request['view'] == 'private') {
-			$this->view = 'private';
-			$this->rtorrent_view = 'default';
-		}
-		if(isset($this->_request['view']) && ) $this->view = $this->_request['view'];*/
 		switch($this->_request['view'])
 		{
 			case 'public':
@@ -122,10 +113,14 @@ class ListT extends rtorrent
 	public function getViews()
 	{
 		$array_filter = array('main', 'default', 'scheduler', 'name');
-		foreach($this->view_list() as $view)
+		$views = $this->view_list();
+		if(!empty($views))
 		{
-			if(!in_array($view, $array_filter))
-				$return[] = $view; 
+			foreach($views as $view)
+			{
+				if(!in_array($view, $array_filter))
+					$return[] = $view; 
+			}
 		}
 		return $return;
 	}
@@ -279,26 +274,6 @@ class ListT extends rtorrent
   public function getCreationDate($hash)
  	{
   	return $this->torrents[$hash]->get_creation_date();
-  }
-	private function getCorrectUnits($size)
- 	{
-		$size_units = 'bytes';
-		if($size >= 1024)
-		{
-   		$size /= 1024;
-   		$size_units = 'Kb';
-		}
-		if($size >= 1024)
-		{
-    	$size /= 1024;
-      $size_units = 'Mb';
-		}
-		if($size >= 1024)
-    {
-    	$size /= 1024;
-      $size_units = 'Gb';
-		}
-    return round($size, 1) .  $size_units;
   }
 	private function formatETA($time)
  	{

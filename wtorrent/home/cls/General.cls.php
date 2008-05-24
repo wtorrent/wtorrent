@@ -101,25 +101,5 @@ class General extends rtorrent
 	{
 		return $this->torrents[$this->hash]->get_message();
 	}
-	private function getCorrectUnits($size)
- 	{
-		$size_units = 'bytes';
-		if($size >= 1024)
-		{
-   		$size /= 1024;
-   		$size_units = 'Kb';
-		}
-		if($size >= 1024)
-		{
-    	$size /= 1024;
-      $size_units = 'Mb';
-		}
-		if($size >= 1024)
-    {
-    	$size /= 1024;
-      $size_units = 'Gb';
-		}
-    return round($size, 1) .  $size_units;
-  }
 }
 ?>

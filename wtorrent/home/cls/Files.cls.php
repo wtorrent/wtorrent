@@ -75,25 +75,5 @@ class Files extends rtorrent
 	{
 		return array('0' => $this->_str['file_off'], '1' => $this->_str['file_normal'], '2' => $this->_str['file_high']);
 	}
-	private function getCorrectUnits($size)
- 	{
-		$size_units = 'bytes';
-		if($size >= 1024)
-		{
-   		$size /= 1024;
-   		$size_units = 'Kb';
-		}
-		if($size >= 1024)
-		{
-    	$size /= 1024;
-      $size_units = 'Mb';
-		}
-		if($size >= 1024)
-    {
-    	$size /= 1024;
-      $size_units = 'Gb';
-		}
-    return round($size, 1) .  $size_units;
-  }
 }
 ?>
