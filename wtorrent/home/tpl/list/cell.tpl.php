@@ -32,7 +32,7 @@
             {/if}
 		</div>
         <div class="tbContentCell" id="tip{$hash}" style="padding-top: 0px;">
-        <div id="tbContentCell" style="width: 365px; text-align: left; padding-left: 10px;" onclick="resizeInnerTab('{$hash}');">
+        <div id="tbContentCell" style="width: 355px; text-align: left; padding-left: 10px;" onclick="resizeInnerTab('{$hash}');">
 			{if $web->getState($hash) eq 1 && $web->getPercent($hash) neq 100}
 				{assign var="color" value="green"}
 			{/if}
@@ -55,10 +55,10 @@
 		<div id="tbContentCell" style="width: 55px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getTotalPeers($hash)} ({$web->getConnPeers($hash)})
 		</div>
-		<div id="tbContentCell" style="width: 45px;" onclick="resizeInnerTab('{$hash}');">
+		<div id="tbContentCell" style="width: 50px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getDownRate($hash)}
 		</div>
-		<div id="tbContentCell" style="width: 45px;" onclick="resizeInnerTab('{$hash}');">
+		<div id="tbContentCell" style="width: 50px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getUpRate($hash)}
 		</div>
 		<div id="tbContentCell" style="width: 45px;" onclick="resizeInnerTab('{$hash}');">

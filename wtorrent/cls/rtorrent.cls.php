@@ -294,11 +294,11 @@ class rtorrent extends Web
 	/* rTorrent info functions */
 	public function getDownload() 
 	{
-		return round($this->get_down_rate()/1024,2) . 'Kb';
+		return round($this->get_down_rate()/1024,2) . 'KB/s';
 	}
 	public function getUpload() 
 	{
-		return round($this->get_up_rate()/1024,2) . 'Kb';
+		return round($this->get_up_rate()/1024,2) . 'KB/s';
 	}
 	/* Disk related functions */
 	public function getFreeSpace()
@@ -320,11 +320,11 @@ class rtorrent extends Web
 	/* Format units functions */
 	public function getCorrectUnits($size)
  	{
-		$size_units = 'bytes';
+		$size_units = 'B';
 		if($size >= 1024)
 		{
    		$size /= 1024;
-   		$size_units = 'Kb';
+   		$size_units = 'KB';
 		}
 		if($size >= 1024)
 		{
