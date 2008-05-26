@@ -329,12 +329,12 @@ class rtorrent extends Web
 		if($size >= 1024)
 		{
     	$size /= 1024;
-      $size_units = 'Mb';
+      $size_units = 'MB';
 		}
 		if($size >= 1024)
     {
     	$size /= 1024;
-      $size_units = 'Gb';
+      $size_units = 'GB';
 		}
     return round($size, 1) .  $size_units;
   }
