@@ -6,7 +6,7 @@
 		<form action="" method="POST">
 			<div style="height: 20px; width: 100%;">
 				<div style="height: 20px; padding-top: 6px; font-size:12px; width: 80px; float: left; text-align: left;">
-					<b>User:</b>
+					<b>{$str.user}:</b>
 				</div>
 				<div style="float: left;">
 					<input type="text" name="userf" />
@@ -15,14 +15,14 @@
 			<br />
 			<div style="height: 20px; width: 100%;">
 				<div style="height: 20px; padding-top: 6px; font-size: 12px; width: 80px; float: left; text-align: left;">
-					<b>Password:</b>
+					<b>{$str.password}:</b>
 				</div>
 				<div style="float: left;">
 					<input type="password" name="passwdf" />
 				</div>
 			</div>
 			<br />
-			<div style="padding-bottom: 10px;"><input type="submit" value="Login" name="user_login" /></div>
+			<div style="padding-bottom: 10px;"><input type="submit" value="{$str.login}" name="user_login" /></div>
 		</form>
 	</div>
 </div>

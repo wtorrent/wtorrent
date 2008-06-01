@@ -1,21 +1,21 @@
 <div style="width: 100%; font-family: arial; font-size: 11px; padding-left: 10px; padding-top: 10px; padding-bottom: 5px; text-align: left;">
-			<b style="color: #4C8CC4;">Torrent file:</b> {$web->getTorrent()}
+			<b style="color: #4C8CC4;">{$str.torrent_file}:</b> {$web->getTorrent()}
 	</div>
 	<div style="width: 100%; font-family: arial; font-size: 11px; padding-left: 10px; text-align: left;">
-			<b style="color: #4C8CC4;">Data path:</b> {$web->getDataPath()}
+			<b style="color: #4C8CC4;">{$str.data_path}:</b> {$web->getDataPath()}
 	</div>
 	<div style="height: 18px; width: 700px; margin-left: auto; margin-right: auto; margin-top: 10px;">
 		<div style="width: 171px; float: left; font-family: arial; font-size: 11px; padding: 2px;">
-			<b style="color: #4C8CC4;">Done: </b>{$web->getDone()}
+			<b style="color: #4C8CC4;">{$str.tb_done}: </b>{$web->getDone()}
 		</div>
 		<div style="width: 171px; float: left; font-family: arial; font-size: 11px; padding: 2px;">
-			<b style="color: #4C8CC4;">Uploaded: </b>{$web->getUp()}
+			<b style="color: #4C8CC4;">{$str.tb_uploaded}: </b>{$web->getUp()}
 		</div>
 		<div style="width: 171px; float: left; font-family: arial; font-size: 11px; padding: 2px;">
-                        <b style="color: #4C8CC4;">Size: </b>{$web->getSize()}
+                        <b style="color: #4C8CC4;">{$str.tb_size}: </b>{$web->getSize()}
                 </div>
 		 <div style="width: 171px; float: left; font-family: arial; font-size: 11px; padding: 2px;">
-                        <b style="color: #4C8CC4;">Ratio: </b>{$web->getRatio()}
+                        <b style="color: #4C8CC4;">{$str.tb_ratio}: </b>{$web->getRatio()}
                 </div>
 	</div>
 	<div style="width: 700px; font-family: arial; font-size: 11px; padding: 2px; height: 15px; margin-top: 10px; border: 1px solid #d4d4d4; margin-left: auto; margin-right: auto;">
@@ -23,14 +23,14 @@
 	</div>
 	<div style="height: 18px; width: 700px; margin-left: auto; margin-right: auto; margin-top: 10px;">
 		<div style="width: 171px; float: left; font-family: arial; font-size: 11px; padding: 2px;">
-			<b style="color: #4C8CC4;">Max Peers: </b>{$web->getMaxPeers()}
+			<b style="color: #4C8CC4;">{$str.max_peers}: </b>{$web->getMaxPeers()}
 		</div>
 		<div style="width: 171px; float: left; font-family: arial; font-size: 11px; padding: 2px;">
-			<b style="color: #4C8CC4;">Min Peers: </b>{$web->getMinPeers()}
+			<b style="color: #4C8CC4;">{$str.min_peers}: </b>{$web->getMinPeers()}
 		</div>
 		<div style="width: 342px; float: left; font-family: arial; font-size: 11px; padding: 2px;">
                         <form method="POST" action="{$SRC_INDEX}?cls={$web->getCls()}&tpl=details&hash={$web->getHash()}">
-						<b style="color: #4C8CC4;">Priority: </b>
+						<b style="color: #4C8CC4;">{$str.priority}: </b>
                         {assign var="priority" value=$web->getPriority()}
                         {foreach from=$web->getPriorities() item="pr" key="prKey" name="priorities"}
                         	{if $smarty.foreach.priorities.first}
@@ -48,6 +48,6 @@
 	<br />
 	{if $web->getMessage() neq ''}
 	<div style="width: 100%; font-family: arial; font-size: 11px; padding: 2px;">
-			<b style="color: #4C8CC4;">rTorrent Message:</b> {$web->getMessage()}
+			<b style="color: #4C8CC4;">{$str.rtorrent_message}:</b> {$web->getMessage()}
 	</div>
 	{/if}

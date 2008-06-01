@@ -21,7 +21,7 @@ abstract class Web
 {
 	// Clase que engloba TODAS las clases (las que implementan formularios)
     // Declaramos todos los atributos comunes con el prefijo _
-    private $_lang			= 'en';
+    private $_lang			= LANGUAGE ;
     private $_smarty		= null;
     private $_caching		= false;
 	private $message		= array( );
@@ -109,8 +109,8 @@ abstract class Web
      */
     final public function display( $tpl )
     {
-        // Metodo virtual. cada página verifica si se tiene permiso
-        // o si la pagina tiene tablas de usuarios/grupos/permisos, se puede implementar de forma común
+        // Metodo virtual. cada pï¿½gina verifica si se tiene permiso
+        // o si la pagina tiene tablas de usuarios/grupos/permisos, se puede implementar de forma comï¿½n
         
 
         // Constructora de la subclase
@@ -237,7 +237,7 @@ abstract class Web
 		{
 			$parts = explode( '=', fgets( $fd, 4096 ), 2 );
 			$key = trim( $parts[0] );
-			if( !empty( $key ) ) $this->_str[$key] = html( trim( $parts[1] ) );
+			if( !empty( $key ) ) $this->_str[$key] = trim( $parts[1] );
 		}
 		fclose( $fd );
 

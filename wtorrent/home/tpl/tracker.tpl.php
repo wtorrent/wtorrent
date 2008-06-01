@@ -6,9 +6,9 @@
 		<tr style="background-color: #F1F3F5; border-bottom: 1px solid #d4d4d4;">
 			<td style="width: 20px;">&nbsp;</td>
 			<td style="width: 16px;">&nbsp;</td>
-			<td style="padding: 5px; font-family: arial; font-size: 11px; font-weight: bold;">Url</td>
-			<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">Seeds</td>
-			<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">Peers</td>
+			<td style="padding: 5px; font-family: arial; font-size: 11px; font-weight: bold;">{$str.url}</td>
+			<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">{$str.tb_seeds}</td>
+			<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">{$str.tb_peers}</td>
 		</tr>	
 		{foreach key=clau item=tracker from=$web->getTrackers()}
 		<tr>

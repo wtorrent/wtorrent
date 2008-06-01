@@ -48,6 +48,9 @@ define( 'PERM_TORRENTS',	0777);
 // Default location to save downloaded files (can be set for every uploaded .torrent on the ui) 
 define( 'DIR_DOWNLOAD',		'/data/');
 
+// Default language
+define( 'LANGUAGE',             'en');
+
 // Don't touch any of the data below unless you know what you are doing
 define( 'DIR_LANG',			'home/lang/' );
 define( 'DIR_TPL',			'home/tpl/' );

@@ -28,7 +28,7 @@
 			</script>
 		{/literal}
 	{/if}
-	<link rel="shortcut icon" href="{$DIR_IMG}favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="{$DIR_IMG}favicon.ico" />
 </head>
 
 <body>

@@ -6,7 +6,7 @@
         {assign var='bg_cell' value=$DIR_IMG|cat:'error_bg.png'}
     {/if}
 	<div id="tbCell" style="cursor: pointer; background-color: #e5edf4; border-top: 0px solid #d4d4d4;{if isset($bg_cell)} background-image: url({$bg_cell});{/if}" onmouseover="style.backgroundColor='#d5e991';" onmouseout="style.backgroundColor='#e5edf4'">	
-		<div id="tbContentCell" style="width: 96px; padding-left: 0px; padding-top: 6px; height: 24px; text-align: left;">
+		<div class="tbContentCell" style="width: 96px; padding-left: 0px; padding-top: 6px; height: 24px; text-align: left;">
 			<input type="checkbox" id="{$hash}" class="torrent" style="margin: 0 0 5px 3px;" />
 			{if $web->getState($hash) eq 0 || $web->getOpen($hash) eq 0}
                 <div style="cursor: pointer; display: inline;">
@@ -32,7 +32,7 @@
             {/if}
 		</div>
         <div class="tbContentCell" id="tip{$hash}" style="padding-top: 0px;">
-        <div id="tbContentCell" style="width: 355px; text-align: left; padding-left: 10px;" onclick="resizeInnerTab('{$hash}');">
+        <div class="tbContentCell" style="width: 355px; text-align: left; padding-left: 10px;" onclick="resizeInnerTab('{$hash}');">
 			{if $web->getState($hash) eq 1 && $web->getPercent($hash) neq 100}
 				{assign var="color" value="green"}
 			{/if}
@@ -49,25 +49,25 @@
                 {/if}
             </span>
 		</div>
-		<div id="tbContentCell" style="width: 55px;" onclick="resizeInnerTab('{$hash}');">
+		<div class="tbContentCell" style="width: 55px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getTotalSeeds($hash)} ({$web->getConnSeeds($hash)})
 		</div>
-		<div id="tbContentCell" style="width: 55px;" onclick="resizeInnerTab('{$hash}');">
+		<div class="tbContentCell" style="width: 55px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getTotalPeers($hash)} ({$web->getConnPeers($hash)})
 		</div>
-		<div id="tbContentCell" style="width: 50px;" onclick="resizeInnerTab('{$hash}');">
+		<div class="tbContentCell" style="width: 50px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getDownRate($hash)}
 		</div>
-		<div id="tbContentCell" style="width: 50px;" onclick="resizeInnerTab('{$hash}');">
+		<div class="tbContentCell" style="width: 50px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getUpRate($hash)}
 		</div>
-		<div id="tbContentCell" style="width: 45px;" onclick="resizeInnerTab('{$hash}');">
+		<div class="tbContentCell" style="width: 45px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getDone($hash)}
 		</div>
-		<div id="tbContentCell" style="width: 55px;" onclick="resizeInnerTab('{$hash}');">
+		<div class="tbContentCell" style="width: 55px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getSize($hash)}
 		</div>
-		<div id="tbContentCell" style="width: 45px;" onclick="resizeInnerTab('{$hash}');">
+		<div class="tbContentCell" style="width: 45px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getPercent($hash)}%
 		</div>
 			{if $web->getRatio($hash) < 1}
@@ -75,10 +75,10 @@
 			{else}
 				{assign var=ratio value="green"}
 			{/if}
-		<div id="tbContentCell" style="color: {$ratio}; width: 35px;" onclick="resizeInnerTab('{$hash}');">
+		<div class="tbContentCell" style="color: {$ratio}; width: 35px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getRatio($hash)}
 		</div>
-		<div id="tbContentCell" style="width: 60px;" onclick="resizeInnerTab('{$hash}');">
+		<div class="tbContentCell" style="width: 60px;" onclick="resizeInnerTab('{$hash}');">
 			{$web->getETA($hash)}
 		</div>
         </div>

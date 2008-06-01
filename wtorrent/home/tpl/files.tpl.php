@@ -1,14 +1,14 @@
 {*<div style="width: 100%; font-family: arial; font-size: 11px; padding: 0px 2px 8px 2px;">
-                        <b style="color: #4C8CC4;">Files:</b>
+                        <b style="color: #4C8CC4;">{$str.files}:</b>
         </div>*}
 <form method="POST" action="{$SRC_INDEX}?cls={$web->getCls()}&tpl=details&hash={$web->getHash()}">
 	<table style="border-collapse: collapse; width: 100%; margin-left: auto; margin-right: auto; border-bottom: 1px solid #d4d4d4;">
 	<tr style="background-color: #F1F3F5; border-bottom: 1px solid #d4d4d4;">
-		<td style="padding: 5px; font-family: arial; font-size: 11px; font-weight: bold;">File Name</td>
-		<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">Done</td>
-		<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">Size</td>
-		<td style="width: 50px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">% Done</td>
-		<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">Priority</td>
+		<td style="padding: 5px; font-family: arial; font-size: 11px; font-weight: bold;">{$str.file_name}</td>
+		<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">{$str.tb_done}</td>
+		<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">{$str.tb_size}</td>
+		<td style="width: 50px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">{$str.percent_done}</td>
+		<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">{$str.priority}</td>
 	</tr>	
 	{foreach key=clau item=file from=$web->getFiles()}
 	<tr>

@@ -33,7 +33,7 @@
         	<div style="height: 30px; width: 100%; text-align: center; font-style: italic; font-size: 12px;">{$str.no_feeds}</div>
         {/foreach}
 		<div style="border-bottom: 2px solid #85a5c0; color: #85a5c0; font-size: 14px; font-weight: bold; text-align: left; margin-left: 10px; padding-left: 20px; margin-right: 10px; padding-bottom: 5px;margin-bottom: 10px;">{$str.tl_feed_add}</div>
-		<div style="text-align: left; padding-left: 30px; padding-bottom: 15px; padding-top: 5px; font-size: 14px;"><form method="POST" action="{$SRC_INDEX}?cls={$web->getCls()}">Feed url: <input type="text" name="feed_url" size="60" />&nbsp;&nbsp;<input type="submit" name="feed_add" value="{$str.feed_add}" /></form></form></div>
+		<div style="text-align: left; padding-left: 30px; padding-bottom: 15px; padding-top: 5px; font-size: 14px;"><form method="POST" action="{$SRC_INDEX}?cls={$web->getCls()}">{$str.feed_url}: <input type="text" name="feed_url" size="60" />&nbsp;&nbsp;<input type="submit" name="feed_add" value="{$str.feed_add}" /></form></form></div>
 {else}
 	{assign value=$web->getFeed() var=feed}
 	<div style="border-bottom: 2px solid #85a5c0; color: #85a5c0; font-size: 14px; font-weight: bold; text-align: left; margin-left: 10px; padding-left: 20px; margin-right: 10px; padding-bottom: 5px;margin-bottom: 10px;">{$feed->get_title()}</div>

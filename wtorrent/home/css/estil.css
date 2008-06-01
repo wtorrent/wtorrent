@@ -170,7 +170,7 @@ img {
 	margin: 0 auto 0 auto;
 	clear: both;
 }
-#tbHeadCell {
+.tbHeadCell {
 	height: 20px; 
 	background-color: #d7e4ef; 
 	float: left;
@@ -178,16 +178,6 @@ img {
 	text-align: left;
 	padding-top: 5px;
 	text-align: center;
-}
-#tbContentCell {
-	height: 22px; 
-	text-align: left; 
-	padding-top: 8px;
-	float: left;
-	font-weight: normal;
-	font-size: 11px;
-	text-align: center;
-	
 }
 .tbContentCell {
 	height: 22px; 

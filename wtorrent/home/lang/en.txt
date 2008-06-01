@@ -66,6 +66,7 @@ feed_date = Date
 feed_down_tor = Download torrent
 down_dir = Download directory
 download_dir = Change directory
+feed_url = Feed url
 
 info_ch_dir = Download directory changed correctly
 err_ch_dir = Error changing download directory
@@ -146,3 +147,19 @@ space = Space:
 dw_rate = Download rate:
 up_rate = Upload rate:
 free = Free: 
+
+files = Files
+file_name = File name
+priority = Priority
+torrent = Torrent
+torrent_file = Torrent file
+torrent_url = Torrent url
+data_path = Data path
+rtorrent_message = rTorrent Message
+min_peers = Min Peers
+max_peers = Max Peers
+url = Url
+ul_file = Upload file
+user = User
+password = Password
+login = Login
