@@ -3,6 +3,6 @@
         <b>{$text}: </b>
     </div>
     <div style="float: left; width: 30px;">
-        <input type="checkbox"" name="{$name}" />
+        <input name="{$name}" type="checkbox" />
     </div>
 </div>

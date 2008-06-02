@@ -1,6 +1,6 @@
 <div id="tbBulk">
-	<div id="tbColTab" style="height: 25px;"></div>
-	<div id="tbCell">
+	<div class="tbColTab" style="height: 25px;"></div>
+	<div id="tbCell_h">
 		<div class="tbHeadCell" style="width: 94px;"></div>
 		<div class="tbHeadCell" style="width: 351px;"><b>{$str.tb_name}</b></div>
 		<div class="tbHeadCell" style="width: 60px;"><b>{$str.tb_seeds}</b></div>

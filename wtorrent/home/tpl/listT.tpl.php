@@ -31,7 +31,8 @@
     {include file="listT/tooltip/tip.tpl.php"}
 {/foreach}
 {literal}
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
+<!--
 function postAjax() {
     /* Render the tips */
     var tips = $$('.torrent');
@@ -41,5 +42,6 @@ function postAjax() {
     }
 }
 postAjax();
+//-->
 </script>
 {/literal}

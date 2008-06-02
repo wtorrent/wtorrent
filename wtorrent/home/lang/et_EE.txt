@@ -144,8 +144,8 @@ down_peer = Alla kasutaja (KB/s)
 no_peers = Kasutajaid ei leitud
 
 space = Ruum:
-dw_rate = Üleslaadimis kiirus:
-up_rate = Allalaadimis kiirus:
+dw_rate = Allalaadimis kiirus:
+up_rate = Üleslaadimis kiirus:
 free = Vaba: 
 
 files = Failid

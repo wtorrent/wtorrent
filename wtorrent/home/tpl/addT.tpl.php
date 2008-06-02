@@ -1,6 +1,6 @@
-	<form enctype="multipart/form-data" action="{$SRC_INDEX}?cls=AddT" method="POST">
-	<input type="hidden" name="MAX_FILE_SIZE" value="100000000" />
+	<form enctype="multipart/form-data" action="{$SRC_INDEX}?cls=AddT" method="post">
 	<div style="width: 100%; height: 180px;">
+	<input type="hidden" name="MAX_FILE_SIZE" value="100000000" />
 		<div style="width: 100%; height: 40px; padding-left: 20px; text-align: left;">
 			<div style="width: 150px; float: left;font-size: 12px; font-weight: bold; margin-top: 3px;">{$str.torrent}:</div>
 			<div style="width: 500px; float: left; text-align: left;"><input name="uploadedfile" type="file" size="60" /></div>

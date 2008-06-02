@@ -1,6 +1,9 @@
 <div id="main_t">
-	{include file="tabs.tpl.php"}	
+{if $web->getTplName() eq listT}
+	{include file="tabs.tpl.php"}
+{/if}	
 </div>
+
 <div id="main_m">
 	<div id="content">
 		{include file=$web->getTpl()}
@@ -15,7 +18,9 @@
 </div>
 {/if}
 {literal}
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
+<!--
 	$('close_m').onclick = (function (frame) { return function () { $(frame).hide(); } })('messages_box');
+//-->
 </script>
 {/literal}

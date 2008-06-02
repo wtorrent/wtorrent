@@ -15,16 +15,18 @@
 	{if $web->registrado()}
 		{literal}
 			<script type="text/javascript">
+			  <!--
 				/* Ajax loading using prototype */
 				var ifPri = $('principal');
 				var ifCont = $('contingut');
-				var loading = "{/literal}{$loading|jsOutput}{literal}";
-				var loadingCommand = "{/literal}{$comm_loading|jsOutput}{literal}";
+				var loading = '{/literal}{$loading}{literal}';
+				var loadingCommand = '{/literal}{$comm_loading}{literal}';
 				var cont;
 				var tab;
 				var view = 'public';
 				var url = '{/literal}{$SRC_INDEX}{literal}';
-				var confirmMsg = "{/literal}{$str.conf_erase}{literal}";
+				var confirmMsg = '{/literal}{$str.conf_erase}{literal}';
+			  //-->
 			</script>
 		{/literal}
 	{/if}
