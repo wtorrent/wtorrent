@@ -1,0 +1,165 @@
+err_login = Erreur: Mauvais login, merci de verifier nom d'utilisateur/mot de passe
+err_users_nosel = Erreur: aucun utilisateur selectionné pour suppression
+info_users_added = Utilisateur ajouté avec succès
+err_users_add = Aucun nom d'utilisateur/mot de passe défini, merci de vérifier les donnés entrées
+info_users_deleted =  Utilisateur(s) supprimé avec succès
+info_tor_stop = Torrent(s) arrêté(s) avec succès
+info_tor_close = Torrent(s) fermé(s) avec succès
+info_tor_start = Torrent(s) démarré(s) avec succès
+info_tor_erase = Torrent(s) effacé(s) avec succès
+info_tor_chash = Vérification du hash lancé avec succès
+info_add_torrent = Torrent ajouté avec succès
+err_add_torrent = Erreur pendant l'ajout du torrent
+err_add_dir = Erreur: Impossible de créer le fichier dans le repertoire indiqué, merci de vérifier les permissions
+err_add_file = Erreur: Le fichier existe deja dans le repertoire des torrents, impossible de créer le .torrent
+info_add_upload = chemin complet, doit se terminer par un "/"
+
+low = Bas
+normal = Normal
+high = Haute
+idle = En pause
+change_pr = Changer
+err_pr = Mauvais paramètre de priorité
+info_pr = Priorité changée avec succès
+
+file_off = Ne pas télécharger
+file_normal = Normal
+file_high = Haute
+change_pr = Changer la priorité
+start_now = Lancer maintenant:
+private = Privé:
+no_torrents = Aucun torrent trouvé
+pl_torrents = publiques
+pr_torrents = Privés
+
+down_limit = Limite de téléchargement:
+up_limit = Limite d'émission:
+change_dlimit = Changer la limite de téléchargement
+change_ulimit = Changer la limite d'émission
+
+info_down_limit = Limite de téléchargement modifiée avec succès
+err_down_limit = Erreur: Limite de téléchargement incorrecte
+info_up_limit = Limite d'émission modifiée avec succès
+err_up_limit = Erreur: Limite d'émission incorrecte
+
+logout = Déconnecter
+info_logout = Vous êtes maintenant déconnecté
+
+enable = Activer
+disable = Désactiver
+change_tr = Changer
+info_ch_trackers = Trackers changé(s) avec succès
+
+tl_feeds = Flux Rss
+edit_feed = Modifier le flus RSS
+erase_feed = Effacer le flux RSS
+title_feeds = Titre
+desc_feeds = Description
+view_feed = Voir le flux RSS
+feed_add = Ajouter le flux RSS
+tl_feed_add = Ajouter un flux RSS
+info_add_feed = Flux RSS ajouté avec succès
+info_erase_feed = Flux RSS effacé avec succès
+no_feeds = Aucun flux RSS trouvé, merci d'en ajouter un
+feed_torrent = Nom du torrent
+feed_date = Date
+feed_down_tor = Télécharger le torrent
+down_dir = Répertoire de téléchargement
+download_dir = Changer le répertoire
+feed_url = Url du flux RSS
+
+info_ch_dir = Repertoire de téléchargement modifié avec succès
+err_ch_dir = Erreur durant la modification du répertoire de téléchargement
+down_started = Téléchargement lancé
+
+log_in = Vous n'êtes pas connecté ou votre session a expirée, merci de recharger la page.
+command_error = Erreur durant le lancement de la commande, merci de recharger la page.
+
+info_ch_files = Priorité du fichier modifié avec succès
+err_ch_files = Erreur durant le changement de priorité
+
+tb_name = Nom
+tb_seeds = Seeds
+tb_peers = Peers
+tb_download = DL(KB/s)
+tb_upload = UP(KB/s)
+tb_done = Terminé
+tb_size = Taille
+tb_percent = Pourcent
+tb_ratio = Ratio
+tb_eta = Restant
+
+err_conn = Erreur: impossible de se conencter à rtorrent
+conf_erase = Êtes vous sûre de vouloir effacer ce torrent?
+
+check_all = Tout cocher
+uncheck_all = Tout décocher
+invert_all = inverser la sélection
+action = Appliquer
+start = Lancer
+stop = Arrêter
+close = Fermer
+erase = Effacer
+
+user = Utilisateur
+admin = Admin
+conf_user_del = Êtes vous sûre de vouloir supprimer cette(ces) utilisateur(s) ?
+no_users = Aucun utilisateur trouvé
+add_user = Ajouter l'utilisateur
+password = Mot de passe
+ch_bandwidth = Changer la limite de bande passante
+kb_units = KB
+chash = Revérifier le hash
+closet = Fermer
+
+
+cookie_host = Hôte du cookie                                                                                                                                                                                                           
+cookie_value = Valeur du cookie                                                                                                                                                                                                         
+cookie_add = Ajouter                                                                                                                                                                                                                    
+cookie_edit = Editer                                                                                                                                                                                                             
+cookie_erase = Effacer                                                                                                                                                                                                                
+cookies_hostname = Nom hôte                                                                                                                                                                                            
+cookies_value = Valeur                                                                                                                                                                                                               
+cookie_no_cookies = Pas de cookie                                                                                                                                                                                                      
+cookie_tl_cookie_add = Ajouter                                                                                                                                                                                                         
+tb_uploaded = Uploadé                                                                                                                                                                                                              
+no_curl_function = Pas de fonction curl dans php
+
+default_dir = Répertoire par defaut
+force_default = Forcer le répertoire par défaut
+
+ip = IP
+speed = Vitesse (KB/s)
+connection = Connection
+percent_done = % Terminé
+encryption = Crypté
+client = Client
+down = DL (KB/s)
+incoming = Entrant
+outgoing = Sortant
+yes = Oui
+no = Non
+up_peer = UP du client (KB/s)
+down_peer = DL du client (KB/s)
+no_peers = Aucun client trouvé
+
+space = Espace:
+dw_rate = Vitesse de téléchargement:
+up_rate = Vitesse d'émission:
+free = libre: 
+
+files = Fichier
+file_name = Nom du fichier
+priority = Priorité
+torrent = Torrent
+torrent_file = Fichier torrent
+torrent_url = Url du torrent
+data_path = Chemin du fichier
+rtorrent_message = Message de rTorrent
+min_peers = Min Peers
+max_peers = Max Peers
+url = Url
+ul_file = Uploader le fichier
+user = Utilisateur
+password = Mot de passe
+login = Se connecter
