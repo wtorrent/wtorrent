@@ -1,8 +1,8 @@
-err_login = Erreur: Mauvais login, merci de verifier nom d'utilisateur/mot de passe
-err_users_nosel = Erreur: aucun utilisateur selectionné pour suppression
+err_login = Erreur: Mauvais login, merci de vérifier le nom d'utilisateur/mot de passe
+err_users_nosel = Erreur: aucun utilisateur selectionné pour la suppression
 info_users_added = Utilisateur ajouté avec succès
-err_users_add = Aucun nom d'utilisateur/mot de passe défini, merci de vérifier les donnés entrées
-info_users_deleted =  Utilisateur(s) supprimé avec succès
+err_users_add = Aucun nom d'utilisateur/mot de passe défini, merci de vérifier les données entrées
+info_users_deleted =  Utilisateur(s) supprimé(s) avec succès
 info_tor_stop = Torrent(s) arrêté(s) avec succès
 info_tor_close = Torrent(s) fermé(s) avec succès
 info_tor_start = Torrent(s) démarré(s) avec succès
@@ -11,11 +11,11 @@ info_tor_chash = Vérification du hash lancé avec succès
 info_add_torrent = Torrent ajouté avec succès
 err_add_torrent = Erreur pendant l'ajout du torrent
 err_add_dir = Erreur: Impossible de créer le fichier dans le repertoire indiqué, merci de vérifier les permissions
-err_add_file = Erreur: Le fichier existe deja dans le repertoire des torrents, impossible de créer le .torrent
+err_add_file = Erreur: Le fichier existe déjà dans le répertoire des torrents, impossible de créer le .torrent
 info_add_upload = chemin complet, doit se terminer par un "/"
 
-low = Bas
-normal = Normal
+low = Basse
+normal = Normale
 high = Haute
 idle = En pause
 change_pr = Changer
@@ -23,7 +23,7 @@ err_pr = Mauvais paramètre de priorité
 info_pr = Priorité changée avec succès
 
 file_off = Ne pas télécharger
-file_normal = Normal
+file_normal = Normale
 file_high = Haute
 change_pr = Changer la priorité
 start_now = Lancer maintenant:
@@ -48,7 +48,7 @@ info_logout = Vous êtes maintenant déconnecté
 enable = Activer
 disable = Désactiver
 change_tr = Changer
-info_ch_trackers = Trackers changé(s) avec succès
+info_ch_trackers = Tracker(s) changé(s) avec succès
 
 tl_feeds = Flux Rss
 edit_feed = Modifier le flus RSS
@@ -68,7 +68,7 @@ down_dir = Répertoire de téléchargement
 download_dir = Changer le répertoire
 feed_url = Url du flux RSS
 
-info_ch_dir = Repertoire de téléchargement modifié avec succès
+info_ch_dir = Répertoire de téléchargement modifié avec succès
 err_ch_dir = Erreur durant la modification du répertoire de téléchargement
 down_started = Téléchargement lancé
 
@@ -85,16 +85,16 @@ tb_download = DL(KB/s)
 tb_upload = UP(KB/s)
 tb_done = Terminé
 tb_size = Taille
-tb_percent = Pourcent
+tb_percent = Pourcent(s)
 tb_ratio = Ratio
 tb_eta = Restant
 
-err_conn = Erreur: impossible de se conencter à rtorrent
+err_conn = Erreur: impossible de se connecter à rtorrent
 conf_erase = Êtes vous sûre de vouloir effacer ce torrent?
 
 check_all = Tout cocher
 uncheck_all = Tout décocher
-invert_all = inverser la sélection
+invert_all = Inverser la sélection
 action = Appliquer
 start = Lancer
 stop = Arrêter
