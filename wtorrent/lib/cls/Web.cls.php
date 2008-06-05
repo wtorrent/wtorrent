@@ -231,6 +231,8 @@ abstract class Web
 
     private function _loadTexts( $lang )
     {
+		if( !is_file( DIR_LANG.$lang.'.txt') )	$lang='en';
+
 		if( !$fd = @fopen( DIR_LANG.$lang.'.txt', 'r' ) ) return false;
 
 		while( !feof( $fd ) )
