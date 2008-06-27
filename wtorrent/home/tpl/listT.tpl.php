@@ -33,15 +33,15 @@
 {literal}
 <script type="text/javascript">
 <!--
-function postAjax() {
-    /* Render the tips */
-    var tips = $$('.torrent');
-    for(var i = 0; i < tips.length; i++)
-    {
-        torrentTip(tips[i].id);
-    }
-}
-postAjax();
+		function postAjax() {
+			/* Render the tips */
+			var tips = $$('.torrent');
+			for(var i = 0; i < tips.length; i++)
+			{		
+				torrentTip(tips[i].id);
+			}
+		}
+		postAjax();
 //-->
 </script>
 {/literal}

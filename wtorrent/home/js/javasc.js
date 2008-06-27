@@ -39,6 +39,8 @@ function load(frame, content) {
 	if(frame == 'content') // Actions for frame 'content' (MAIN FRAME)
 	{
 		var get = getContent(content);
+		/* Clean torrent tooltips */
+		cleanTips();
 	}
 	else // Actions for torrent frames
 	{
@@ -314,26 +316,39 @@ function findPos(obj) {
 	return [curleft,curtop];
 }
 function torrentTip(elementId) {
-    var content = $('tipContent' + elementId).cloneNode(true);
-    content.id = elementId + 'copy';
-    content.show();
-    new Tip(
-        'tip' + elementId,                 // the id of your element
-        content,                 // a string or an element
-        {  
-            closeButton: false,    // or true
-            duration: 0.3,         // duration of the effect, if used
-            delay: 0,             // seconds before tooltip appears
-            effect: false,         // false, 'appear' or 'blind'
-            fixed: false,          // follow the mouse if false
-            hideAfter: false,      // hides after seconds of inactivity, not hovering the element or the tooltip
-            hideOn: 'mouseout',     // any other event, false or: { element: 'element|target|tip|closeButton|.close', event: 'click|mouseover|mousemove' }
-            hook: false,           // { target: 'topLeft|topRight|bottomLeft|bottomRight|topMiddle|bottomMiddle|leftMiddle|rightMiddle',tip: 'topLeft|topRight|bottomLeft|bottomRight|topMiddle|bottomMiddle|leftMiddle|rightMiddle' }
-            showOn: 'mousemove',   // or any other event
-            viewport: false         // keep within viewport, false when fixed or hooked
-        }
-    );
+	var content = $('tipContent' + elementId).cloneNode(true);
+	if(content.hasClassName('red'))
+	{
+		content.id = elementId + 'copy';
+		content.show();
+		new Tip(
+			'tip' + elementId,                 // the id of your element
+			content,                 // a string or an element
+			{  
+				closeButton: false,    // or true
+				duration: 0.3,         // duration of the effect, if used
+				delay: 0,             // seconds before tooltip appears
+				effect: false,         // false, 'appear' or 'blind'
+				fixed: false,          // follow the mouse if false
+				hideAfter: false,      // hides after seconds of inactivity, not hovering the element or the tooltip
+				hideOn: 'mouseout',     // any other event, false or: { element: 'element|target|tip|closeButton|.close', event: 'click|mouseover|mousemove' }
+				hook: false,           // { target: 'topLeft|topRight|bottomLeft|bottomRight|topMiddle|bottomMiddle|leftMiddle|rightMiddle',tip: 'topLeft|topRight|bottomLeft|bottomRight|topMiddle|bottomMiddle|leftMiddle|rightMiddle' }
+				showOn: 'mousemove',   // or any other event
+				viewport: false         // keep within viewport, false when fixed or hooked
+			}
+		);
+	}
 }
 function refresh() {
 	load('content', view);
+}
+function cleanTips()
+{
+	var tips = $$('.torrent');
+	for(var i = 0; i < tips.length; i++)
+	{
+		var temp = $(tips[i].id + 'copy');
+		if(temp != null)
+			temp.remove();
+	}
 }
