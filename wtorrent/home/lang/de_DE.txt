@@ -1,6 +1,6 @@
 err_login = Fehler: Login nicht korrekt, bitte Benutzername/Passwort kontrollieren
-err_users_nosel = Error: Keine Benutzer zum Löschen ausgew&aumlhlt
-info_users_added = Benutzer erfolgreich hinzugef&uumlgt
+err_users_nosel = Error: Keine Benutzer zum Löschen ausgewählt
+info_users_added = Benutzer erfolgreich hinzugefügt
 err_users_add = Kein Benutzername/Passwort gesetzt, bitte Eingaben kontrollieren
 info_users_deleted = Benutzer erfolgreich gelöscht
 info_tor_stop = Torrent(s) erfolgreich gestoppt
@@ -8,7 +8,7 @@ info_tor_close = Torrent(s) erfolgreich geschlossen
 info_tor_start = Torrent(s) erfolgreich gestartet
 info_tor_erase = Torrent(s) erfolgreich gelöscht
 info_tor_chash = Torrent(s) gestartet um den Hash zu kontrollieren
-info_add_torrent = Erfolgreich hinzugef&uumlgt
+info_add_torrent = Erfolgreich hinzugefügt
 err_add_torrent = Fehler beim Hinzufügen des Torrents
 err_add_dir = Fehler beim Erstellen der Datei im angegebenen Verzeichnis, bitte Berechtigungen kontrollieren
 err_add_file = Fehler: Torrent existiert bereits im Torrent-Verzeichnis
@@ -76,7 +76,7 @@ log_in = Sie sind nicht eingeloggt oder ihre Sitzung ist abgelaufen, bitte die S
 command_error = Fehler beim Ausführen, bitte die Seite erneut laden
 
 info_ch_files = Datei-Priorität erfolgreich geändert
-err_ch_files = Fehler beim Ändern der Datei-Priorit&aumlt, bitte die Eingabe kontrollieren und nochmals versuchen.
+err_ch_files = Fehler beim Ändern der Datei-Priorität, bitte die Eingabe kontrollieren und nochmals versuchen.
 
 tb_name = Name
 tb_seeds = Seeds
