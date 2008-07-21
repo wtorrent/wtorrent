@@ -1,0 +1,165 @@
+err_login = Fehler: Login nicht korrekt, bitte Benutzername/Passwort kontrollieren
+err_users_nosel = Error: Keine Benutzer zum Löschen ausgew&aumlhlt
+info_users_added = Benutzer erfolgreich hinzugef&uumlgt
+err_users_add = Kein Benutzername/Passwort gesetzt, bitte Eingaben kontrollieren
+info_users_deleted = Benutzer erfolgreich gelöscht
+info_tor_stop = Torrent(s) erfolgreich gestoppt
+info_tor_close = Torrent(s) erfolgreich geschlossen
+info_tor_start = Torrent(s) erfolgreich gestartet
+info_tor_erase = Torrent(s) erfolgreich gelöscht
+info_tor_chash = Torrent(s) gestartet um den Hash zu kontrollieren
+info_add_torrent = Erfolgreich hinzugef&uumlgt
+err_add_torrent = Fehler beim Hinzufügen des Torrents
+err_add_dir = Fehler beim Erstellen der Datei im angegebenen Verzeichnis, bitte Berechtigungen kontrollieren
+err_add_file = Fehler: Torrent existiert bereits im Torrent-Verzeichnis
+info_add_upload = Voller Verzeichnis-Pfad, endet mit /
+
+low = Niedrig
+normal = Normal
+high = Hoch
+idle = Pause
+change_pr = Priorität ändern
+err_pr = Fehlerhafte Einstellungen der Priotität
+info_pr = Priorität erfolgreich geändert
+
+file_off = Nicht downloaden
+file_normal = Normal
+file_high = Hoch
+change_pr = Priorität ändern
+start_now = Jetzt starten:
+private = Privat:
+no_torrents = Keine Torrents gefunden
+pl_torrents = Öffentlich
+pr_torrents = Privat
+
+down_limit = Download-Limit:
+up_limit = Upload Limit:
+change_dlimit = Download-Limit ändern
+change_ulimit = Upload-Limit ändern
+
+info_down_limit = Download-Limit erfolgreich geändert
+err_down_limit = Fehler: Download-Limit fehlerhaft
+info_up_limit = Upload-Limit erfolgreich geändert
+err_up_limit = Fehler: Upload-Limit fehlerhaft
+
+logout = Logout
+info_logout = Sie sind nun ausgeloggt
+
+enable = Aktiviere
+disable = Deaktiviere
+change_tr = Ändere
+info_ch_trackers = Trackers erfolgreich geändert
+
+tl_feeds = Feeds
+edit_feed = Feed bearbeiten
+erase_feed = Feed löschen
+title_feeds = Titel
+desc_feeds = Beschreibung
+view_feed = Zeige Feed
+feed_add = Feed hinzufügen
+tl_feed_add = Neuen Feed hinzufügen
+info_add_feed = Neuer Feed erfolgreich hinzugefügt
+info_erase_feed = Feed erfolgreich gelöscht
+no_feeds = Keine Feeds gefunden, bitte einen hinzufügen
+feed_torrent = Torrent Name
+feed_date = Datum
+feed_down_tor = Download torrent
+down_dir = Download Verzeichnis
+download_dir = Verzeichnis ändern
+feed_url = Feed URL
+
+info_ch_dir = Download Verzeichnis erfolgreich geändert
+err_ch_dir = Fehler beim ändern des Download Verzeichnisses
+down_started = Download gestartet
+
+log_in = Sie sind nicht eingeloggt oder ihre Sitzung ist abgelaufen, bitte die Seite erneut laden
+command_error = Fehler beim Ausführen, bitte die Seite erneut laden
+
+info_ch_files = Datei-Priorität erfolgreich geändert
+err_ch_files = Fehler beim Ändern der Datei-Priorit&aumlt, bitte die Eingabe kontrollieren und nochmals versuchen.
+
+tb_name = Name
+tb_seeds = Seeds
+tb_peers = Peers
+tb_download = DL(KB/s)
+tb_upload = UP(KB/s)
+tb_done = Fertig
+tb_size = Grösse
+tb_percent = Prozent
+tb_ratio = Verhältnis
+tb_eta = ETA
+
+err_conn = Fehler: Verbindung zu rTorrent nicht möglich
+conf_erase = Sind sie sicher, dass sie diesen Torrent löschen wollen ?
+
+check_all = Alles markieren
+uncheck_all = Alles demarkieren
+invert_all = Auswahl umkehren
+action = Anwenden
+start = Start
+stop = Stop
+close = Schliessen
+erase = Löschen
+
+user = Benutzer
+admin = Admin
+conf_user_del = Sind sie sicher, dass sie diese(n) Benutzer löschen wollen ?
+no_users = Keine Benutzer gefunden
+add_user = Benutzer hinzufügen
+password = Passwort
+ch_bandwidth = Bandbreiten-Limit ändern
+kb_units = KB
+chash = Hash nochmal kontrollieren
+closet = Schliessen
+
+
+cookie_host = Cookie Adresse                                                                                                                                                                                                           
+cookie_value = Cookie Wert
+cookie_add = Hinzufügen                                                                                                                                                                                                                    
+cookie_edit = Bearbeiten                                                                                                                                                                                                                  
+cookie_erase = Löschen                                                                                                                                                                                                            
+cookies_hostname = Adresse
+cookies_value = Wert                                                                                                                                                                                                               
+cookie_no_cookies = Keine Cookies                                                                                                                                                                                                      
+cookie_tl_cookie_add = Hinzufügen                                                                                                                                                                                                          
+tb_uploaded = Uploaded                                                                                                                                                                                                              
+no_curl_function = Keine CURL Funktionen in PHP (Paket fehlt)
+
+default_dir = Standard-Verzeichnis
+force_default = Standard-Verzeichnis bevorzugen
+
+ip = IP
+speed = Geschwindigkeit (KB/s)
+connection = Verbindung
+percent_done = % Fertig
+encryption = Verschlüsselt
+client = Client
+down = DL (KB/s)
+incoming = Eingehend
+outgoing = Ausgehend
+yes = Ja
+no = Nein
+up_peer = UP Peer (KB/s)
+down_peer = DL Peer (KB/s)
+no_peers = Keine Peers gefunden
+
+space = Speicherplatz:
+dw_rate = Download Rate:
+up_rate = Upload Rate:
+free = Frei: 
+
+files = Dateien
+file_name = Dateiname
+priority = Priorität
+torrent = Torrent
+torrent_file = Torrent Datei
+torrent_url = Torrent URL
+data_path = Datenverzeichnis
+rtorrent_message = rTorrent Nachricht
+min_peers = Min Peers
+max_peers = Max Peers
+url = URL
+ul_file = Upload Datei
+user = Benutzer
+password = Passwort
+login = Login

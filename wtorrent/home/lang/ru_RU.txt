@@ -1,0 +1,165 @@
+err_login = Ошибка: вход невозможен - неправильный логин/пароль
+err_users_nosel = Ошибка: не выделены пользователи для удаления
+info_users_added = Пользователи успешно добавлены
+err_users_add = Нет пользователя с таким логином/паролем. Проверьте введенные данные.
+info_users_deleted = Пользователи успешно удалены
+info_tor_stop = Торренты успешно остановлены
+info_tor_close = Торренты успешно закрыты
+info_tor_start = Торренты успешно стартовали
+info_tor_erase = Торренты успешно стерты
+info_tor_chash = Пересчет хеша стартовал успешно
+info_add_torrent = Торрент успешно добавлен
+err_add_torrent = Ошибка добавления торрента
+err_add_dir = Ошибка: невозможно создать файл. Проверьте наличие прав
+err_add_file = Ошибка: торрент с таким именем уже существует
+info_add_upload = полный путь к папке, включая /
+
+low = Низкий
+normal = Нормальный
+high = Высокий
+idle = Неактивный
+change_pr = Изменить
+err_pr = Неправильные настройки приоритетов
+info_pr = Приоритет успешно изменен
+
+file_off = Не закачивать
+file_normal = Нормальный
+file_high = Высокий
+change_pr = Изменить приоритет
+start_now = Стартовать сейчас:
+private = Частное:
+no_torrents = нет торрентов
+pl_torrents = общее
+pr_torrents = частное
+
+down_limit = Лимит скачивания:
+up_limit = Лимит отдачи:
+change_dlimit = Изменить лимит скачивания
+change_ulimit = Изменить лимит отдачи
+
+info_down_limit = Лимит скачивания обновлен успешно
+err_down_limit = Ошибка: неправильный лимит скачивания
+info_up_limit = Лимит отдачи обновлен успешно
+err_up_limit = Ошибка: неправильный лимит отдачи
+
+logout = Выйти
+info_logout = Вы вышли
+
+enable = Активно
+disable = Неактивно
+change_tr = Изменить
+info_ch_trackers = Трекер обновлен успешно
+
+tl_feeds = Фиды
+edit_feed = Изменить фиды
+erase_feed = Стереть фиды
+title_feeds = Заголовок
+desc_feeds = Описание
+view_feed = Смотреть фид
+feed_add = Добавить фид
+tl_feed_add = Добавить новый фид
+info_add_feed = Новый фид успешно добавлен
+info_erase_feed = Фид успешно удален
+no_feeds = Нет фидов. Можете добавить
+feed_torrent = Имя торрента
+feed_date = Дата
+feed_down_tor = Скачать торрент
+down_dir = Путь к данным
+download_dir = Изменить папку
+feed_url = Ссылка на фид
+
+info_ch_dir = Папка загрузки успешно изменена
+err_ch_dir = Невозможно изменить папку загрузки
+down_started = Загрузка начата
+
+log_in = Вы не вошли или сессия устарела. Пожалуйста, авторизуйтесь.
+command_error = Невозможно выполнить команду. Обновите страницу и попробуйте снова.
+
+info_ch_files = Приоритет изменен успешно
+err_ch_files = Невозможно изменить приоритет. Обновите страницу и попробуйте снова.
+
+tb_name = Имя
+tb_seeds = Сиды
+tb_peers = Пиры
+tb_download = Качаю
+tb_upload = Отдаю
+tb_done = Скачал
+tb_size = Всего
+tb_percent = %
+tb_ratio = Ратио
+tb_eta = Осталось
+
+err_conn = Ошибка! Нет связи с рторрентом
+conf_erase = Уверены, что хотите стререть этот торрент?
+
+check_all = Отметить все
+uncheck_all = Снять отметки всем
+invert_all = Инвертировать выделение
+action = Применить
+start = Старт
+stop = Стоп
+close = Закрыть
+erase = Стереть
+
+user = Пользователь
+admin = Админ
+conf_user_del = Уверены, что хотите удалить этих пользователей?
+no_users = Не найдено пользователей
+add_user = Добавить пользователя
+password = Пароль
+ch_bandwidth = Изменить ограничения канала
+kb_units = Кб
+chash = Пересчитать хэш
+closet = Закрыть
+
+
+cookie_host = Хост куки                                                                                                                                                                                                          
+cookie_value = Значение куки                                                                                                                                                                                                         
+cookie_add = Добавить                                                                                                                                                                                                                    
+cookie_edit = Редактировать                                                                                                                                                                                                                  
+cookie_erase = Стереть                                                                                                                                                                                                                
+cookies_hostname = Хост                                                                                                                                                                                                         
+cookies_value = Значение                                                                                                                                                                                                               
+cookie_no_cookies = Нет куки                                                                                                                                                                                                      
+cookie_tl_cookie_add = Добавить                                                                                                                                                                                                          
+tb_uploaded = Раздал                                                                                                                                                                                                              
+no_curl_function = Нет функций curl в php
+
+default_dir = Папка по умолчанию
+force_default = Только папка по умолчанию
+
+ip = IP
+speed = Скорость (Кб/с)
+connection = Соединение
+percent_done = Закончено
+encryption = Шифровано
+client = клиент
+down = DL (Кб/с)
+incoming = Входящие
+outgoing = Исходящие
+yes = Да
+no = Нет
+up_peer = UP Peer (Кб/с)
+down_peer = DL Peer (Кб/с)
+no_peers = Пиры не найдены
+
+space = Место:
+dw_rate = Скачивание:
+up_rate = Отдача:
+free = Еще: 
+
+files = Файлы
+file_name = Имя файла
+priority = Приоритет
+torrent = Торрент
+torrent_file = Имя торрента
+torrent_url = URL торрента
+data_path = Путь к данным
+rtorrent_message = сообщение rTorrent
+min_peers = Минимум пиров
+max_peers = Максимум пиров
+url = Url
+ul_file = Загрузить
+user = Логин
+password = Пароль
+login = Войти
