@@ -1,30 +1,30 @@
 {*<div style="width: 100%; font-family: arial; font-size: 11px; padding: 0px 2px 8px 2px;">
                         <b style="color: #4C8CC4;">{$str.files}:</b>
         </div>*}
-<form method="POST" action="{$SRC_INDEX}?cls={$web->getCls()}&tpl=details&hash={$web->getHash()}">
-	<table style="border-collapse: collapse; width: 100%; margin-left: auto; margin-right: auto; border-bottom: 1px solid #d4d4d4;">
-	<tr style="background-color: #F1F3F5; border-bottom: 1px solid #d4d4d4;">
-		<td style="padding: 5px; font-family: arial; font-size: 11px; font-weight: bold;">{$str.file_name}</td>
-		<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">{$str.tb_done}</td>
-		<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">{$str.tb_size}</td>
-		<td style="width: 50px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">{$str.percent_done}</td>
-		<td style="width: 35px; padding: 5px; font-family: arial; font-size: 11px; font-weight: bold; text-align: center;">{$str.priority}</td>
+<form method="post" action="{$SRC_INDEX}?cls={$web->getCls()}&tpl=details&hash={$web->getHash()}">
+	<table id="file_list" >
+	<tr>
+		<th>{$str.file_name}</th>
+		<th>{$str.tb_done}</th>
+		<th>{$str.tb_size}</th>
+		<th>{$str.percent_done}</th>
+		<th>{$str.priority}</th>
 	</tr>	
 	{foreach key=clau item=file from=$web->getFiles()}
 	<tr>
-                <td style="font-family: arial; font-size: 11px; padding: 2px 5px 2px 10px; text-align: left;">
+                <td class="file_list_first">
                         <input type="checkbox" id="{$clau}" class="files{$web->getHash()}" />&nbsp;&nbsp;{if $details.file_percent.$clau eq 100}<a href="{$ftp}{$ftp_data_dir|utf8_encode}{$file|utf8_encode}">{/if}{$file.name}{if $details.file_percent.$clau eq 100}</a>{/if}
                 </td>
-		<td style="padding: 2px 5px 2px 5px; font-family: arial; font-size: 11px; text-align: center;">
+		<td>
 			{$web->getDone($clau)}
 		</td>
-		<td style="padding: 2px 5px 2px 5px; font-family: arial; font-size: 11px; text-align: center;">
+		<td>
 			{$web->getSize($clau)}
 		</td>
-        <td style="padding: 2px 5px 2px 5px; font-family: arial; font-size: 11px; text-align: center;">
+		<td>
 			{$file.percent}%
 		</td>
-		<td style="padding: 2px 5px 2px 5px; font-family: arial; font-size: 11px; text-align: center;">
+		<td>
 			{$web->getPriorityStr($clau)}
 		</td>
         </tr>

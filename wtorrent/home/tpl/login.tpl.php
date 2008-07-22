@@ -2,29 +2,21 @@
 	
 </div>
 <div id="login_m">
-	<div id="login">
-		<form action="" method="POST">
-			<div style="height: 20px; width: 100%;">
-				<div style="height: 20px; padding-top: 6px; font-size:12px; width: 80px; float: left; text-align: left;">
-					<b>{$str.user}:</b>
-				</div>
-				<div style="float: left;">
-					<input type="text" name="userf" />
-				</div>
-			</div>
-			<br />
-			<div style="height: 20px; width: 100%;">
-				<div style="height: 20px; padding-top: 6px; font-size: 12px; width: 80px; float: left; text-align: left;">
-					<b>{$str.password}:</b>
-				</div>
-				<div style="float: left;">
-					<input type="password" name="passwdf" />
-				</div>
-			</div>
-			<br />
-			<div style="padding-bottom: 10px;"><input type="submit" value="{$str.login}" name="user_login" /></div>
-		</form>
-	</div>
+  <div id="login">
+    <form id="form-login" action="" method="post">
+      <p id="login-username">
+	<label for="userf">{$str.user}:</label>
+	<input name="userf" id="userf" type="text" />
+      </p>
+      <p id="login-password">
+	<label for="passwdf">{$str.password}:</label>
+	<input type="password" id="passwdf" name="passwdf" />
+      </p>
+      <p id="login-input">
+	<input type="submit" value="{$str.login}" name="user_login" id="user_login" />
+      </p>
+    </form>
+  </div>
 </div>
 <div id="login_b">
 	

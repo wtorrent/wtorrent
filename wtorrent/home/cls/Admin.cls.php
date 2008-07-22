@@ -47,18 +47,6 @@ class Admin extends rtorrent
 		$res = $this->_db->query( $sql );
 		$result = $res->fetchAll();
 		$num = count($result);
-		for($i = 0; $i < $num; $i++)
-		{
-			if($result[$i]['admin'] != 1)
-				$result[$i]['admin'] = 'No';
-			else 
-				$result[$i]['admin'] = 'Yes';
-                
-            if($result[$i]['force_dir'] != 1)
-				$result[$i]['force_dir'] = 'No';
-			else 
-				$result[$i]['force_dir'] = 'Yes';
-		}
 		//print_r($result);
 		return $result;
     }

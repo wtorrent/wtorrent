@@ -27,7 +27,11 @@
 	<li>
 		<div class="tabs" onclick="load('content', '{$view}');">
 			<div class="rtorrent_text">
-				{$view}
+				{if $str.$view}
+				  {$str.$view}
+				{else}
+				  {$view}
+				{/if}
 			</div>
 			{if $smarty.foreach.views.last}
 				<div class="rtorrent_right">

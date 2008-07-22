@@ -18,6 +18,7 @@ img {
 }
 #messages {
 	margin: 0 20px 0 20px;
+	text-align: center;
 	width: 100%;
 }
 #messages_t {
@@ -87,6 +88,35 @@ img {
 	clear: both;
 	margin: 0 auto;
 }
+
+#login-form
+{
+  height: 20px;
+  width: 100%;
+}
+
+#form-login label {
+  display: block;
+  float: left;
+  width: 50px;
+  text-align: right;
+  font-size: 12px;
+  padding: 4px;
+  color: #666;
+  font-weight: bold;
+}
+
+#login-username, #login-password, #login-input
+{
+  padding-top: 1em;
+}
+
+#user_login
+{
+  padding: 1pt;
+}
+
+
 /* Menu */
 #menu {
 	width:678px; 
@@ -237,6 +267,39 @@ img {
 	float: left;
 	background-color: transparent;
 	clear: right;
+}
+
+
+#file_list
+{
+  border-collapse: collapse;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid #d4d4d4;
+  font-family: arial;
+  font-size: 11px;
+}
+
+#file_list th
+{
+  background-color: #F1F3F5;
+  border-bottom: 1px solid #d4d4d4;
+  padding: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#file_list td
+{
+  padding: 2px 5px 2px 5px;
+  text-align: center;
+}
+
+#file_list .file_list_first
+{
+  padding: 2px 5px 2px 10px;
+  text-align: left;
 }
 /* The tabs */
 #tabs {
@@ -515,4 +578,26 @@ img {
 #speed {
 	clear: both;
 	margin: 5px auto 0 auto;
+}
+
+#user_table_header
+{
+  width: 815px; 
+  height: 24px;
+  margin: 0px auto;
+  margin-bottom: 0px;
+  background-color: #d7e4ef;
+  border: 1px solid #d4d4d4;
+  font-size: 11px;
+}
+
+.user_table_row
+{
+  width: 815px;
+  height: 24px;
+  margin: 0px auto;
+  margin-bottom: 0px;
+  border: 1px solid #d4d4d4;
+  border-width: 0px 1px 0px 1px;
+  font-size: 11px;
 }

@@ -163,3 +163,16 @@ ul_file = Upload file
 user = User
 password = Password
 login = Login
+
+ListT = Main
+AddT = Add Torrent
+Feeds = Feeds
+Admin = Admin
+Cookie = Cookie
+active = active
+started = started
+stopped = stopped
+complete = complete
+incomplete = incomplete
+hashing = hashing
+seeding = seeding

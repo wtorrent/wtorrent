@@ -231,15 +231,27 @@ abstract class Web
 
     private function _loadTexts( $lang )
     {
-		if( !is_file( DIR_LANG.$lang.'.txt') )	$lang='en';
+		$master_lang = 'en';
+		if( !is_file( DIR_LANG.$lang.'.txt') )	$lang=$master_lang;
 
+		if( !$ml = @fopen( DIR_LANG.$master_lang.'.txt', 'r' ) ) return false;
 		if( !$fd = @fopen( DIR_LANG.$lang.'.txt', 'r' ) ) return false;
+
+		while( !feof( $ml ) )
+		{
+			$m_parts = explode( '=', fgets( $ml, 4096 ), 2 );
+			$m_key = trim( $m_parts[0] );
+			if( !empty( $m_key ) ) $this->_str[$m_key] = trim( $m_parts[1] );
+		}
 
 		while( !feof( $fd ) )
 		{
 			$parts = explode( '=', fgets( $fd, 4096 ), 2 );
 			$key = trim( $parts[0] );
-			if( !empty( $key ) ) $this->_str[$key] = trim( $parts[1] );
+			if( !empty( $key ) )
+			  $this->_str[$key] = trim( $parts[1] );
+			else
+			  $this->_str[$key] = trim( $m_parts[1]);
 		}
 		fclose( $fd );
 

@@ -13,7 +13,7 @@
 			<div style="width: 150px; float: left;font-size: 12px; font-weight: bold; margin-top: 3px;">{$str.down_dir}:</div>
             {assign var='dir' value=$web->getDir()}
             {if !empty($dir)}{assign var='DIR_DOWNLOAD' value=$dir}{/if}
-			<div style="width: 600px; float: left; text-align: left;"><input{if $web->getForceDir() eq 1} readonly="readonly"{/if} name="download_dir" type="text" size="60" value="{$DIR_DOWNLOAD}" /> <span style="margin-left: 5px;">({$str.info_add_upload})</span></div>
+			<div style="float: left; text-align: left;"><input{if $web->getForceDir() eq 1} readonly="readonly"{/if} name="download_dir" type="text" size="60" value="{$DIR_DOWNLOAD}" /> <span style="margin-left: 5px;">({$str.info_add_upload})</span></div>
 		</div>
 		<div style="width: 100%; height: 40px; padding-left: 20px; text-align: left;">
 			<div style="width: 150px; float: left;font-size: 12px; font-weight: bold; margin-top: 3px;">{$str.start_now}</div>

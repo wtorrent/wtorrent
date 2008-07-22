@@ -29,8 +29,8 @@ change_pr = Muuda prioriteeti
 start_now = Alusta kohe:
 private = Privaatne:
 no_torrents = Torrenteid ei leitud
-pl_torrents = avalik
-pr_torrents = privaatne
+pl_torrents = Avalik
+pr_torrents = Privaatne
 
 down_limit = Allalaadimis piirang:
 up_limit = Üleslaadimis piirang:
@@ -163,3 +163,16 @@ ul_file = Lae fail üles
 user = Kasutaja
 password = Parool
 login = Logi sisse
+
+Admin = Admin
+ListT = Esileht
+AddT = Lisa torrent
+Feeds = Vood
+Cookie = Küpsised
+active = Aktiivsed
+started = Käivitatud
+complete = Valmis
+seeding = Jagatavad
+hashing = Räsi kontroll
+incomplete = Pole valmis
+stopped = Peatatud

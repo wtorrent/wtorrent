@@ -29,7 +29,7 @@
 			<b style="color: #4C8CC4;">{$str.min_peers}: </b>{$web->getMinPeers()}
 		</div>
 		<div style="width: 342px; float: left; font-family: arial; font-size: 11px; padding: 2px;">
-                        <form method="POST" action="{$SRC_INDEX}?cls={$web->getCls()}&tpl=details&hash={$web->getHash()}">
+                        <form method="post" action="{$SRC_INDEX}?cls={$web->getCls()}&tpl=details&hash={$web->getHash()}">
 						<b style="color: #4C8CC4;">{$str.priority}: </b>
                         {assign var="priority" value=$web->getPriority()}
                         {foreach from=$web->getPriorities() item="pr" key="prKey" name="priorities"}

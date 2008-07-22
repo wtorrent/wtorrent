@@ -1,0 +1,165 @@
+err_login = Błąd: Niepoprawne logowanie - sprawdź nazwę użytkownika/hasło.
+err_users_nosel = Błąd: Nie zaznaczono użytkownika do usunięcia.
+info_users_added = Użytkownik dodany prawidłowo.
+err_users_add = Nie wprowadzono nazwy użytkownika/hasła, sprawdź wprowadzone dane.
+info_users_deleted = Użytkownik usunięty prawidłowo.
+info_tor_stop = Zatrzymano prawidłowo.
+info_tor_close = Zamknięto prawidłowo.
+info_tor_start = Wystartowano prawidłowo.
+info_tor_erase = Usunięto prawidłowo.
+info_tor_chash = Sprawdzanie hash rozpoczęto prawidłowo.
+info_add_torrent = Dodano prawidłowo.
+err_add_torrent = Wystąpił błąd podczas dodawania.
+err_add_dir = Błąd: Niemożliwe jest utworzenie pliku w podanym katalogu, proszę sprawdź uprawnienia.
+err_add_file = Błąd: Torrent o tej samej nazwie już istnieje, nie mogę utworzyć kolejnego pliku .torrent
+info_add_upload = pełna ścieżka do katalogu, kończąca się znakiem /
+
+low = Niski
+normal = Normalny
+high = Wysoki
+idle = Nie pobieraj
+change_pr = Zmień
+err_pr = Złe ustawienia priotytetu
+info_pr = Priorytet zmieniono prawidłowo
+
+file_off = Nie pobieraj
+file_normal = Normalny
+file_high = Wysoki
+change_pr = Zmień priorytet
+start_now = Rozpocznij natychmiast:
+private = Prywatny:
+no_torrents = Nie znaleziono torrenta
+pl_torrents = publiczny
+pr_torrents = prywatny
+
+down_limit = Limit pobierania:
+up_limit = Limit wysyłania:
+change_dlimit = Zmień limit pobierania
+change_ulimit = Zmień limit wysyłania
+
+info_down_limit = Zmiana limitu pobierania powiodła się.
+err_down_limit = Błąd: Nieprawidłowa wartość dla limitu pobierania.
+info_up_limit = Zmiana limitu wysyłania powiodła się.
+err_up_limit = Błąd: Nieprawidłowa wartość dla limitu wysyłania.
+
+logout = Wyloguj
+info_logout = Nie jesteś teraz zalogowany.
+
+enable = Zazwól
+disable = Zabroń
+change_tr = Zmień
+info_ch_trackers = Zmiany zostały zaakceptowane.
+
+tl_feeds = Czytniki RSS
+edit_feed = Edytuj czytnik
+erase_feed = Usuń czytnik
+title_feeds = Tytuł
+desc_feeds = Opis
+view_feed = Pokaż czytnik
+feed_add = Dodaj czytnik
+tl_feed_add = Dodaj nowy czytnik
+info_add_feed = Nowy czytnik dodano prawidłowo.
+info_erase_feed = Czytnik usunięto prawidłowo.
+no_feeds = Nie znaleziono czytników, proszę dodaj jakiś.
+feed_torrent = Nazwa torrenta
+feed_date = Data
+feed_down_tor = Pobierz torrent
+down_dir = Folder pobierania
+download_dir = Zmień folder
+feed_url = Odnośnik do czytnika
+
+info_ch_dir = Folder pobierania zmieniono prawidłowo.
+err_ch_dir = Błąd podczas zmiany folderu pobierania.
+down_started = Pobieranie rozpoczęte.
+
+log_in = Nie jesteś zalogowany albo twoja sesja wygasła, proszę odświerz stronę.
+command_error = Błąd podczas wykonywania poleceń, proszę odświerzyć stronę i spróbować ponownie.
+
+info_ch_files = Priorytet pliku zmieniono prawidłowo.
+err_ch_files = Błąd podczas zmiany priorytetu, proszę sprawdź wprowadzone dane i spróbuj ponownie.
+
+tb_name = Nazwa
+tb_seeds = Seed'y
+tb_peers = Peer'y
+tb_download = DL(KB/s)
+tb_upload = UP(KB/s)
+tb_done = Pobrano
+tb_size = Rozmiar
+tb_percent = Procent
+tb_ratio = Ratio
+tb_eta = ETA
+
+err_conn = Błąd: Nie można połączyć się z rtorrentem.
+conf_erase = Jesteś pewny tego, że chcesz usunąć ten torrent?
+
+check_all = Zaznacz wszystko
+uncheck_all = Odznacz wszystko
+invert_all = Odwróć zaznaczenie
+action = Zastosuj
+start = Rozpocznij
+stop = Zatrzymaj
+close = Zamknij
+erase = Usuń
+
+user = Użytkownik
+admin = Administrator
+conf_user_del = Jesteś pewny, że chcesz usunąć użytkownika?
+no_users = Nie znaleziono użytkowników.
+add_user = Dodaj użytkownika:
+password = Hasło
+ch_bandwidth = Zmień limity przepustowości:
+kb_units = KB
+chash = Sprawdź ponownie Hash
+closet = Zamknij
+
+
+cookie_host = Host ciasteczka
+cookie_value = Wartość ciasteczka
+cookie_add = Dodaj
+cookie_edit = Edytuj
+cookie_erase = Usuń
+cookies_hostname = Nazwa hosta
+cookies_value = Wartość
+cookie_no_cookies = Brak ciasteczek
+cookie_tl_cookie_add = Dodaj
+tb_uploaded = Wysłano
+no_curl_function = Brak funkcji curl w php.
+
+default_dir = Domyślny folder
+force_default = Tylko domyślny folder
+
+ip = IP
+speed = Prędkość (KB/s)
+connection = Połączenie
+percent_done = % ukończenia
+encryption = Szyfrowane
+client = Klient
+down = DL (KB/s)
+incoming = Przychodzące
+outgoing = Wychodzące
+yes = Tak
+no = Nie
+up_peer = UP źródła (KB/s)
+down_peer = DL źródła (KB/s)
+no_peers = Nie znaleziono źródeł
+
+space = Miejsce:
+dw_rate = Szybkość pobierania:
+up_rate = Szybkość wysyłania:
+free = Wolne: 
+
+files = Pliki
+file_name = Nazwa pliku
+priority = Priorytet
+torrent = Torrent
+torrent_file = Plik torrent
+torrent_url = Url do pliku torrent
+data_path = Ścieżka do danych
+rtorrent_message = Wiadomość rTorrent
+min_peers = Min. ilość źródeł
+max_peers = Maks. ilość źródeł
+url = Url
+ul_file = Załaduj plik
+user = Użytkownik
+password = Hasło
+login = Login

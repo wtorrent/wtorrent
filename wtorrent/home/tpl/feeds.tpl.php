@@ -16,12 +16,12 @@
 			{/if}
 			{*<tr>
 				<td style="padding: 5px;">{$feed.title|truncate:50}</td>
-				<td style="padding: 5px;">{$feed.description|trucate:50}</td>
+				<td style="padding: 5px;">{$feed.description|truncate:50}</td>
 				<td style="padding: 5px; padding-top: 0px;"><a href="{$SRC_INDEX}?cls={$web->getCls()}&view={$feed.id}" title="{$str.view_feed}"><img src="{$DIR_IMG}feed_go.png" alt="{$str.view_feed}" /></a>&nbsp;&nbsp;<a href="{$SRC_INDEX}?cls={$web->getCls()}&amp;edit={$feed.id}" title="{$str.edit_feed}"><img src="{$DIR_IMG}feed_edit.png" alt="{$str.edit_feed}" /></a>&nbsp;&nbsp;<a href="{$SRC_INDEX}?cls={$web->getCls()}&amp;erase={$feed.id}" title="{$str.erase_feed}"><img src="{$DIR_IMG}feed_delete.png" alt="{$str.erase_feed}" /></a></td>
 			</tr>*}
 			<div style="width: 850px; height: 24px; margin: 0px auto; margin-bottom: 0px; border: 1px solid #d4d4d4; border-width: 0px 1px 0px 1px; font-size: 11px;">
-        		<div style="text-align: center; padding: 5px; padding-left: 30px; width: 310px; float: left;">{$feed.title}</div>
-        		<div style="text-align: center; padding: 5px; width: 290px; float: left;">{$feed.description}</div>
+        		<div style="text-align: center; padding: 5px; padding-left: 30px; width: 310px; float: left;">{$feed.title|truncate:50}</div>
+        		<div style="text-align: center; padding: 5px; width: 290px; float: left;">{$feed.description|truncate:50}</div>
         		<div style=" text-align: center; padding: 5px; width: 190px; float: left;"><a href="{$SRC_INDEX}?cls={$web->getCls()}&amp;view={$feed.id}" title="{$str.view_feed}"><img src="{$DIR_IMG}feed_go.png" alt="{$str.view_feed}" /></a>&nbsp;&nbsp;<a href="{$SRC_INDEX}?cls={$web->getCls()}&amp;edit={$feed.id}" title="{$str.edit_feed}"><img src="{$DIR_IMG}feed_edit.png" alt="{$str.edit_feed}" /></a>&nbsp;&nbsp;<a href="{$SRC_INDEX}?cls={$web->getCls()}&amp;erase={$feed.id}" title="{$str.erase_feed}"><img src="{$DIR_IMG}feed_delete.png" alt="{$str.erase_feed}" /></a></div>
         	</div>
 			{if $smarty.foreach.feeds.last}
@@ -46,8 +46,8 @@
 				<td style="padding: 5px;">{$str.feed_date}</td>
 			</tr>*}
 			<div style="width: 850px; height: 24px; margin: 0px auto; font-weight: bold; margin-bottom: 0px; background-color: #d7e4ef; border: 1px solid #d4d4d4; font-size: 11px;">
-        		<div style="text-align: center; padding: 5px; padding-left: 30px; font-weight: bold; width: 510px; float: left;">{$str.title_feeds}</div>
-        		<div style="text-align: center; padding: 5px; font-weight: bold; width: 290px; float: left;">{$str.desc_feeds}</div>
+        		<div style="text-align: center; padding: 5px; padding-left: 30px; font-weight: bold; width: 510px; float: left;">{$str.feed_torrent}</div>
+        		<div style="text-align: center; padding: 5px; font-weight: bold; width: 290px; float: left;">{$str.feed_date}</div>
         	</div>
 			{/if}
 			{*<tr>
