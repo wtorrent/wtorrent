@@ -4,12 +4,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <title>{$TITLE}</title>
-  <script src="{$DIR_JS}" type="text/javascript"></script>
-  <script src="{$DIR_JSPROTO}" type="text/javascript"></script>
-  <script src="{$DIR_SCRIPTACULOUS}?load=effects" type="text/javascript"></script>
-  <script src="{$DIR_PROTOTIP}" type="text/javascript"></script>
-	<link rel="stylesheet" type="text/css" href="home/css/reset.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="{$DIR_CSS_ESTIL}" media="all" />
+	<link rel="stylesheet" href="{$DIR_CSS}reset.css" type="text/css" media="all" charset="utf8" />
+	<link rel="stylesheet" href="{$DIR_CSS}estil.css" type="text/css" media="all" charset="utf8" />
+	<script src="{$DIR_JS}prototype.js" type="text/javascript" charset="utf-8"></script>
+	<script src="{$DIR_JS}scriptaculous/scriptaculous.js?load=effects" type="text/javascript" charset="utf-8"></script>
+	<script src="{$DIR_JS}prototip.js" type="text/javascript" charset="utf-8"></script>
+	<script src="{$DIR_JS}javasc.js" type="text/javascript" charset="utf-8"></script>
   {include file="loading.tpl.php" assign="loading"}
   {include file="comm_loading.tpl.php" assign="comm_loading"}
 	{if $web->registrado()}

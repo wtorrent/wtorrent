@@ -326,7 +326,7 @@ function torrentTip(elementId) {
 			content,                 // a string or an element
 			{  
 				closeButton: false,    // or true
-				duration: 0.3,         // duration of the effect, if used
+				// duration: 0.3,         // duration of the effect, if used
 				delay: 0,             // seconds before tooltip appears
 				effect: false,         // false, 'appear' or 'blind'
 				fixed: false,          // follow the mouse if false

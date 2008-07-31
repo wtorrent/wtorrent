@@ -18,30 +18,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Modified version of class done by David Marco Martinez
 */
 
-//error_reporting(E_ALL);
-/*$mtime = microtime( );
-$mtime = explode( ' ', $mtime );
-$mtime = $mtime[1] + $mtime[0];*/
+error_reporting(E_ALL);
+// Record the start time of execution
+$mtime = microtime( true );
+// Start php session BEFORE ANY output
 session_start();
-require_once( 'conf/home.conf.php' );
+// Load conf
+require_once( 'conf/user.conf.php' );
+require_once( 'conf/system.conf.php' );
 
-
+// Build the base of the app
 $web = Web::getClass( 'ListT' );
-
-/*$ttime = microtime( );
-$ttime = explode( ' ', $ttime );
-$ttime = $ttime[1] + $ttime[0];*/
-
+// Page specific operations and display
 $web->display( 'index' );
 
-/*$dtime = microtime( );
-$dtime = explode( ' ', $dtime );
-$dtime = $dtime[1] + $dtime[0];*/
-	
-/*$ftime = microtime( );
-$ftime = explode( ' ', $ftime );
-$ftime = $ftime[1] + $ftime[0];
-echo "total: " . ($ftime - $mtime) . '<br />';
-echo "load info: " . ($ttime - $mtime) . '<br />';
-echo "display: " . ($dtime - $ttime) . '<br />';*/
+// Record end time
+$ftime = microtime( true );
+$total = $ftime -$mtime;
+//echo "total: " . $total . 's<br />';
+// If end time is shorter than 0.5 segons sleep untill then
+if($total < MIN_TIME) {
+	usleep(floor((MIN_TIME - $total)*1000000));
+	//echo 'lost time: ' . (MIN_TIME - $total) . 's<br />';
+}
+// REAL end time (Should be about MIN_TIME + 0.1s)
+$fftime = microtime( true );
+$total = $fftime - $mtime;
 ?>
