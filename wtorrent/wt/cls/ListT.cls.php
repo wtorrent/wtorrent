@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class ListT extends rtorrent
 {
 	private  $view;
-	private  $MAX_LENGTH_NAME = 55;
  
   public function construct()
 	{
@@ -53,10 +52,39 @@ class ListT extends rtorrent
 		// t multicall
 		$array_t = array('t.get_scrape_complete', 't.get_scrape_incomplete');
 		$hashes = $this->getHashes(); // Retrieve hashes
+		// Order hashes
 		if(!empty($hashes))
 		{
 			foreach($hashes as $hash)
 				$this->multicall->t_multicall($hash, $array_t);
+		}
+		
+		if(isset($this->_request['sort']))
+		{
+			switch($this->_request['sort'])
+			{
+				case 'name':
+					$this->sortTorrentsByName($this->_request['order']);
+					break;
+				case 'dl':
+					$this->sortTorrentsByDL($this->_request['order']);
+					break;
+				case 'up':
+					$this->sortTorrentsByUP($this->_request['order']);
+					break;
+				case 'done':
+					$this->sortTorrentsByDone($this->_request['order']);
+					break;
+				case 'size':
+					$this->sortTorrentsBySize($this->_request['order']);
+					break;
+				case 'percent':
+					$this->sortTorrentsByPercent($this->_request['order']);
+					break;
+				case 'ratio':
+					$this->sortTorrentsByRatio($this->_request['order']);
+					break;
+			}
 		}
 	}
 
@@ -126,12 +154,7 @@ class ListT extends rtorrent
 	}
 	public function getName($hash)
 	{
-		// Just in case the torrent name is too long return a shortened version. (THIS SHOULD BE DONE IN THE TEMPLATE WITH SMARTY TRUNCATE)
-		$name = $this->torrents[$hash]->get_name();
-		if(strlen($name) > $this->MAX_LENGTH_NAME){
-			$name = substr($name, 0, $this->MAX_LENGTH_NAME) . ' ...';
-		}
-		return $name;
+		return $this->torrents[$hash]->get_name();
 	}
 	public function getState($hash)
 	{

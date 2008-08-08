@@ -40,6 +40,9 @@
 			{		
 				torrentTip(tips[i].id);
 			}
+			/* Event watcher */
+			if($('tbCell_h'))
+				$('tbCell_h').observe('click', sort);
 		}
 		postAjax();
 //-->

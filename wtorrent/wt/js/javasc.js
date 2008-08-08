@@ -27,6 +27,18 @@ function invertAllByClass(styleClass) {
 			elements[i].checked = !elements[i].checked;
 		}
 }
+/* Sort handler */
+function sort(e) {
+	var el = e.element();
+	if(el.hasClassName('asc'))
+	{
+		load('content', view, el.up().identify(), 'asc');
+	}
+	if(el.hasClassName('des'))
+	{
+		load('content', view, el.up().identify(), 'des');
+	}
+}
 /* Function that does the AJAX loading process */
 /* Possible FRAMES:
     'content': main div
@@ -35,7 +47,7 @@ function invertAllByClass(styleClass) {
     'ttab' + hash; div that contents 'tab' + hash and every torrent left tabs
     'messages': messages frame
 */
-function load(frame, content) {
+function load(frame, content, field, order) {
 	if(frame == 'content') // Actions for frame 'content' (MAIN FRAME)
 	{
 		var get = getContent(content);
@@ -45,6 +57,10 @@ function load(frame, content) {
 	else // Actions for torrent frames
 	{
 		var get = getFrame(content, frame);
+	}
+	if((field != null) && (order != null))
+	{
+		get = get + '&sort=' + field + '&order=' + order;
 	}
 	ajaxCall(frame, get);
 }

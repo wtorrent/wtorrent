@@ -39,7 +39,6 @@ class rtorrent extends Web
 						'Files' => 'Files&tpl=details',
 						'Tracker' => 'Tracker&tpl=details');
 	protected $admin;
-    /////////////////////////////////// C O N S T R U C T O R A S  Y  D E S T R U C T O R A ///////////////////////////////////
 
 	public function __construct( )
 	{
@@ -204,6 +203,77 @@ class rtorrent extends Web
 				}
 			}
 		}
+	}
+	/* Sort functions */
+	/* Sort by name */
+	protected function sortTorrentsByName($order)
+	{
+		if($order == 'asc')
+			uasort($this->torrents, array('torrent', 'compareNameAscending'));
+		elseif($order == 'des')
+			uasort($this->torrents, array('torrent', 'compareNameDescending'));
+		else
+			$this->addMessage($this->_str['invalid_order']);
+	}
+	/* Sort by Download Speed */
+	protected function sortTorrentsByDL($order)
+	{
+		if($order == 'asc')
+			uasort($this->torrents, array('torrent', 'compareDLAscending'));
+		elseif($order == 'des')
+			uasort($this->torrents, array('torrent', 'compareDLDescending'));
+		else
+			$this->addMessage($this->_str['invalid_order']);
+	}
+	/* Sort by Upload Speed */
+	protected function sortTorrentsByUP($order)
+	{
+		if($order == 'asc')
+			uasort($this->torrents, array('torrent', 'compareUPAscending'));
+		elseif($order == 'des')
+			uasort($this->torrents, array('torrent', 'compareUPDescending'));
+		else
+			$this->addMessage($this->_str['invalid_order']);
+	}
+	/* Sort by Done size */
+	protected function sortTorrentsByDone($order)
+	{
+		if($order == 'asc')
+			uasort($this->torrents, array('torrent', 'compareDoneAscending'));
+		elseif($order == 'des')
+			uasort($this->torrents, array('torrent', 'compareDoneDescending'));
+		else
+			$this->addMessage($this->_str['invalid_order']);
+	}
+	/* Sort by Size */
+	protected function sortTorrentsBySize($order)
+	{
+		if($order == 'asc')
+			uasort($this->torrents, array('torrent', 'compareSizeAscending'));
+		elseif($order == 'des')
+			uasort($this->torrents, array('torrent', 'compareSizeDescending'));
+		else
+			$this->addMessage($this->_str['invalid_order']);
+	}
+	/* Sort by Percent done */
+	protected function sortTorrentsByPercent($order)
+	{
+		if($order == 'asc')
+			uasort($this->torrents, array('torrent', 'comparePercentAscending'));
+		elseif($order == 'des')
+			uasort($this->torrents, array('torrent', 'comparePercentDescending'));
+		else
+			$this->addMessage($this->_str['invalid_order']);
+	}
+	/* Sort by Ratio */
+	protected function sortTorrentsByRatio($order)
+	{
+		if($order == 'asc')
+			uasort($this->torrents, array('torrent', 'compareRatioAscending'));
+		elseif($order == 'des')
+			uasort($this->torrents, array('torrent', 'compareRatioDescending'));
+		else
+			$this->addMessage($this->_str['invalid_order']);
 	}
 	protected function getHashes()
 	{

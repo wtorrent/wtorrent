@@ -24,7 +24,7 @@ abstract class Web
     private $_lang			= LANGUAGE ;
     private $_smarty		= null;
     private $_caching		= false;
-	private $message		= array( );
+		private $message		= array( );
     
     protected $_str			= array( );
     protected $_sesion		= null;

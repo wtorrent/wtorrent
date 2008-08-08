@@ -176,3 +176,5 @@ complete = complete
 incomplete = incomplete
 hashing = hashing
 seeding = seeding
+
+invalid_order = Invalid order specified in sort
