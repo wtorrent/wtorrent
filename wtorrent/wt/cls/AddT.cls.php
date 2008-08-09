@@ -138,7 +138,7 @@ class AddT extends rtorrent
 	{
 		if($this->getForceDir() == 1)
 			$dir = $this->getDir();
-		$uploadfile = DIR_EXEC . DIR_TORRENTS . basename($fileU['name']);
+		$uploadfile = DIR_EXEC . DIR_TORRENTS . time() . basename($fileU['name']);
 		if(!is_writable(DIR_EXEC . DIR_TORRENTS))
 		{
 			$this->addMessage($this->_str['err_add_dir']);

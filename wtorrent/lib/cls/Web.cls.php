@@ -15,222 +15,161 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Class made by David Marco Martinez
+Original class done by David Marco Martinez
+Modified by Roger Pau Monné
 */
 abstract class Web
 {
-	// Clase que engloba TODAS las clases (las que implementan formularios)
-    // Declaramos todos los atributos comunes con el prefijo _
-    private $_lang			= LANGUAGE ;
-    private $_smarty		= null;
-    private $_caching		= false;
-		private $message		= array( );
-    
-    protected $_str			= array( );
-    protected $_sesion		= null;
-    protected $_request		= null;
-    protected $_post		= null;
-    protected $_get			= null;
-    protected $_cookie		= null;
-    protected $_globals		= null;
-    protected $_server		= null;
-    protected $_files		= null;
-    protected $_env			= null;
-    protected $_db			= null;
-    protected $_ajax		= false;
-    
-    /////////////////////////////////// C O N S T R U C T O R A S  Y  D E S T R U C T O R A ///////////////////////////////////
+	// Master class
+	private $_lang				= LANGUAGE ;
+	private $_smarty			= null;
+	private $_caching			= false;
+	private $message			= array( );
 
-    public function __construct( )
-    {
-		// Connect to DB
+	protected $_str				= array( );
+	protected $_sesion		= null;
+	protected $_request		= null;
+	protected $_post			= null;
+	protected $_get				= null;
+	protected $_cookie		= null;
+	protected $_globals		= null;
+	protected $_server		= null;
+	protected $_files			= null;
+	protected $_env				= null;
+	protected $_db				= null;
+	protected $_tpl				= null;
+	protected $_ajax			= false;
+
+	public function __construct( )
+	{
+		// Connect to DB (mysqli)
 		$this->_db = new SQLiteDatabase(DB_FILE);
-    	
-    	// Instancia de plantilla Smarty
-        $this->_smarty					= new Smarty( );
+
+		// Instance of Smarty templates system
+		$this->_smarty								= new Smarty( );
 		$this->_smarty->template_dir	= DIR_TPL;
-        $this->_smarty->compile_dir		= DIR_TPL_COMPILE;
-        $this->_smarty->debugging		= false;
+		$this->_smarty->compile_dir		= DIR_TPL_COMPILE;
+		$this->_smarty->debugging			= false;
 		//$this->_smarty->caching     	= true;
-		// Forcem la compilacio per cada peticio nova
+		// Force a new compile for every request (only for dev)
 		$this->_smarty->force_compile = false;
 		$this->_smarty->register_modifier('decode', array(&$this, 'decode'));
-		$this->_smarty->register_modifier('jsOutput', 'stringForJavascript');
 
-        // Asignacion de constantes a smarty
-        foreach( $this->_getConstants( ) as $k => $v ) $this->smartyAssign( $k, $v );
-		
-        // print_r($_SESSION[APP]);
-        // Manejo de sesiones y datos recibidos
-		/*if( !isset( $_SESSION[APP] ) ) 
-			$_SESSION[APP] = new Sesion;*/
-		
+		// Assign constants with Smarty
+		foreach( $this->_getConstants( ) as $k => $v ) $this->smartyAssign( $k, $v );
+
 		$this->_sesion		= &$_SESSION[APP];
 		$this->_request		= escape( $_REQUEST );
-		$this->_post		= escape( $_POST );
-		$this->_get			= escape( $_GET );
+		$this->_post			= escape( $_POST );
+		$this->_get				= escape( $_GET );
 		$this->_cookie		= escape( $_COOKIE );
 		$this->_globals		= escape( $_GLOBALS );
 		$this->_server		= escape( $_SERVER );
-		$this->_files		= escape( $_FILES );
-		$this->_env			= escape( $_ENV );
-		
-		 $this->_loadTexts( $this->getLang( ) );
-		 if($this->_request['tpl'] == 'ajax') $this->_ajax = true;
-    }
+		$this->_files			= escape( $_FILES );
+		$this->_env				= escape( $_ENV );
 
-    /**
-     * Factoria que instancia una subclase
-     *
-     * @param string $cls_default
-     * @return Web
-     */
-    final public static function getClass( $cls_default )
-    {
-    	$cls = $_REQUEST['cls'];
+		$this->_loadTexts( $this->getLang( ) );
+		if(isset($this->_request['ajax']))	$this->_ajax = true;
+		if(isset($this->_request['tpl']))		$this->_tpl = $this->_request['tpl'];
+	}
 
-        // Nueva Clase derivada de Web
-        if( class_exists( $cls ) ) return new $cls( );
+	/**
+		* Get instance of a subclass
+		*
+		* @param string $cls_default
+		* @return Web
+		*/
+	final public static function getClass( $cls_default )
+	{
+		$cls = $_REQUEST['cls'];
 
-        // Nueva Clase derivada de Web (por defecto)
-        if( class_exists( $cls_default ) ) return new $cls_default( );
+		// Child class from web
+		if( class_exists( $cls ) ) return new $cls( );
 
-        // Error
-        exit( );
-    }
+		// Child class from web (default)
+		if( class_exists( $cls_default ) ) return new $cls_default( );
 
-	////////////////////////////////////////////////// C O N S U L T O R A S //////////////////////////////////////////////////
+		// Error
+		exit( );
+	}
 
-    /**
-     * Procesa y muestra una subpagina Web
-     * La pagina es mostrada en la plantilla $tpl
-     *
-     * @param string $tpl
-     */
-    final public function display( $tpl )
-    {
-        // Metodo virtual. cada p�gina verifica si se tiene permiso
-        // o si la pagina tiene tablas de usuarios/grupos/permisos, se puede implementar de forma com�n
-        
+	/**
+		* Prcesses and displays a new web page
+		* Page displayed using the template $tpl
+		*
+		* @param string $tpl
+		*/
+	final public function display( $tpl )
+	{   
 
-        // Constructora de la subclase
-        if($this->registrado())
-        {
-        	$this->setPerm();
-        	if($this->_sesion->admin && $this->admin) // Avoid execution of orders by unregistered users
-        		$this->construct( );
-        	elseif($this->admin !== true)
-        		$this->construct( );
-        }
-        
+		// Subclass constructor
+		if($this->registrado())
+		{
+			$this->setPerm();
+			if($this->_sesion->admin && $this->admin) // Avoid execution of orders by unregistered users
+			$this->construct( );
+			elseif($this->admin !== true)
+				$this->construct( );
+		}
+
 		$this->smartyAssign( 'web', $this );
 
-        // Mostrar la pagina HTML (sub-pagina con AJAX / pagina principal sin AJAX)
-        if( isset( $this->_request['tpl'] ) ) $tpl = $this->_request['tpl'];
-
-        // Compresion de codigo html
-		//ob_start( );
+		// Display HTML Page
+		if( isset( $this->_request['tpl'] ) ) $tpl = $this->_request['tpl'];
 		$this->_smarty->display( $tpl.'.tpl.php' );
-		/*$html = ob_get_contents( );
-		ob_end_clean( );
-		$html = str_replace( "\n", '', $html ); // Saltos de linea
-		$html = str_replace( "\t", '', $html ); // Tabulaciones
-		$html = str_replace( "\r", '', $html ); // Retornos de carro
-		$html = ereg_replace( '[[:space:]]+', ' ', $html );
-		ob_start( 'ob_gzhandler' );
-		echo $html;
-		ob_end_flush( );*/
-    }
+	}
 
-    /**
-     * Retorna el nombre de la plantilla a mostrar
-     *
-     * @return string
-     */
-    final public function getTpl( )
-    {
-    	$cls = get_class( $this );
-    	$cls[0] = strtolower( $cls[0] );
-    	return $cls.'.tpl.php';
-    }
+	/**
+		* Return the name of the template to be used (with or without .tpl.php)
+		*
+		* @return string
+		*/
+	final public function getTpl( )
+	{
+		$cls = get_class( $this );
+		$cls[0] = strtolower( $cls[0] );
+		return $cls.'.tpl.php';
+	}
 	final public function getTplName( )
-    {
-    	$cls = get_class( $this );
-    	$cls[0] = strtolower( $cls[0] );
-    	return $cls;
-    }
-    final public function getCls( )
-    {
-    	return get_class( $this );
-    }
+	{
+		$cls = get_class( $this );
+		$cls[0] = strtolower( $cls[0] );
+		return $cls;
+	}
+	/**
+		* Return the name of the current cls
+		*
+		* @return string
+		*/
+	final public function getCls( )
+	{
+		return get_class( $this );
+	}
+	/**
+		* Return the URL of the request (ourselfs)
+		*
+		* @return string
+		*/
 	public function getURL()
 	{
 		return $_SERVER['REQUEST_URI'];
 	}
-	function scramble($src)
-	{
-   		$dst = preg_split('//', $src, -1, PREG_SPLIT_NO_EMPTY);
-   		shuffle($dst);
-   		return implode('',$dst);
-	}
+	/**
+		* Is this a AJAX call?
+		*
+		* @return bool
+		*/
 	final public function isAjax()
 	{
 		return $this->_ajax;
 	}
-    /**
-     * Muestra la plantilla en cache (la crea si no si existe).
-     * Retorna cierto si envia datos al buffer de salida. Falso en caso contrario.
-     * Utiliza parametros indeterminados para generar el identificador de la pagina
-     *
-     * @param string $tpl
-     * @param string [param1 [, param2 ...]]
-     * @return bool
-     */
-    final public function getCache( $tpl )
-    {
-    	// Pagina no cacheada. Debe compilarse la plantilla
-    	if( !$this->_caching ) return false;
-
-    	// Generacion del identificador de pagina mediante el nombre de la plantilla y parametros indefinidos
-    	$str = '';
-    	foreach( func_get_args( ) as $arg ) $str .= print_r( $arg, true );
-	    $file = DIR_TPL_HTML.$tpl.md5( $str );
-
-	    // Retorna la pagina cacheada. Fin de la plantilla
-	    if( file_exists( $file ) )
-	    {
-	        // Retorna la pagina cacheada. Fin del proceso
-			echo @file_get_contents( $file );echo 'CACHING';//finCrono( );
-	        return true;
-	    }
-
-	    // No existe la pagina cacheada. Se genera y se muestra el cache. Fin de la plantilla
-	    $this->_caching = false;
-	    echo $html = $this->_smarty->fetch( $tpl.'.tpl.php' );
-	    @file_put_contents( $file, $html );
-	    $this->_caching = true;
-	    return true;
-    }
-	
-    
-    /**
-     * Elimina una determinada pagina de la cache
-     *
-     * @return bool
-     */
-    protected function deleteCache( )
-    {
-    	// Generacion del identificador de pagina mediante parametros indefinidos
-    	$str = '';
-    	foreach( func_get_args( ) as $arg ) $str .= print_r( $arg, true );
-    	$this->_html_file = md5( $str );
-
-    	// Elimina la pagina cacheada
-    	return @unlink( DIR_TPL_HTML.$this->_html_file );
-    }
-
-    private function _loadTexts( $lang )
-    {
+	/**
+		* Load language texts
+		*
+		* @return true
+		*/
+	private function _loadTexts( $lang )
+	{
 		$master_lang = 'en';
 		if( !is_file( DIR_LANG.$lang.'.txt') )	$lang=$master_lang;
 
@@ -249,107 +188,102 @@ abstract class Web
 			$parts = explode( '=', fgets( $fd, 4096 ), 2 );
 			$key = trim( $parts[0] );
 			if( !empty( $key ) )
-			  $this->_str[$key] = trim( $parts[1] );
+				$this->_str[$key] = trim( $parts[1] );
 			else
-			  $this->_str[$key] = trim( $m_parts[1]);
+				$this->_str[$key] = trim( $m_parts[1]);
 		}
 		fclose( $fd );
 
 		$this->smartyAssign( 'str', $this->_str );
 		return true;
-    }
-
-    private function _getConstants( )
-    {
-    	$constants = get_defined_constants( true );
-    	return $constants['user'];
-    }
-    final public function getMessages()
-    {
-    	return implode('<br />', $this->message);
-    }
-    final public function messagesSet()
-    {
-    	return !empty($this->message);
-    }
-
-    /**
-     * Retorna el idioma de la web
-     *
-     * @return string
-     */
-    final public function getLang( )
-    {
-    	return $this->_lang;
-    }
-	public function decode($str)
-	{
-		if(is_UTF8($str) != 0)
-			$return = iconv("UTF-8", "ISO-8859-1//TRANSLIT", $str);
-		else
-			$return = $str;
-	
-		return $return;
 	}
-    /**
-     * Ejecuta una URL interna
-     *
-     * @param string $url
-     */
-    protected function curl( $link )
-    {
-    	$fd = @fopen( URL.$link, 'r' );
-		@fclose( $fd );
-    }
+	/**
+		* Returns defined constants
+		*
+		* @return array
+		*/
+	private function _getConstants( )
+	{
+		$constants = get_defined_constants( true );
+		return $constants['user'];
+	}
+	/**
+		* Returns the language of the webpage
+		*
+		* @return string
+		*/
+	final public function getLang( )
+	{
+		return $this->_lang;
+	}
+	/**
+		* Set the language value
+		*
+		* @param string $valor
+		*/
+	final public function setLang( $valor )
+	{
+		$this->_lang = $valor;
+	}
+	/**
+		* Assign variables to Smarty templates
+		*
+		* @param string $nombre
+		* @param mixed $valor
+		*/
+	final protected function smartyAssign( $nombre, $valor )
+	{
+		$this->_smarty->assign_by_ref( $nombre, $valor );
+	}
+	/**
+		* Return the value of some defined constants used in templates
+		*
+		* @return string
+		*/
+	public function getTitle( )
+	{
+		return TITLE;
+	}
+	public function getMetaTitle( )
+	{
+		return META_TITLE;
+	}
+	public function getMetaKeywords( )
+	{
+		return META_KEYWORDS;
+	}
+	public function getMetaDescription( )
+	{
+		return META_DESCRIPTION;
+	}
+	/**
+		* Return error messages in html format
+		*
+		* @return string
+		*/
+	final public function getMessages()
+	{
+		return implode('<br />', $this->message);
+	}
+	/**
+		* Return true if there are messages in the buffer, otherwise returns false
+		*
+		* @return bool
+		*/
+	final public function messagesSet()
+	{
+		return !empty($this->message);
+	}
+	/**
+		* Add an error/warning to the queue
+		*
+		* @return none
+		*/
+	protected function addMessage($message)
+	{
+		$this->message[] = $message; 
+	}
 
-	
-
-    /**
-     * Establece el valor del lenguaje
-     *
-     * @param string $valor
-     */
-    final public function setLang( $valor )
-    {
-    	$this->_lang = $valor;
-    }
-
-    /**
-     * Asigna variables a plantillas Smarty
-     *
-     * @param string $nombre
-     * @param mixed $valor
-     */
-    final protected function smartyAssign( $nombre, $valor )
-    {
-    	$this->_smarty->assign_by_ref( $nombre, $valor );
-    }
-
-    
-
-
-    public function getTitle( )
-    {
-    	return TITLE;
-    }
-    public function getMetaTitle( )
-    {
-    	return META_TITLE;
-    }
-    public function getMetaKeywords( )
-    {
-    	return META_KEYWORDS;
-    }
-    public function getMetaDescription( )
-    {
-    	return META_DESCRIPTION;
-    }
-    protected function addMessage($message)
-    {
-    	$this->message[] = $message; 
-    }
-
-	
-    abstract protected function construct( );
+	abstract protected function construct( );
 }
 ?>
