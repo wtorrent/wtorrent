@@ -512,7 +512,7 @@ img {
 	padding: 10px 0 0 0;
 }
 .prog_bar_cont {
-	width: 300px;
+	width: 250px;
 	height: 5px;
 	text-align: left;
 	clear: none;
@@ -592,7 +592,7 @@ img {
 	cursor: pointer;
 	background: transparent url(../img/des.png) no-repeat;
 }
-#content>.torrent {
+#content > .torrent {
 	margin: 0 0 0 41px;
 	width: 914px;
 	clear: both;
@@ -616,8 +616,28 @@ img {
 .torrent>div div {
 	float: left;
 }
+.torrent .download {
+	width: 100%;
+	border-collapse: collapse;
+	padding: 0.7ex;
+}
+.torrent .download td, .torrent .download th {
+	padding: 1ex;
+	text-align: left;
+	overflow: hidden;
+}
+.torrent .download td {
+	font-style: italic;
+	color: gray;
+}
+.torrent .download td span {
+	font-style: normal;
+	color: black;
+}
+
+.torrent .buttons {
+}
 .torrent .name {
-	width: 704px;
 	text-align: left;
 	padding: 3px 0 0 10px;
 	font-weight: bold;
@@ -631,14 +651,6 @@ img {
 .torrent .name.blue {
 	color: blue;
 }
-.torrent .download {
-	padding: 3px 0 0 0;
-	width: 100px;
-}
-.torrent .upload {
-	padding: 3px 0 0 0;
-	width: 100px;
-}
 .torrent .buttons {
 	width: 100px;
 	height: 18px;
@@ -646,33 +658,38 @@ img {
 	padding: 0 0 0 5px;
 }
 .torrent .percent {
-	width: 290px;
+	width: 320px;
 	height: 5px;
 	text-align: left;
-	margin: 5px 5px 0 5px;
+	margin: 3px 5px 0 5px;
 	border: 1px solid #ccc;
 }
-.torrent .percent>.percentBar {
+.torrent .percent > .percentBar {
 	height: 5px;
 	background-color: #70b5ef;
 }
-.torrent .seeds {
-	width: 100px;
+.torrent .seedspeers {
+	width: 17.5ex;
+	text-align: center !important;
 }
-.torrent .peers {
-	width: 100px;
-}
-.torrent .done {
-	width: 80px;
-}
-.torrent .size {
-	width: 80px;
+.torrent .transfer {
+	width: 20ex;
+	text-align: right !important;
 }
 .torrent .ratio {
-	width: 55px;
+	width: 15ex;
+}
+.torrent .ratio .red {
+	color: red;
+}
+.torrent .ratio .green {
+	color: green;
 }
 .torrent .eta {
-	width: 90px;
+	width: 15ex;
+}
+.torrent .downrate span, .torrent .uprate span {
+	font-weight: bold;
 }
 .loadingCell {
 	width: 914px;

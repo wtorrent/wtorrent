@@ -19,6 +19,11 @@ Modified version of class done by David Marco Martinez
 */
 class rtorrent extends Web
 {
+	// Units for getCorrectUnits
+	// not the "correct" units, however this is what users are used to.
+	private static $UNITS = array(array(0, 'b'), array(1, 'kb'), array(2, 'MB'), array(2, 'GB'), array(3,'TB'), array(3, 'PT'));
+
+
 	protected $client;
 	protected $multicall;
 	protected $torrents;
@@ -387,26 +392,15 @@ class rtorrent extends Web
 	{
 		return round((disk_total_space(DIR_DOWNLOAD) - disk_free_space(DIR_DOWNLOAD))/disk_total_space(DIR_DOWNLOAD)*100,0);
 	}
-	/* Format units functions */
 	public function getCorrectUnits($size)
  	{
-		$size_units = 'B';
-		if($size >= 1024)
+		$i;
+		$e = sizeof(self::$UNITS);
+		for ($i = 0; $i < $e && $size > 900; ++$i)
 		{
-   		$size /= 1024;
-   		$size_units = 'KB';
+			$size = $size / 1024;
 		}
-		if($size >= 1024)
-		{
-    	$size /= 1024;
-      $size_units = 'MB';
-		}
-		if($size >= 1024)
-    {
-    	$size /= 1024;
-      $size_units = 'GB';
-		}
-    return round($size, 1) .  $size_units;
-  }
+		return sprintf('%.'.(self::$UNITS[$i][0]).'f %s', $size, self::$UNITS[$i][1]);
+	}
 }
 ?>
