@@ -4,7 +4,7 @@
     {assign var='class' value='error'}
 {/if}
 <div class="torrent{if isset($class)} {$class}{/if}" id="itab{$hash}" onmouseover="style.backgroundColor='#d5e991';" onmouseout="style.backgroundColor='#e5edf4'">
-	<table id="tip{$hash}" class="download" onclick="resizeInnerTab('{$hash}');">
+	<table id="tip{$hash}" class="download">
 		<tr>
 			{* DEPRECATED, has to be done otherway *}
 			{if $web->getState($hash) eq 1 && $web->getPercent($hash) neq 100}
@@ -17,13 +17,13 @@
 				{assign var="color" value="black"}
 			{/if}
 
-			<th class="name {$color}" colspan="4">
+			<th class="name {$color}" colspan="4" onclick="resizeInnerTab('{$hash}');">
 				{$web->getName($hash)|truncate:100:"...":true}
 			</th>
-			<td class="downrate">
+			<td class="downrate" onclick="resizeInnerTab('{$hash}');">
 				{$str.tb_download}: <span>{$web->getDownRate($hash)} {$str.tb_speed_unit}</span>
 			</td>
-			<td class="uprate">
+			<td class="uprate" onclick="resizeInnerTab('{$hash}');">
 				{$str.tb_upload}: <span>{$web->getUpRate($hash)} {$str.tb_speed_unit}</span>
 			</td>
 		</tr>
@@ -31,16 +31,16 @@
 			<td class="buttons">
 				{include file="list/buttons.tpl.php"}
 			</td>
-			<td class="percentcont">
+			<td class="percentcont" onclick="resizeInnerTab('{$hash}');">
 				<div class="percent">
 					<div class="percentBar" style="width: {$web->getPercent($hash)}%;"></div>
 				</div>
 			</td>
-			<td class="seedspeers">
+			<td class="seedspeers" onclick="resizeInnerTab('{$hash}');">
 				<span title="{$str.tb_seeds}">{$web->getTotalSeeds($hash)} ({$web->getConnSeeds($hash)})</span>
 				/ <span title="{$str.tb_peers}">{$web->getTotalPeers($hash)} ({$web->getConnPeers($hash)})</span>
 			</td>
-			<td class="transfer">
+			<td class="transfer" onclick="resizeInnerTab('{$hash}');">
 				<span title="{$str.tb_done}">{$web->getDone($hash)}</span>
 				/ <span title="{$str.tb_size}">{$web->getSize($hash)}</span>
 			</td>
@@ -49,10 +49,10 @@
 			{else}
 				{assign var=ratio value="green"}
 			{/if}
-			<td class="ratio">
+			<td class="ratio" onclick="resizeInnerTab('{$hash}');">
 				{$str.tb_ratio}: <span class="{$ratio}">{$web->getRatio($hash)}</span>
 			</td>
-			<td class="eta">
+			<td class="eta" onclick="resizeInnerTab('{$hash}');">
 				{$str.tb_eta}: <span>{$web->getETA($hash)}</span>
 			</td>
 		</tr>
