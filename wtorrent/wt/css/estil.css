@@ -663,16 +663,16 @@ img {
 	width: 100px;
 }
 .torrent .done {
-	width: 70px;
+	width: 80px;
 }
 .torrent .size {
-	width: 70px;
+	width: 80px;
 }
 .torrent .ratio {
-	width: 60px;
+	width: 55px;
 }
 .torrent .eta {
-	width: 100px;
+	width: 90px;
 }
 .loadingCell {
 	width: 914px;

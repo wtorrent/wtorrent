@@ -18,6 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class ListT extends rtorrent
 {
 	private  $view;
+	private static $PERIODS = array(
+		'days'      => 86400,
+		'hours'     => 3600,
+		'minutes'   => 60,
+		'seconds'   => 1
+	);
  
   public function construct()
 	{
@@ -47,7 +53,7 @@ class ListT extends rtorrent
 			return false;
 		
 		/* d multicall with all the necessary info to generate the torrent list */
-		$array_d = array('d.get_name', 'd.get_down_rate', 'd.get_up_rate', 'd.get_chunk_size','d.get_completed_chunks','d.get_size_chunks','d.get_state','d.get_peers_accounted','d.get_peers_complete','d.is_hash_checking','d.get_ratio','d.get_tracker_size','d.is_active','d.is_open','d.get_message','d.get_creation_date');
+		$array_d = array('d.get_name', 'd.get_down_rate', 'd.get_up_rate', 'd.get_chunk_size','d.get_completed_chunks','d.get_size_chunks','d.get_state','d.get_peers_accounted','d.get_peers_complete','d.is_hash_checking','d.get_ratio','d.get_tracker_size','d.is_active','d.is_open','d.get_message','d.get_creation_date', 'd.get_left_bytes', 'd.get_size_bytes');
  		$this->multicall->d_multicall($array_d, $this->rtorrent_view);
 		// t multicall
 		$array_t = array('t.get_scrape_complete', 't.get_scrape_incomplete');
@@ -220,11 +226,29 @@ class ListT extends rtorrent
 	}
 	public function getETA($hash)
 	{
-		$return = '--';
-		if(($this->getPercent($hash) != 100) && ($this->torrents[$hash]->get_down_rate() != 0))
-			$return = $this->formatETA(ceil((($this->torrents[$hash]->get_size_chunks() - $this->torrents[$hash]->get_completed_chunks()) * $this->torrents[$hash]->get_chunk_size() / 1024) / $this->torrents[$hash]->get_down_rate()));
-		
-		return $return;
+		if($this->getPercent($hash) == 100 || $this->torrents[$hash]->get_down_rate() <= 0) {
+			return '--';
+		}
+		// int overflow :p
+		if ($this->torrents[$hash]->get_left_bytes() == 2147483647) {
+			$left = $this->torrents[$hash]->get_size_chunks() - $this->torrents[$hash]->get_completed_chunks();
+			// do we have bcmath, then use that
+			if (function_exists('bcmul') && function_exists('bcdiv')) {
+				return $this->formatETA(
+					bcdiv(
+						bcmul(
+							$left,
+							$this->torrents[$hash]->get_chunk_size()
+						),
+						$this->torrents[$hash]->get_down_rate()
+					)
+				);
+			}
+
+			// this might be pretty inaccurate, however we got no other option :p
+			return $this->formatETA($left / ($this->torrents[$hash]->get_down_rate() / $this->torrents[$hash]->get_chunk_size()));
+		}
+		return $this->formatETA($this->torrents[$hash]->get_left_bytes() / $this->torrents[$hash]->get_down_rate());
 	}
 	public function getSize($hash)
 	{
@@ -297,47 +321,32 @@ class ListT extends rtorrent
   public function getCreationDate($hash)
  	{
   	return $this->torrents[$hash]->get_creation_date();
-  }
+	}
+
 	private function formatETA($time)
- 	{
- 		if (!is_array($periods)) {
-       $periods = array (
-         'weeks'     => 604800,
-         'days'      => 86400,
-         'hours'     => 3600,
-         'minutes'   => 60,
-         );
-    }
+	{
+		$seconds = intval($time);
+		$rv = '';
+		// > 2 weeks = infinite ETA
+		if ($seconds > 14 * self::$PERIODS['days']) {
+			return '∞';
+		}
 
-    $seconds = (float) $time * 1000;
-    foreach ($periods as $period => $value) 
-    {
-      $count = floor($seconds / $value);
-      if ($count == 0) 
-        continue;
+		$c = 0;
+		foreach (self::$PERIODS as $period => $value) 
+		{
+			$count = floor($seconds / $value);
+			if ($count == 0) {
+				continue;
+			}
+			$seconds = $seconds % $value;
 
-      $values[$period] = $count;
-      $seconds = $seconds % $value;
-    }
-
-    foreach ($values as $key => $value) 
-    {
-      $segment_name = substr($key, 0, 1);
-      $segment = $value . $segment_name; 
-      // If ETA is weeks away, don't display minutes:       
-      if ($key == "minutes")
-        if ($values["weeks"] >= 1)
-          $segment = "";
-      
-      $array[] = $segment;
-    }
-     // If ETA is more then 30 weeks away, display "inf" instead of precise ETA: 
-    if ($values["weeks"] > 30)
-      $str = "inf";
-    else
-      $str = implode('', $array);
-     
-    return $str;
-  }
+			$rv .= $count . substr($period, 0,  1) . ' ';
+			if (++$c >= 2) {
+				break;
+			}
+		}
+		return $rv;
+	}
 }
 ?>

@@ -257,6 +257,12 @@ class torrent
 		}
 		return $return;
 	}
+	public function get_left_bytes($multicall = false, $update = false) {
+		return $this->get_info('d.get_left_bytes', $multicall, $update);
+	}
+	public function get_size_bytes($multicall = false, $update = false) {
+		return $this->get_info('d.get_size_bytes', $multicall, $update);
+	}
 	/* Tracker methods */
 	public function t_set_enabled($tracker, $enabled, $multicall = false)
 	{

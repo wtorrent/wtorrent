@@ -16,7 +16,7 @@
 			{assign var="color" value="black"}
 		{/if}
 		<div class="name {$color}" onclick="resizeInnerTab('{$hash}');">
-			{$web->getName($hash)}
+			{$web->getName($hash)|truncate:100:"...":true}
 		</div>
 		<div class="download" onclick="resizeInnerTab('{$hash}');">
 			{$str.tb_download}: {$web->getDownRate($hash)} {$str.tb_speed_unit}
