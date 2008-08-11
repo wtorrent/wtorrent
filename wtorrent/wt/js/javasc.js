@@ -147,12 +147,10 @@ function loadingTab(frame)
     var overlayCell = $('loadingCell').cloneNode(true);
     var positions = findPos($('i' + frame));
     overlayCell.setAttribute('id', 'l' + frame);
-    overlayCell.style.left = (positions[0] + 31) + 'px';
+    overlayCell.style.left = positions[0] + 'px';
     overlayCell.style.top = positions[1] + 'px';
     document.body.appendChild(overlayCell);
     overlayCell.show();
-		//overlayCell.setOpacity(0.6);
-    //new Effect.Opacity(overlayCell, {duration:0.2, from:0, to:0.6});
     return;
 }
 /* Load AJAX RESPONSE in given content */
@@ -161,8 +159,6 @@ function responseContent(originalRequest, frame) {
     $(frame).innerHTML = newData;
     if(frame != "content" && frame != "messages") {
         var onFinish = (function (frame) { return function (obj) { $(frame).remove(); } })('l'+ frame);
-        //new Effect.Opacity('l' + frame, {duration:0.2, from:0.6, to:0, afterFinish: onFinish});
-        //$('l' + frame).setOpacity(0);
 				$('l' + frame).remove();
 				window.setTimeout("expandFrame('t" + frame + "')", 100);
     }
@@ -271,7 +267,7 @@ function batch()
 {
 	var call = new Array();
 	var command;
-	var params = getChecked('torrent');
+	var params = getChecked('torrentCheckbox');
 	var number = $('actions').options[$('actions').selectedIndex].value;
 	
 	switch(number)
@@ -360,7 +356,7 @@ function refresh() {
 }
 function cleanTips()
 {
-	var tips = $$('.torrent');
+	var tips = $$('.torrentCheckbox');
 	for(var i = 0; i < tips.length; i++)
 	{
 		var temp = $(tips[i].id + 'copy');

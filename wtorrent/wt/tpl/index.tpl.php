@@ -50,7 +50,7 @@
 {include file="comm_loading.tpl.php"}
 {include file="loading.tpl.php"}
 </div>
-<div class="tbBulk loadingTab" id="loadingCell" style="display: none; width: 918px;">
+<div class="loadingCell" id="loadingCell" style="display: none;">
 	<img src="{$DIR_IMG}miniloader.gif" alt="loading" />
 </div>
 </body>

@@ -246,48 +246,29 @@ img {
   cursor: pointer;
   display: inline;
 }
-
-#tbBulk {
-	/*height: 25px; */ 
-	width: 949px;
-	margin: 0px auto; 
-	padding: 0px; 
-	margin-top: 0px;
-	clear: both;
-}
+/* Torrent list */
 .tbBulk {
-	/*height: 25px;*/ 
 	width: 949px;
 	margin: 0px auto; 
-	padding: 0px; 
-	margin-top: 0px;
 	clear: both; 
 }
-
-
-#tbCell_h, .tbCell {
-	/*height: 25px;*/ 
-	font-weight: bold; 
-	width: 912px; 
-	float: left;
-	border: 1px solid #d4d4d4; 
-	background-color: #d7e4ef; 
-	font-size: 11px;
-}
-
 .tbCell
 {
   cursor: pointer; 
   background-color: #e5edf4; 
   border-top: 0px solid #d4d4d4;
 }
-
+.tbCell>div {
+	width: 914px;
+	padding: 3px 0;
+	float: left;
+}
 .tbColTab {
 	height: 31px; 
-	width: 31px; 
+	width: 30px; 
 	float: left;
 	background-color: transparent;
-	clear: right;
+	clear: left;
 }
 
 
@@ -324,21 +305,21 @@ img {
 }
 /* The tabs */
 #tabs {
-	width:889px;
+	width: 889px;
 	margin: 0 0 0 30px;
 }
 #tabs li {
-	list-style:none; 
+	list-style: none; 
 }
 #tabs li div.tabs { 
-	display:block; 
-	float:left; 
+	display: block; 
+	float: left; 
 }
 .tabs {
 	height: 31px;
 	margin: 1px 0 0 0;
 	padding: 7px 0 0 0;
-	text-decoration:none;
+	text-decoration: none;
 	color: #444;
   cursor: pointer;
 	font: normal normal bold 10px verdana, arial;
@@ -379,11 +360,11 @@ img {
 	float: left;
 }
 .tabs div.rtorrent_text {
-		background: transparent url(../img/tabs/bg_tabs_rtorrent_t.png) repeat-x;
-		height: 24px;
-		clear: none;
-		float: left;
-		padding: 6px 0 0 0;
+	background: transparent url(../img/tabs/bg_tabs_rtorrent_t.png) repeat-x;
+	height: 24px;
+	clear: none;
+	float: left;
+	padding: 6px 0 0 0;
 }
 .tabs div.rtorrent_right {
 	background: transparent url(../img/tabs/bg_tabs_rtorrent_r.png) no-repeat;
@@ -405,36 +386,36 @@ img {
 /* The left Tabs */
 
 #tabsL { 
-	overflow:hidden; 
-	width:31px; 
+	overflow: hidden; 
+	width: 31px; 
 }
 #tabsL li { 
 	clear: both;
-	list-style:none; 
+	list-style: none; 
 	margin: 0px 0px 5px 0px;
 	height: 20px;
 	padding: 3px 0px 3px 3px;
 	cursor: pointer;
 }
 #tabsL li div.tabs { 
-	display:block;
-	padding:3px auto 3px auto; 
+	display: block;
+	padding: 3px auto 3px auto; 
   cursor: pointer;
 }
 .tabsL {
 	width: 31px;
 	height: 26px;
 }
-.info {
+.tabsL.info {
 	background: transparent url(../img/tabsL/info.png) no-repeat;
 }
-.files {
+.tabsL.files {
 	background: transparent url(../img/tabsL/files.png) no-repeat;
 }
-.trackers {
+.tabsL.trackers {
 	background: transparent url(../img/tabsL/trackers.png) no-repeat;
 }
-.peers {
+.tabsL.peers {
 	background: transparent url(../img/tabsL/peers.png) no-repeat;
 }
 .noTorrents {
@@ -485,50 +466,6 @@ img {
 	margin: 0;	
     padding: 0;
     background: none;
-}
-/* START STYLE (GREEN) */
-.prototip .green {
-	color: #fff;
-}
-.prototip .green .content {
-	background: #347e21;
-	font: italic 14px Verdana, serif;
-	font-weight: bold;
-	color: #fff;
-	padding: 5px;
-}
-/* SEEDING STYLE (BLUE) */
-.prototip .blue {
-	color: #fff;
-}
-.prototip .blue .content {
-	background: #202b9b;
-	font: italic 14px Verdana, serif;
-	font-weight: bold;
-	color: #fff;
-	padding: 5px; 
-}
-/* CLOSED STYLE (BLACK) */
-.prototip .black {
-	color: #fff;
-}
-.prototip .black .content { 
-	padding: 5px; 
-	background: #373737;
-	font: italic 14px Verdana, serif;
-	font-weight: bold;
-	color: #fff; 
-}
-/* CHECKING HASH STYLE (YELLOW) */
-.prototip .yellow {
-	color: #fff;
-}
-.prototip .yellow .content {
-	background: #c6c42f;
-	font: italic 14px Verdana, serif;
-	font-weight: bold;
-	color: #fff;
-	padding: 5px;
 }
 /* RTORRENT MESSAGE STYLE (RED) */
 .prototip .red {
@@ -621,4 +558,134 @@ img {
   border: 1px solid #d4d4d4;
   border-width: 0px 1px 0px 1px;
   font-size: 11px;
+}
+/* Torrent list styles */
+.listTorrentsHead {
+	margin: 0 0 0 41px;
+	width: 914px;
+	height: 25px;
+	clear: both;
+	background-color: #D7E4EF;
+	border: 1px solid #D4D4D4;
+	font-weight: bold;
+	font-size: 11px;
+}
+.listTorrentsHead>div {
+	margin: 5px 0 0 0;
+	width: 90px;
+	padding: 0 20px 0 20px;
+}
+.listTorrentsHead div {
+	float: left;
+}
+.listTorrentsHead .asc {
+	height: 16px;
+	width: 16px;
+	margin-top: -3px;
+	cursor: pointer;
+	background: transparent url(../img/asc.png) no-repeat;
+}
+.listTorrentsHead .des {
+	height: 16px;
+	width: 16px;
+	margin-top: -3px;
+	cursor: pointer;
+	background: transparent url(../img/des.png) no-repeat;
+}
+#content>.torrent {
+	margin: 0 0 0 41px;
+	width: 914px;
+	clear: both;
+	border: 1px solid #D4D4D4;
+	border-top-width: 0px;
+	font-size: 11px;
+	background-color: #E5EDF4;
+	cursor: pointer;
+}
+.torrent.chash {
+	background-image: url(../img/chash_bg.png);
+}
+.torrent.error {
+	background-image: url(../img/error_bg.png);
+}
+.torrent>div {
+	width: 914px;
+	clear: both;
+	padding: 5px 0 5px 0;
+}
+.torrent>div div {
+	float: left;
+}
+.torrent .name {
+	width: 704px;
+	text-align: left;
+	padding: 3px 0 0 10px;
+	font-weight: bold;
+}
+.torrent .name.black {
+	color: black;
+}
+.torrent .name.green {
+	color: green;
+}
+.torrent .name.blue {
+	color: blue;
+}
+.torrent .download {
+	padding: 3px 0 0 0;
+	width: 100px;
+}
+.torrent .upload {
+	padding: 3px 0 0 0;
+	width: 100px;
+}
+.torrent .buttons {
+	width: 100px;
+	height: 18px;
+	text-align: left;
+	padding: 0 0 0 5px;
+}
+.torrent .percent {
+	width: 290px;
+	height: 5px;
+	text-align: left;
+	margin: 5px 5px 0 5px;
+	border: 1px solid #ccc;
+}
+.torrent .percent>.percentBar {
+	height: 5px;
+	background-color: #70b5ef;
+}
+.torrent .seeds {
+	width: 100px;
+}
+.torrent .peers {
+	width: 100px;
+}
+.torrent .done {
+	width: 70px;
+}
+.torrent .size {
+	width: 70px;
+}
+.torrent .ratio {
+	width: 60px;
+}
+.torrent .eta {
+	width: 100px;
+}
+.loadingCell {
+	width: 914px;
+	height: 34px;
+	clear: both;
+	padding-top: 20px; 
+	background-color: #fff; 
+	top: 0; 
+	left: 0; 
+	text-align: center; 
+	position: absolute; 
+	z-index: 10;
+	opacity: 0.6;
+	-moz-opacity: 0.6;
+	filter:alpha(opacity=60);
 }

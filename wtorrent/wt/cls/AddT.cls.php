@@ -38,8 +38,8 @@ class AddT extends rtorrent
         $dir = $this->getDir();
     // Parsing url
     $purl = parse_url( $url );
-    $uploadfile = DIR_EXEC . DIR_TORRENTS . md5( $url ) . ".torrent";
-    // Get md5 for avoid filename problems&Multiple torrents
+    $uploadfile = DIR_EXEC . DIR_TORRENTS . sha1( $url ) . md5($url) . ".torrent";
+    // Get sha1/md5 for avoid filename problems & Multiple torrents
     if ( file_exists( $uploadfile ) )
     { 
       $this->addMessage( $this->_str['err_add_file'] );
@@ -62,13 +62,17 @@ class AddT extends rtorrent
     curl_setopt($ua, CURLOPT_VERBOSE,        FALSE);
     curl_setopt($ua, CURLOPT_HEADER,         FALSE);
     // Dont put the header into the file
-    curl_setopt($ua, CURLOPT_USERAGENT,      "Mozilla");
+    curl_setopt($ua, CURLOPT_USERAGENT,      "Mozilla/5.0 (U; en-US; rv) Gecko Firefox (compatible wtorrent)");
+    // Avoid problems with user agent sniffing
     curl_setopt($ua, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ua, CURLOPT_SSL_VERIFYHOST, FALSE);
     curl_setopt($ua, CURLOPT_SSL_VERIFYPEER, FALSE);
     // Avoid ssl problems
     curl_setopt($ua, CURLOPT_FOLLOWLOCATION, TRUE);
     // Follow the location
+    curl_setopt($ua, CURLOPT_AUTOREFERER,    TRUE);
+    curl_setopt($ua, CURLOPT_REFERER,        $url);
+    // Avoid referrer problems
     curl_setopt($ua, CURLOPT_FILE,           $fh);
     $file = curl_exec( $ua );
     // Execute the query
