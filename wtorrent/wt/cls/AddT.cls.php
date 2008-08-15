@@ -111,9 +111,11 @@ class AddT extends rtorrent
     else
     { 
       $this->addMessage($this->_str['err_add_torrent']);
-      @unlink($uploadfile);
-    }
-  }
+			@unlink($uploadfile);
+		}
+		$message = new xmlrpcmsg("set_directory", array(new xmlrpcval(DIR_DOWNLOAD, 'string')));
+		$result1 = $this->client->send($message);
+	}
   private function getCookie($url) 
 	{
     // Getting cookie depends on hostname
@@ -187,6 +189,8 @@ class AddT extends rtorrent
 			$this->addMessage($this->_str['err_add_torrent']);
 			@unlink($uploadfile);
 		}
+		$message = new xmlrpcmsg("set_directory", array(new xmlrpcval(DIR_DOWNLOAD, 'string')));
+		$result1 = $this->client->send($message);
 	}
 }
 ?>
