@@ -41,9 +41,12 @@ class Files extends rtorrent
   		$files[$i]['name'] = $this->torrents[$this->hash]->f_get_path($i);
   		$files[$i]['size_in_chunks'] = $this->torrents[$this->hash]->f_get_size_chunks($i);
   		$files[$i]['completed_chunks'] = $this->torrents[$this->hash]->f_get_completed_chunks($i);
-  		$files[$i]['priority'] = $this->torrents[$this->hash]->f_get_priority($i);
-  		$files[$i]['percent'] = floor(($files[$i]['completed_chunks']/$files[$i]['size_in_chunks'])*100);
-  		$files[$i]['size'] = $files[$i]['size_in_chunks'] * $this->torrents[$this->hash]->get_chunk_size();
+			$files[$i]['priority'] = $this->torrents[$this->hash]->f_get_priority($i);
+			if($files[$i]['size_in_chunks'] > 0)
+				$files[$i]['percent'] = floor(($files[$i]['completed_chunks']/$files[$i]['size_in_chunks'])*100);
+			else
+				$files[$i]['percent'] = 100;
+			$files[$i]['size'] = $files[$i]['size_in_chunks'] * $this->torrents[$this->hash]->get_chunk_size();
   		$files[$i]['size_done'] = $files[$i]['completed_chunks'] * $this->torrents[$this->hash]->get_chunk_size();
   	}
 		return $files;

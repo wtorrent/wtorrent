@@ -1,4 +1,4 @@
-<div id="messages_box"{if $web->getMessages() != ""} style="display: block;"{/if}>
+<div id="messages_box"{if $web->getMessages() != ""} style="display: block;"{else} style="display: none;"{/if}>
 	<div id="messages_t">
 		<div id="close_m">
 			

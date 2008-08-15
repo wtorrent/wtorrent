@@ -30,7 +30,7 @@
         </tr>
 	{/foreach}
 	</table>
-	<div style="height: 20px; text-align: left; margin-left: 10px; margin-top: 3px; height: 40px;"><img src="{$DIR_IMG}arrow_ltr.png" alt="arrow" />
+	<div class="filesButtons" style="height: 20px; text-align: left; margin-left: 10px; margin-top: 3px; height: 40px;"><img src="{$DIR_IMG}arrow_ltr.png" alt="arrow" />
 	{foreach from=$web->getPriorities() item="priority" key="prKey" name="priorities"}
 		{if $smarty.foreach.priorities.first}
 			<select id="sf{$web->getHash()}">
@@ -40,10 +40,10 @@
 			</select>
 		{/if}
 	{/foreach}
-	<div class="but_bottom" onclick="command('files', '{$web->getHash()}');"> {$str.change_pr} </div> 
-	<div class="but_bottom" onclick="checkAllByClass('files{$web->getHash()}');">{$str.check_all}</div>
-	<div class="but_bottom" onclick="uncheckAllByClass('files{$web->getHash()}');">{$str.uncheck_all}</div>
-	<div class="but_bottom" onclick="invertAllByClass('files{$web->getHash()}');">{$str.invert_all}</div>
+	<div class="but_bottom filesPriority"> {$str.change_pr} </div> 
+	<div class="but_bottom filesCheckAll"> {$str.check_all} </div>
+	<div class="but_bottom filesUncheckAll"> {$str.uncheck_all} </div>
+	<div class="but_bottom filesInvertAll"> {$str.invert_all} </div>
 	</div>
 	</form>
 	

@@ -23,6 +23,12 @@ class rtorrent extends Web
 	// not the "correct" units, however this is what users are used to.
 	private static $UNITS = array(array(0, 'b'), array(1, 'kb'), array(2, 'MB'), array(2, 'GB'), array(3,'TB'), array(3, 'PT'));
 
+	// Sorting stuff (there must be corresponding compare$name$order functions)
+	// Possible sort orders
+	protected static $SORT_ORDERS = array('asc', 'desc');
+	// Possible sort keys
+	protected  static $SORT_KEYS = array('name', 'dl', 'up', 'done', 'size', 'percent', 'ratio');
+
 
 	protected $client;
 	protected $multicall;
@@ -209,76 +215,27 @@ class rtorrent extends Web
 			}
 		}
 	}
-	/* Sort functions */
-	/* Sort by name */
-	protected function sortTorrentsByName($order)
+	protected function sortTorrentsBy($key, $order)
 	{
-		if($order == 'asc')
-			uasort($this->torrents, array('torrent', 'compareNameAscending'));
-		elseif($order == 'des')
-			uasort($this->torrents, array('torrent', 'compareNameDescending'));
-		else
-			$this->addMessage($this->_str['invalid_order']);
-	}
-	/* Sort by Download Speed */
-	protected function sortTorrentsByDL($order)
-	{
-		if($order == 'asc')
-			uasort($this->torrents, array('torrent', 'compareDLAscending'));
-		elseif($order == 'des')
-			uasort($this->torrents, array('torrent', 'compareDLDescending'));
-		else
-			$this->addMessage($this->_str['invalid_order']);
-	}
-	/* Sort by Upload Speed */
-	protected function sortTorrentsByUP($order)
-	{
-		if($order == 'asc')
-			uasort($this->torrents, array('torrent', 'compareUPAscending'));
-		elseif($order == 'des')
-			uasort($this->torrents, array('torrent', 'compareUPDescending'));
-		else
-			$this->addMessage($this->_str['invalid_order']);
-	}
-	/* Sort by Done size */
-	protected function sortTorrentsByDone($order)
-	{
-		if($order == 'asc')
-			uasort($this->torrents, array('torrent', 'compareDoneAscending'));
-		elseif($order == 'des')
-			uasort($this->torrents, array('torrent', 'compareDoneDescending'));
-		else
-			$this->addMessage($this->_str['invalid_order']);
-	}
-	/* Sort by Size */
-	protected function sortTorrentsBySize($order)
-	{
-		if($order == 'asc')
-			uasort($this->torrents, array('torrent', 'compareSizeAscending'));
-		elseif($order == 'des')
-			uasort($this->torrents, array('torrent', 'compareSizeDescending'));
-		else
-			$this->addMessage($this->_str['invalid_order']);
-	}
-	/* Sort by Percent done */
-	protected function sortTorrentsByPercent($order)
-	{
-		if($order == 'asc')
-			uasort($this->torrents, array('torrent', 'comparePercentAscending'));
-		elseif($order == 'des')
-			uasort($this->torrents, array('torrent', 'comparePercentDescending'));
-		else
-			$this->addMessage($this->_str['invalid_order']);
-	}
-	/* Sort by Ratio */
-	protected function sortTorrentsByRatio($order)
-	{
-		if($order == 'asc')
-			uasort($this->torrents, array('torrent', 'compareRatioAscending'));
-		elseif($order == 'des')
-			uasort($this->torrents, array('torrent', 'compareRatioDescending'));
-		else
-			$this->addMessage($this->_str['invalid_order']);
+		if (!in_array($order, self::$SORT_ORDERS))
+		{
+			$order = self::$SORT_ORDERS[0];
+		}
+		if  (!in_array($key, self::$SORT_KEYS))
+		{
+			$key = self::$SORT_KEYS[0];
+		}
+		uasort(
+			$this->torrents,
+			array(
+				self,
+				sprintf(
+					'compare%s%s', 
+					ucfirst($key),
+					ucfirst($order)
+				)
+			)
+		);
 	}
 	protected function getHashes()
 	{
@@ -401,6 +358,89 @@ class rtorrent extends Web
 			$size = $size / 1024;
 		}
 		return sprintf('%.'.(self::$UNITS[$i][0]).'f %s', $size, self::$UNITS[$i][1]);
+	}
+
+	// Sort functions
+	static function compareNameAsc($a, $b)
+	{
+		return strnatcasecmp($a->get_name(), $b->get_name());
+	}
+	static function compareNameDesc($a, $b)
+	{
+		return strnatcasecmp($b->get_name(), $a->get_name());
+	}
+	static function compareDlAsc($a, $b)
+	{
+		return $a->get_down_rate() - $b->get_down_rate();
+	}
+	static function compareDlDesc($a, $b)
+	{
+		return $b->get_down_rate() - $a->get_down_rate();
+	}
+	static function compareUpAsc($a, $b)
+	{
+		return $a->get_up_rate() - $b->get_up_rate();
+	}
+	static function compareUpDesc($a, $b)
+	{
+		return $b->get_up_rate() - $a->get_up_rate();
+	}
+	static function compareDoneAsc($a, $b)
+	{
+		$an = $a->get_completed_chunks() * $a->get_chunk_size();
+		$bn = $b->get_completed_chunks() * $b->get_chunk_size();
+
+		return $an - $bn;
+	}
+	static function compareDoneDesc($a, $b)
+	{
+		$an = $a->get_completed_chunks() * $a->get_chunk_size();
+		$bn = $b->get_completed_chunks() * $b->get_chunk_size();
+
+		return $bn - $an;
+	}
+	static function compareSizeAsc($a, $b)
+	{
+		// possible int overflows here.
+		// hence the complicated calculation here ;)
+		$r = floatval($a->get_chunk_size()) / floatval($b->get_chunk_size());
+		$an = $a->get_size_chunks() * $r;
+		$bn = $b->get_size_chunks();
+
+		// need to care that the result may be within [-1, 1]
+		$rv = ($an - $bn);
+		return $rv == 0 ? 0 : ($rv < 0 ? -1 : 1);
+	}
+	static function compareSizeDesc($a, $b)
+	{
+		$r = floatval($a->get_chunk_size()) / floatval($b->get_chunk_size());
+		$an = $a->get_size_chunks() * $r;
+		$bn = $b->get_size_chunks();
+
+		$rv = ($bn - $an);
+		return $rv == 0 ? 0 : ($rv < 0 ? -1 : 1);
+	}
+	static function comparePercentAsc($a, $b)
+	{
+		$an = $a->get_completed_chunks() / $a->get_size_chunks();
+		$bn = $b->get_completed_chunks() / $b->get_size_chunks();
+		// Operating on raw percentages, hence scale by 100 or else we will be within (-1,1) and
+		// sort() doesn't like values |x| < 1
+		return ($an - $bn) * 100;
+	}
+	static function comparePercentDesc($a, $b)
+	{
+		$an = $a->get_completed_chunks() / $a->get_size_chunks();
+		$bn = $b->get_completed_chunks() / $b->get_size_chunks();
+		return ($bn - $an) * 100;
+	}
+	static function compareRatioAsc($a, $b)
+	{
+		return $a->get_ratio() - $b->get_ratio();
+	}
+	static function compareRatioDesc($a, $b)
+	{
+		return $b->get_ratio() - $a->get_ratio();
 	}
 }
 ?>

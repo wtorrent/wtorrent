@@ -17,15 +17,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 class ListT extends rtorrent
 {
-	private  $view;
+	// Units for formatETA()
 	private static $PERIODS = array(
 		'days'      => 86400,
 		'hours'     => 3600,
 		'minutes'   => 60,
 		'seconds'   => 1
 	);
+	// Upper limit for formatETA() specifying when to display infinity
+	private static $INFLIMIT = 1209600; // 14 days
+
+	private static $DOWNLOAD_VALUES = array(
+		'd.get_name',
+		'd.get_down_rate',
+		'd.get_up_rate',
+		'd.get_chunk_size',
+		'd.get_completed_chunks',
+		'd.get_size_chunks',
+		'd.get_state',
+		'd.get_peers_accounted',
+		'd.get_peers_complete',
+		'd.is_hash_checking',
+		'd.get_ratio',
+		'd.get_tracker_size',
+		'd.is_active',
+		'd.is_open',
+		'd.get_message',
+		'd.get_creation_date',
+		'd.get_left_bytes',
+	       	'd.get_size_bytes'
+	);
+	private static $TORRENT_VALUES = array(
+		't.get_scrape_complete',
+	       	't.get_scrape_incomplete'
+	);
+
+	private $view;
  
-  public function construct()
+	public function construct()
 	{
 		switch($this->_request['view'])
 		{
@@ -49,49 +78,33 @@ class ListT extends rtorrent
 				break;
 		}
 		
-		if(!$this->setClient())
+		if (!$this->setClient())
+		{
 			return false;
+		}
 		
 		/* d multicall with all the necessary info to generate the torrent list */
-		$array_d = array('d.get_name', 'd.get_down_rate', 'd.get_up_rate', 'd.get_chunk_size','d.get_completed_chunks','d.get_size_chunks','d.get_state','d.get_peers_accounted','d.get_peers_complete','d.is_hash_checking','d.get_ratio','d.get_tracker_size','d.is_active','d.is_open','d.get_message','d.get_creation_date', 'd.get_left_bytes', 'd.get_size_bytes');
- 		$this->multicall->d_multicall($array_d, $this->rtorrent_view);
+ 		$this->multicall->d_multicall(self::$DOWNLOAD_VALUES, $this->rtorrent_view);
+
 		// t multicall
-		$array_t = array('t.get_scrape_complete', 't.get_scrape_incomplete');
 		$hashes = $this->getHashes(); // Retrieve hashes
-		// Order hashes
 		if(!empty($hashes))
 		{
 			foreach($hashes as $hash)
-				$this->multicall->t_multicall($hash, $array_t);
-		}
-		
-		if(isset($this->_request['sort']))
-		{
-			switch($this->_request['sort'])
 			{
-				case 'name':
-					$this->sortTorrentsByName($this->_request['order']);
-					break;
-				case 'dl':
-					$this->sortTorrentsByDL($this->_request['order']);
-					break;
-				case 'up':
-					$this->sortTorrentsByUP($this->_request['order']);
-					break;
-				case 'done':
-					$this->sortTorrentsByDone($this->_request['order']);
-					break;
-				case 'size':
-					$this->sortTorrentsBySize($this->_request['order']);
-					break;
-				case 'percent':
-					$this->sortTorrentsByPercent($this->_request['order']);
-					break;
-				case 'ratio':
-					$this->sortTorrentsByRatio($this->_request['order']);
-					break;
+				$this->multicall->t_multicall($hash, self::$TORRENT_VALUES);
 			}
 		}
+		
+		// Order hashes
+		// Set key and order to name if omitted
+		$this->_request['sort'] = empty($this->_request['sort']) ? self::$SORT_KEYS[0] : $this->_request['sort'];
+		$this->_request['order'] = empty($this->_request['order']) ? self::$SORT_ORDERS[0] : $this->_request['order'];
+
+		// carry out the sorting
+		// sortTorrentsBy will consolidate the input
+		
+		$this->sortTorrentsBy($this->_request['sort'], $this->_request['order']);
 	}
 
 	public function getView()
@@ -226,14 +239,24 @@ class ListT extends rtorrent
 	}
 	public function getETA($hash)
 	{
-		if($this->getPercent($hash) == 100 || $this->torrents[$hash]->get_down_rate() <= 0) {
-			return '--';
+		// Complete, hence remaining time is 0
+		if ($this->getPercent($hash) == 100)
+		{
+			return $this->formatETA(0);
 		}
+		// No download process, hence time is infinity
+		if ($this->torrents[$hash]->get_down_rate() <= 0) {
+			return $this->formatETA(self::$INFLIMIT);
+		}
+
 		// int overflow :p
-		if ($this->torrents[$hash]->get_left_bytes() == 2147483647) {
+		if ($this->torrents[$hash]->get_left_bytes() == 2147483647)
+		{
 			$left = $this->torrents[$hash]->get_size_chunks() - $this->torrents[$hash]->get_completed_chunks();
+
 			// do we have bcmath, then use that
-			if (function_exists('bcmul') && function_exists('bcdiv')) {
+			if (function_exists('bcmul') && function_exists('bcdiv'))
+		       	{
 				return $this->formatETA(
 					bcdiv(
 						bcmul(
@@ -248,6 +271,7 @@ class ListT extends rtorrent
 			// this might be pretty inaccurate, however we got no other option :p
 			return $this->formatETA($left / ($this->torrents[$hash]->get_down_rate() / $this->torrents[$hash]->get_chunk_size()));
 		}
+
 		return $this->formatETA($this->torrents[$hash]->get_left_bytes() / $this->torrents[$hash]->get_down_rate());
 	}
 	public function getSize($hash)
@@ -312,37 +336,48 @@ class ListT extends rtorrent
 	}
 	public function getTooltipText($hash)
  	{
-       if($this->getTstate($hash) == 'message')
-           $return = $this->getMessage($hash);
-       else
-           $return = null;
-       return $return;
+		if ($this->getTstate($hash) != 'message')
+		{
+			return null;
+		}
+		return $this->getMessage($hash);
 	}
-  public function getCreationDate($hash)
+	public function getCreationDate($hash)
  	{
-  	return $this->torrents[$hash]->get_creation_date();
+		return $this->torrents[$hash]->get_creation_date();
 	}
 
 	private function formatETA($time)
 	{
 		$seconds = intval($time);
-		$rv = '';
+
+		if ($seconds <= 0)
+		{
+			return '--';
+		}
+
 		// > 2 weeks = infinite ETA
-		if ($seconds > 14 * self::$PERIODS['days']) {
+		if ($seconds > self::$INFLIMIT)
+	       	{
 			return '∞';
 		}
 
 		$c = 0;
+		$rv = '';
 		foreach (self::$PERIODS as $period => $value) 
 		{
 			$count = floor($seconds / $value);
-			if ($count == 0) {
+			if ($count == 0)
+		       	{
 				continue;
 			}
 			$seconds = $seconds % $value;
 
 			$rv .= $count . substr($period, 0,  1) . ' ';
-			if (++$c >= 2) {
+
+			// display only the first two non-zero periodic units and values
+			if (++$c >= 2)
+		       	{
 				break;
 			}
 		}

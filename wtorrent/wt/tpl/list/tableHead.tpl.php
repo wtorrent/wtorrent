@@ -32,6 +32,17 @@
 			
 		</div>
 	</div>
+	<div class="percent" id="percent">
+		<div>
+			{$str.tb_percent}
+		</div>
+		<div class="asc">
+			
+		</div>
+		<div class="des">
+			
+		</div>
+	</div>
 	<div class="done" id="done">
 		<div>
 			{$str.tb_done}
@@ -46,17 +57,6 @@
 	<div class="size" id="size">
 		<div>
 			{$str.tb_size}
-		</div>
-		<div class="asc">
-			
-		</div>
-		<div class="des">
-			
-		</div>
-	</div>
-	<div class="percent" id="percent">
-		<div>
-			{$str.tb_percent}
 		</div>
 		<div class="asc">
 			

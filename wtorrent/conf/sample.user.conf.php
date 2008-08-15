@@ -37,6 +37,8 @@ define( 'RT_PASSWD',		'my_password');
 // where to use multicall or not
 // if wTorrent makes your rtorrent crash, set this to true
 define( 'NO_MULTICALL',		true);
+// Use scriptaculous effects (IMPORTANT: notice the '' arround true or false)
+define( 'EFFECTS',	'true');
 
 // Directory in which to save uploaded .torrent files (set folder permision 0777 or chmod to httpd server)
 // This reffers to the wtorrent folder, don't use exact paths like /data/watch (see Ticket #104)

@@ -13,7 +13,6 @@ img {
 	font-family: 'Lucida sans', arial; 
 	font-size: 11px; 
 	cursor: default;
-	display: none;
 	clear: both;
 }
 #messages {
@@ -602,6 +601,9 @@ img {
 	background-color: #E5EDF4;
 	cursor: pointer;
 }
+.torrent.active {
+	background-color: #d5e991 !important;
+}
 .torrent.chash {
 	background-image: url(../img/chash_bg.png);
 }
@@ -658,12 +660,18 @@ img {
 	padding: 0 0 0 5px;
 }
 .torrent .percent {
-	width: 320px;
+	width: 290px;
 	height: 5px;
 	text-align: left;
 	margin: 3px 5px 0 5px;
 	border: 1px solid #ccc;
 }
+.torrent .percenttext {
+	float: right;
+	padding: 0;
+	margin: 0;
+}
+
 .torrent .percent > .percentBar {
 	height: 5px;
 	background-color: #70b5ef;

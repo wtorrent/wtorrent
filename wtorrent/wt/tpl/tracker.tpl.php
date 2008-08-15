@@ -28,14 +28,14 @@
 		</tr>
 		{/foreach}
 	</table>
-	<div style="height: 20px; text-align: left; margin-left: 2px; margin-top: 3px; height: 40px;"><img src="{$DIR_IMG}arrow_ltr.png" alt="arrow" />
+	<div class="trackersButtons" style="height: 20px; text-align: left; margin-left: 2px; margin-top: 3px; height: 40px;"><img src="{$DIR_IMG}arrow_ltr.png" alt="arrow" />
 		<select id="st{$web->getHash()}">
 			<option value="1">{$str.enable}</option>
 			<option value="0">{$str.disable}</option>
 		</select>
-		<div class="but_bottom" onclick="command('trackers', '{$web->getHash()}');"> {$str.change_tr} </div>
-		<div class="but_bottom" onclick="checkAllByClass('trackers{$web->getHash()}');">{$str.check_all}</div>
-		<div class="but_bottom" onclick="uncheckAllByClass('trackers{$web->getHash()}');">{$str.uncheck_all}</div>
-		<div class="but_bottom" onclick="invertAllByClass('trackers{$web->getHash()}');">{$str.invert_all}</div>
+		<div class="but_bottom trackersEnable"> {$str.change_tr} </div>
+		<div class="but_bottom trackersCheckAll"> {$str.check_all} </div>
+		<div class="but_bottom trackersUncheckAll"> {$str.uncheck_all} </div>
+		<div class="but_bottom trackersInvertAll"> {$str.invert_all} </div>
 	</div>
 </form>

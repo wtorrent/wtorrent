@@ -13,7 +13,7 @@
 	
 </div>
 {if $web->getTplName() eq listT}
-<div id="refresh" onclick="refresh();">
+<div id="refresh">
 	
 </div>
 {/if}
