@@ -90,21 +90,21 @@ class ListT extends rtorrent
 		$hashes = $this->getHashes(); // Retrieve hashes
 		if(!empty($hashes))
 		{
+			// Order hashes
+			// Set key and order to name if omitted
+			$this->_request['sort'] = empty($this->_request['sort']) ? self::$SORT_KEYS[0] : $this->_request['sort'];
+			$this->_request['order'] = empty($this->_request['order']) ? self::$SORT_ORDERS[0] : $this->_request['order'];
+
+			// carry out the sorting
+			// sortTorrentsBy will consolidate the input
+
+			$this->sortTorrentsBy($this->_request['sort'], $this->_request['order']);
+			
 			foreach($hashes as $hash)
 			{
 				$this->multicall->t_multicall($hash, self::$TORRENT_VALUES);
 			}
 		}
-		
-		// Order hashes
-		// Set key and order to name if omitted
-		$this->_request['sort'] = empty($this->_request['sort']) ? self::$SORT_KEYS[0] : $this->_request['sort'];
-		$this->_request['order'] = empty($this->_request['order']) ? self::$SORT_ORDERS[0] : $this->_request['order'];
-
-		// carry out the sorting
-		// sortTorrentsBy will consolidate the input
-		
-		$this->sortTorrentsBy($this->_request['sort'], $this->_request['order']);
 	}
 
 	public function getView()
