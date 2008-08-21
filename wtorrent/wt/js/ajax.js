@@ -54,6 +54,7 @@ var AjaxHandler = Class.create({
 	/* Assign response functions */
 	/* Print response in main frame */
 	showResponseMain: function(originalRequest) {
+		cleanTips();
 		var newData = originalRequest.responseText;
 		replaceHtml('content', newData);
 		this.lastMain = originalRequest.request.options.parameters;
@@ -74,7 +75,6 @@ var AjaxHandler = Class.create({
 	},
 	/* Reload main frame */
 	reloadMain: function(sort, order) {
-		cleanTips();
 		var url = this.lastMain;
 		if((sort != undefined) && (order != undefined))
 		{

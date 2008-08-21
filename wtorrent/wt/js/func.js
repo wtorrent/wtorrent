@@ -78,7 +78,7 @@ function torrentTip(elementId) {
 }
 function cleanTips()
 {
-	var tips = $$('.torrentCheckbox');
+	var tips = $$('.torrent');
 	for(var i = 0; i < tips.length; i++)
 	{
 		var temp = $(tips[i].id + 'copy');

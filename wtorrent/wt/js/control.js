@@ -29,7 +29,7 @@ var Control = Class.create({
 		{
 			/* The click has been on a button, pass the call to the button handler */
 			this.buttonHandler(e);
-		} else {
+		} else if(!el.hasClassName('torrentCheckbox')) {
 			/* Get the id (hash) of the torrent */
 			var id = el.up('.torrent').identify();
 			if($('tab' + id).innerHTML == "") {
