@@ -84,6 +84,23 @@ var Control = Class.create({
 			invertAllByClass('.torrentCheckbox');
 		}
 	},
+	confirmTorrentAction: function(el, message) {
+		var torrent_names = '';
+		var t;
+		if(!Object.isArray(el)) 
+		{
+			t = el.up('.torrent').down('.name');
+			torrent_names = '"' + (Prototype.Browser.IE ? t.innerText : t.textContent).replace(/^\s+|\s+$/g, '') + '"';
+		} else {
+			el.each(
+				function(el) {
+					t = el.up('.torrent').down('.name');
+					torrent_names = torrent_names + "\n\"" + (Prototype.Browser.IE ? t.innerText : t.textContent).replace(/^\s+|\s+$/g, '') + '"';
+				}
+			);
+		}
+		return confirm(message.replace(/%S/g, torrent_names));
+	},
 	/* Buttons handler */
 	buttonHandler: function(e) {
 		var el = e.element();
@@ -103,10 +120,18 @@ var Control = Class.create({
 		}
 		if(el.hasClassName('erase'))
 		{
+			if (!this.confirmTorrentAction(el, confirm_erase))
+			{
+				return;
+			}
 			var url = 'cls=commands&tpl=commands&command=erase&param=' + id;
 		}
 		if(el.hasClassName('chash'))
 		{
+			if (!this.confirmTorrentAction(el, confirm_chash))
+			{
+				return;
+			}
 			var url = 'cls=commands&tpl=commands&command=chash&param=' + id;
 		}
 		/* Prepare load/response functions */
@@ -168,9 +193,17 @@ var Control = Class.create({
 				break;
 			case '2':
 				command = 'erase';
+				if (!this.confirmTorrentAction(params, confirm_erase))
+				{
+					return;
+				}
 				break;
 			case '3':
 				command = 'chash';
+				if (!this.confirmTorrentAction(params, confirm_chash))
+				{
+					return;
+				}
 				break;
 			case '4':
 				command = 'close';
@@ -184,12 +217,6 @@ var Control = Class.create({
 			}
 		);
 		var hashes = hash.join('~');
-		/* Confirmation msg is erase */     
-		if(command == 'erase')
-		{
-			if(!confirm(confirmMsg))
-			return;
-		}
 		/* Process the call */
 		var url = 'cls=commands&tpl=commands&command=' + command + '&param=' + hashes;
 		var showLoad = this.ajax.showLoadMessages.bind(this.ajax);

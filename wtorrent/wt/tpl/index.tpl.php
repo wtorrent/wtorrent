@@ -21,7 +21,8 @@
 		{literal}
 			<script type="text/javascript">
 			  <!--
-				var confirmMsg = '{/literal}{$str.conf_erase}{literal}';
+				var confirm_chash = '{/literal}{$str.confirm_chash|escape:'javascript'}{literal}';
+				var confirm_erase = '{/literal}{$str.confirm_erase|escape:'javascript'}{literal}';
 			  //-->
 			</script>
 		{/literal}

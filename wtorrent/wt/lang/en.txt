@@ -179,3 +179,5 @@ hashing = hashing
 seeding = seeding
 
 invalid_order = Invalid order specified in sort
+confirm_chash = Want to initiate hashing for %S?
+confirm_erase = Want to remove %S?
