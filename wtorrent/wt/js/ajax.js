@@ -13,16 +13,17 @@ var AjaxHandler = Class.create({
 		//this.loadingTorrent = $(loadId.loadingTorrent).innerHTML;
 	},
 	/* Main loader */
-	load: function(url, showLoad, showResponse, options){
+	load: function(id, url, showLoad, showResponse, options){
 		if(typeof(url) != 'object')
 		{
 			url = url + "&dummy=" + new Date().getTime();
 		} else {
 			url.dummy = new Date().getTime();
 		}
-		var myAjax = new Ajax.Request( this.index, {
+		var myAjax = new Ajax.Updater( id, this.index, {
 			method: 'get', 
 			parameters: url, 
+			evalJS: false,
 			onLoading: showLoad, 
 			onComplete: showResponse
 		} );
@@ -30,46 +31,37 @@ var AjaxHandler = Class.create({
 	/* Assign loading functions */
 	/* Loading of the main frame */
 	showLoadMain: function () {
-		replaceHtml('content', this.loadingMain);
+		$('content').update(this.loadingMain);
 	},
 	/* Loading of messages */
 	showLoadMessages: function() {
-		replaceHtml('messages', this.loadingMessages);
+		$('messages').update(this.loadingMessages);
 		$('messages_box').show();
 	},
 	/* Loading of torrent info */
 	showLoadTorrent: function(id) {
 		this.display.closeTorrent(id);
-    var overlayCell = $('loadingCell').cloneNode(true);
-    var positions = $(id).cumulativeOffset();
-    overlayCell.writeAttribute('id', 'l' + id);
-		overlayCell.setStyle({
-		  left: positions.left + 'px',
-		  top: positions.top + 'px'
-		});
-    document.body.appendChild(overlayCell);
-    overlayCell.show();
-    return;
+		$(id).addClassName('loading');
 	},
 	/* Assign response functions */
 	/* Print response in main frame */
 	showResponseMain: function(originalRequest) {
 		cleanTips();
-		var newData = originalRequest.responseText;
-		replaceHtml('content', newData);
+		//var newData = originalRequest.responseText;
+		//$('content').insert = newData;
 		this.lastMain = originalRequest.request.options.parameters;
 		postAjax();
 	},
 	/* Print response in messages */
 	showResponseMessages: function(originalRequest) {
-		var newData = originalRequest.responseText;
-		replaceHtml('messages', newData);
+		//var newData = originalRequest.responseText;
+		//$('messages').insert(newData);
 	},
 	/* Print tab info */
 	showResponseTorrent: function(id, afterFinish, originalRequest) {
-		var newData = originalRequest.responseText;
-		replaceHtml('tab' + id, newData);
-		$('l' + id).remove();
+		//var newData = originalRequest.responseText;
+		//$('tab' + id).insert = newData;
+		$(id).removeClassName('loading');
 		this.display.openTorrent(id);
 		afterFinish();
 	},
@@ -83,7 +75,7 @@ var AjaxHandler = Class.create({
 		}
 		var showLoad = this.showLoadMain.bind(this);
 		var showResponse = this.showResponseMain.bind(this);
-		this.load(url, showLoad, showResponse);
+		this.load('content', url, showLoad, showResponse);
 	}
 });
 	

@@ -39,7 +39,7 @@ var Control = Class.create({
 				var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id, afterFinish);
 				var url = 'cls=General&tpl=details&hash=' + id;
 				/* Do the call */
-				this.ajax.load(url, showLoad, showResponse);
+				this.ajax.load('tab' + id, url, showLoad, showResponse);
 			} else {
 				/* toggle tab, since there's already loaded content in it */
 				this.display.toggleTorrent(id);
@@ -113,7 +113,7 @@ var Control = Class.create({
 		var showLoad = this.ajax.showLoadMessages.bind(this.ajax);
 		var showResponse = this.ajax.showResponseMessages.bind(this.ajax);
 		/* Do the call */
-		this.ajax.load(url, showLoad, showResponse);
+		this.ajax.load('messages', url, showLoad, showResponse);
 		this.ajax.reloadMain();
 	},
 	/* View tabs handler */
@@ -123,7 +123,7 @@ var Control = Class.create({
 		var url = 'cls=ListT&tpl=ajax&view=' + id;
 		var showLoad = this.ajax.showLoadMain.bind(this.ajax);
 		var showResponse = this.ajax.showResponseMain.bind(this.ajax);
-		this.ajax.load(url, showLoad, showResponse);
+		this.ajax.load('content', url, showLoad, showResponse);
 	},
 	/* Torrent info handler */
 	torrentTabsHandler: function(e) {
@@ -149,7 +149,7 @@ var Control = Class.create({
 		var showLoad = this.ajax.showLoadTorrent.bind(this.ajax, id);
 		var afterFinish = this.events.bindTorrentTab.bind(this.events, this.torrentPriorityHandler.bindAsEventListener(this), this.torrentFilesHandler.bindAsEventListener(this), this.torrentTrackersHandler.bindAsEventListener(this));
 		var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id, afterFinish);
-		this.ajax.load(url, showLoad, showResponse);
+		this.ajax.load('tab' + id, url, showLoad, showResponse);
 	},
 	/* Helper functions */
 	torrentBatchCommand: function() {
@@ -194,7 +194,7 @@ var Control = Class.create({
 		var url = 'cls=commands&tpl=commands&command=' + command + '&param=' + hashes;
 		var showLoad = this.ajax.showLoadMessages.bind(this.ajax);
 		var showResponse = this.ajax.showResponseMessages.bind(this.ajax);
-		this.ajax.load(url, showLoad, showResponse);
+		this.ajax.load('messages', url, showLoad, showResponse);
 		this.ajax.reloadMain();
 	},
 	/* Torrent Priority Handler */
@@ -206,13 +206,13 @@ var Control = Class.create({
 		var url = 'cls=commands&tpl=commands&command=info&param=' + id + '&param1=' + param1;
 		var showLoad = this.ajax.showLoadMessages.bind(this.ajax);
 		var showResponse = this.ajax.showResponseMessages.bind(this.ajax);
-		this.ajax.load(url, showLoad, showResponse);
+		this.ajax.load('messages', url, showLoad, showResponse);
 		/* Reload Torrent Info tab */
 		var url = 'cls=General&tpl=details&hash=' + id;
 		var showLoad = this.ajax.showLoadTorrent.bind(this.ajax, id);
 		var afterFinish = this.events.bindTorrentTab.bind(this.events, this.torrentPriorityHandler.bindAsEventListener(this), this.torrentFilesHandler.bindAsEventListener(this), this.torrentTrackersHandler.bindAsEventListener(this));
 		var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id, afterFinish);
-		this.ajax.load(url, showLoad, showResponse);
+		this.ajax.load('tab' + id, url, showLoad, showResponse);
 	},
 	/* Torrent Files Handler */
 	torrentFilesHandler: function(e) {
@@ -233,13 +233,13 @@ var Control = Class.create({
 			var url = 'cls=commands&tpl=commands&command=files&param=' + id + '&param1=' + param1 + '&param2=' + param2;
 			var showLoad = this.ajax.showLoadMessages.bind(this.ajax);
 			var showResponse = this.ajax.showResponseMessages.bind(this.ajax);
-			this.ajax.load(url, showLoad, showResponse);
+			this.ajax.load('messages', url, showLoad, showResponse);
 			/* Reload Torrent Files tab */
 			var url = 'cls=Files&tpl=details&hash=' + id;
 			var showLoad = this.ajax.showLoadTorrent.bind(this.ajax, id);
 			var afterFinish = this.events.bindTorrentTab.bind(this.events, this.torrentPriorityHandler.bindAsEventListener(this), this.torrentFilesHandler.bindAsEventListener(this), this.torrentTrackersHandler.bindAsEventListener(this));
 			var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id, afterFinish);
-			this.ajax.load(url, showLoad, showResponse);
+			this.ajax.load('tab' + id, url, showLoad, showResponse);
 		}
 		if(el.hasClassName('filesCheckAll'))
 		{
@@ -273,13 +273,13 @@ var Control = Class.create({
 			var url = 'cls=commands&tpl=commands&command=trackers&param=' + id + '&param1=' + param1 + '&param2=' + param2;
 			var showLoad = this.ajax.showLoadMessages.bind(this.ajax);
 			var showResponse = this.ajax.showResponseMessages.bind(this.ajax);
-			this.ajax.load(url, showLoad, showResponse);
+			this.ajax.load('messages', url, showLoad, showResponse);
 			/* Reload Torrent Trackers tab */
 			var url = 'cls=Tracker&tpl=details&hash=' + id;
 			var showLoad = this.ajax.showLoadTorrent.bind(this.ajax, id);
 			var afterFinish = this.events.bindTorrentTab.bind(this.events, this.torrentPriorityHandler.bindAsEventListener(this), this.torrentFilesHandler.bindAsEventListener(this), this.torrentTrackersHandler.bindAsEventListener(this));
 			var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id, afterFinish);
-			this.ajax.load(url, showLoad, showResponse);
+			this.ajax.load('tab' + id, url, showLoad, showResponse);
 		}
 		if(el.hasClassName('trackersCheckAll'))
 		{

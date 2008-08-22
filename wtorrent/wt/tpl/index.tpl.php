@@ -42,13 +42,6 @@
 	{include file="login.tpl.php"}
 {/if}
 <div id="debug" style="width: 800px; height: 30px;"></div>
-<div style="display: none;">
-{include file="comm_loading.tpl.php"}
-{include file="loading.tpl.php"}
-</div>
-<div class="loadingCell" id="loadingCell" style="display: none;">
-	<img src="{$DIR_IMG}miniloader.gif" alt="loading" />
-</div>
 <div id="loadingMain" style="display: none;">
 	{include file="loading.tpl.php"}
 </div>
