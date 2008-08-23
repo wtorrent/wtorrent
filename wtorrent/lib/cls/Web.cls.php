@@ -20,6 +20,8 @@ Modified by Roger Pau Monné
 */
 abstract class Web
 {
+	const MASTER_LANGUAGE	= 'en';
+
 	// Master class
 	private $_lang				= LANGUAGE ;
 	private $_smarty			= null;
@@ -68,7 +70,7 @@ abstract class Web
 		$this->_files			= escape( $_FILES );
 		$this->_env				= escape( $_ENV );
 
-		$this->_loadTexts( $this->getLang( ) );
+		$this->loadLanguage( $this->getLang( ) );
 		if(isset($this->_request['ajax']))	$this->_ajax = true;
 		if(isset($this->_request['tpl']))		$this->_tpl = $this->_request['tpl'];
 	}
@@ -163,40 +165,65 @@ abstract class Web
 	{
 		return $this->_ajax;
 	}
+
 	/**
 		* Load language texts
 		*
 		* @return true
 		*/
-	private function _loadTexts( $lang )
+	private function loadLanguage($lang)
 	{
-		$master_lang = 'en';
-		if( !is_file( DIR_LANG.$lang.'.txt') )	$lang=$master_lang;
+		$master = DIR_LANG . self::MASTER_LANGUAGE . '.txt';
+		$user = DIR_LANG . $lang . '.txt';
 
-		if( !$ml = @fopen( DIR_LANG.$master_lang.'.txt', 'r' ) ) return false;
-		if( !$fd = @fopen( DIR_LANG.$lang.'.txt', 'r' ) ) return false;
 
-		while( !feof( $ml ) )
-		{
-			$m_parts = explode( '=', fgets( $ml, 4096 ), 2 );
-			$m_key = trim( $m_parts[0] );
-			if( !empty( $m_key ) ) $this->_str[$m_key] = trim( $m_parts[1] );
+		if (!is_readable($master))
+	       	{
+			die("Cannot open master language file! ($master)");
 		}
 
-		while( !feof( $fd ) )
-		{
-			$parts = explode( '=', fgets( $fd, 4096 ), 2 );
-			$key = trim( $parts[0] );
-			if( !empty( $key ) )
-				$this->_str[$key] = trim( $parts[1] );
-			else
-				$this->_str[$key] = trim( $m_parts[1]);
-		}
-		fclose( $fd );
+		$this->_str = $this->loadLanguageFile($master);
 
+		if ($master !== $user)
+	       	{
+			if (!is_readable($user))
+			{
+				die("Cannot open user language file! ($user)");
+			}
+			$user = $this->loadLanguageFile($user);
+			$this->_str = array_merge($user, array_diff_key($this->_str, $user));
+		}
+
+		if (sizeof($this->_str) === 0) {
+			die("Failed to load language (no strings found)");
+		}
 		$this->smartyAssign( 'str', $this->_str );
-		return true;
 	}
+
+	private function loadLanguageFile($lang)
+	{
+		$rv = array();
+
+		$lines = @file($lang);
+		// no foreach, as this would mean array copy
+		for ($i = 0, $e = sizeof($lines); $i < $e; ++$i)
+		{
+			$pair = explode('=', $lines[$i], 2);
+			if (sizeof($pair) != 2)
+			{
+				continue;
+			}
+			$key = trim($pair[0]);
+			$val = trim($pair[1]);
+			if (empty($key) || empty($val))
+		       	{
+				continue;
+			}
+			$rv[$key] = preg_replace(array('/\\\\n/', '/\\\\t/m'), array("\n", "\t"), $val);
+		}
+		return $rv;
+	}
+
 	/**
 		* Returns defined constants
 		*

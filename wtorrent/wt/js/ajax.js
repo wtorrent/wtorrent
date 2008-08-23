@@ -37,6 +37,23 @@ var AjaxHandler = Class.create({
 	showLoadMessages: function() {
 		$('messages').update(this.loadingMessages);
 		$('messages_box').show();
+
+		// hide after 7 seconds
+		setTimeout(
+			function() {
+				var elt = $('messages_box');
+				if ('fade' in elt)
+				{
+					elt.fade();
+				}
+				else
+				{
+					elt.hide()
+				}
+			},
+			7000
+		);
+
 	},
 	/* Loading of torrent info */
 	showLoadTorrent: function(id) {

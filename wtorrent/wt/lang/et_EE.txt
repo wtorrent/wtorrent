@@ -176,3 +176,7 @@ seeding = Jagatavad
 hashing = Räsi kontroll
 incomplete = Pole valmis
 stopped = Peatatud
+
+invalid_order = Sortimisel määratud lubamatu järjestus
+confirm_chash = Soovi alustada %S räsi kontrolli?
+confirm_erase = Soovid %S eemaldada?
