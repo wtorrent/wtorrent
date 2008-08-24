@@ -605,7 +605,7 @@ img {
 	opacity: 0.6;
 	-moz-opacity: 0.6;
 	filter:alpha(opacity=60);
-	background: #fff url(../img/miniloader.gif) no-repeat center center;
+	background: #fff url(../img/miniloader.gif) no-repeat center center !important;
 }
 .torrent.active {
 	background-color: #d5e991 !important;

@@ -23,6 +23,7 @@
 			  <!--
 				var confirm_chash = '{/literal}{$str.confirm_chash|escape:'javascript'}{literal}';
 				var confirm_erase = '{/literal}{$str.confirm_erase|escape:'javascript'}{literal}';
+				var no_torrents_selected = '{/literal}{$str.no_torrents_selected|escape:'javascript'}{literal}';
 			  //-->
 			</script>
 		{/literal}

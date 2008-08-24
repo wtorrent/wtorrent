@@ -181,3 +181,4 @@ seeding = seeding
 invalid_order = Invalid order specified in sort
 confirm_chash = Want to initiate hashing for %S?
 confirm_erase = Want to remove %S?
+no_torrents_selected = No torrents selected

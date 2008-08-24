@@ -1,10 +1,10 @@
-<?php require_once('conf/sample.home.conf.php'); ?>
+<?php require_once('conf/sample.user.conf.php'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-15" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <title><?=TITLE?></title>
   <link rel="stylesheet" type="text/css" href="<?=DIR_CSS_ESTIL?>" media="all" />
   <style type="text/css" media="screen">
@@ -50,7 +50,7 @@ function check_required_fields($_REQUEST){
 	return !$retv;
 }
 
-$conf_file = 'conf/home.conf.php';
+$conf_file = 'conf/user.conf.php';
 // if(file_exists(DB_FILE))
 // {
 // 	echo '<div id="principal" class="principal" style="width: 500px;"><div style="font-size: 11px; margin-bottom: 12px; font-weight: bold;">';
@@ -101,7 +101,7 @@ if(isset($_REQUEST['create']))
 				die();
 			}
 			$data = "<?php\n/*\nThis file is part of wTorrent.\n\nwTorrent is free software; you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation; either version 3 of the License, or\n(at your option) any later version.\n\nwTorrent is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.\n\nModified version of class done by David Marco Martinez\n*/
-			\n\n// Base URL of application (where index.php is) \ndefine( 'URL',				'" . $_REQUEST['urlbasef'] . "' );\ndefine( 'BASE',				'" . $_REQUEST['urlbasef'] . "' );\n\n// SQLite database file (set folder permision 0777 or chmod to httpd server) (wTorrent will create database when running install.php)\ndefine( 'DB_FILE',			'" . $_REQUEST['databasef'] . "');\n\n// Host or IP to connect to rTorrent\ndefine( 'RT_HOST',			'" . $_REQUEST['hostf'] . "');\ndefine( 'RT_PORT',			" . $_REQUEST['portnumf'] . ");\ndefine( 'RT_DIR',			'" . $_REQUEST['authdirf'] . "');\ndefine( 'RT_AUTH',			" . bool2string($_REQUEST['webauthf'] == 1) . ");\ndefine( 'RT_USER',			'" . $_REQUEST['userf'] . "');\ndefine( 'RT_PASSWD',		'" . $_REQUEST['passwdf'] . "');\n// where to use multicall or not\n// if wTorrent makes your rtorrent crash, set this to true\ndefine( 'NO_MULTICALL',		true);\n\n// Directory in which to save uploaded .torrent files (set folder permision 0777 or chmod to httpd server)\ndefine( 'DIR_TORRENTS',		'" . $_REQUEST['torrdirf'] . "');\n\n// Full path to application directory (where index.php is)\ndefine( 'DIR_EXEC',			'" . $_REQUEST['appdirf'] . "');\n\n// Permision to set for uploaded .torrent files (don't touch unless you know)\ndefine( 'PERM_TORRENTS',	0777);\n\n// Default location to save downloaded files (can be set for every uploaded .torrent on the ui) \ndefine( 'DIR_DOWNLOAD',		'" . $_REQUEST['datadirf'] . "');\n\n// Don't touch any of the data below unless you know what you are doing\ndefine( 'DIR_LANG',			'home/lang/' );\ndefine( 'DIR_TPL',			'home/tpl/' );\ndefine( 'DIR_TPL_COMPILE',	'tpl_c/' );\ndefine( 'DIR_TPL_HTML',		'home/html/' );\ndefine( 'DIR_BACKUP',		'backup/' );\ndefine( 'DIR_UPLOAD', 		'torrents/');\n\ndefine( 'TITLE',			'wTorrent' );\ndefine( 'META_TITLE',		'rTorrent web interface' );\ndefine( 'META_KEYWORDS',	'rtorrent xmlrpc interface php web html' );\ndefine( 'META_DESCRIPTION',	'rtorrent web inrface using xmlrpc' );\n\ndefine( 'DIR_CSS_DETALLS',	'home/css/detalls.css' );\ndefine( 'DIR_CSS_ESTIL',	'home/css/estil.css' );\ndefine( 'DIR_JS',			'home/js/javasc.js' );\ndefine( 'DIR_JSHADE',		'home/js/shadedborder.js' );\ndefine( 'DIR_JSPROTO',		'home/js/prototype.js' );\ndefine( 'DIR_SCRIPTACULOUS','home/js/scriptaculous/scriptaculous.js');\ndefine( 'DIR_PROTOTIP',     'home/js/prototip.js');\ndefine( 'DIR_FAVICO',		'favicon.ico' );\n//define( 'USER_RTORRENT',	'rtorrent');\n\ndefine( 'DIR_IMG',			'home/img/' );\ndefine( 'SRC_INDEX',		'index.php' );\n\ndefine( 'SCRAMBLE',			false);\ndefine( 'APP',				'wTorrent' );\n\n// Librerias generales\nrequire_once( 'lib/inc/includes.inc.php' );\n\n// Autodeclaracion de clases\nautoload( 'lib/cls/', 'cls/', 'home/cls/' );\n// Definicion de rutas para UNIX\nini_set( 'include_path',	DIR_EXEC );\n?>";
+			\n\n// Base URL of application (where index.php is) \ndefine( 'URL',				'" . $_REQUEST['urlbasef'] . "' );\ndefine( 'BASE',				'" . $_REQUEST['urlbasef'] . "' );\n\n// SQLite database file (set folder permision 0777 or chmod to httpd server) (wTorrent will create database when running install.php)\ndefine( 'DB_FILE',			'" . $_REQUEST['databasef'] . "');\n\n// Host or IP to connect to rTorrent\ndefine( 'RT_HOST',			'" . $_REQUEST['hostf'] . "');\ndefine( 'RT_PORT',			" . $_REQUEST['portnumf'] . ");\ndefine( 'RT_DIR',			'" . $_REQUEST['authdirf'] . "');\ndefine( 'RT_AUTH',			" . bool2string($_REQUEST['webauthf'] == 1) . ");\ndefine( 'RT_USER',			'" . $_REQUEST['userf'] . "');\ndefine( 'RT_PASSWD',		'" . $_REQUEST['passwdf'] . "');\n// where to use multicall or not\n// if wTorrent makes your rtorrent crash, set this to true\ndefine( 'NO_MULTICALL',		true);\n\n// Directory in which to save uploaded .torrent files (set folder permision 0777 or chmod to httpd server)\ndefine( 'DIR_TORRENTS',		'" . $_REQUEST['torrdirf'] . "');\n\n// Full path to application directory (where index.php is)\ndefine( 'DIR_EXEC',			'" . $_REQUEST['appdirf'] . "');\n\n// Permision to set for uploaded .torrent files (don't touch unless you know)\n\n// Default location to save downloaded files (can be set for every uploaded .torrent on the ui) \ndefine( 'DIR_DOWNLOAD',		'" . $_REQUEST['datadirf'] . "');\n\n";
 			fwrite($fd, $data);
 			// require_once($conf_file);
 			fclose($fd);

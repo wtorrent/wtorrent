@@ -35,10 +35,10 @@
 <!--
 		var control;
 		function postAjax() {
-			if(control != undefined)
-				delete control;
+			if(control == undefined)
+				control = new Control({/literal}{$EFFECTS}{literal});
 			
-			control = new Control({/literal}{$EFFECTS}{literal});
+			/* control = new Control({/literal}{$EFFECTS}{literal}); */
 			/* Render the tips */
 			var tips = $$('.torrent');
 			for(var i = 0; i < tips.length; i++)

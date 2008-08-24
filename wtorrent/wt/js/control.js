@@ -4,7 +4,7 @@ var Control = Class.create({
 	initialize: function(effects) {
 		this.display = new DisplayActions(effects);
 		this.events = new EventHandler();
-		this.ajax = new AjaxHandler('index.php', this.display, {loadingMain: 'loadingMain', loadingMessages: 'loadingMessages', loadingTorrent: 'loadingTorrent'});
+		this.ajax = new AjaxHandler('index.php', this.display, this, this.events, {loadingMain: 'loadingMain', loadingMessages: 'loadingMessages', loadingTorrent: 'loadingTorrent'});
 		/* Add all events listeners */
 		/* Torrent event listening */
 		this.events.bindTorrent(this.torrentHandler.bindAsEventListener(this), this.torrentMouseOverHandler.bindAsEventListener(this), this.torrentMouseOutHandler.bindAsEventListener(this));
@@ -180,6 +180,11 @@ var Control = Class.create({
 	torrentBatchCommand: function() {
 		/* Get checked torrents */
 		var params = getChecked('.torrentCheckbox');
+		if(params.length < 1)
+		{
+			alert(no_torrents_selected);
+			return;
+		}
 		/* Get action to apply */
 		var number = $('actions').options[$('actions').selectedIndex].value;
 

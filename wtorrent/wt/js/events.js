@@ -26,7 +26,7 @@ var EventHandler = Class.create({
 			}.bind(this)
 		);
 	},
-	reloadTorrents: function(torrentHandler, torrentMouseOverHandler, torrentMouseOutHandler) {
+	reloadTorrent: function(torrentHandler, torrentMouseOverHandler, torrentMouseOutHandler) {
 		this.unbindTorrent();
 		this.bindTorrent(torrentHandler, torrentMouseOverHandler, torrentMouseOutHandler);
 	},

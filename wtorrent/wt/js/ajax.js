@@ -1,11 +1,12 @@
 var AjaxHandler = Class.create({
 	
-	initialize: function(index, display, loadId) {
+	initialize: function(index, display, main, events, loadId) {
 		this.index = index;
 		this.display = display;
+		this.main = main;
+		this.events = events;
 		this.loadingMain = $(loadId.loadingMain).innerHTML;
 		this.loadingMessages = $(loadId.loadingMessages).innerHTML;
-		/* Init vars with default values */
 		this.lastMain = new Object();
 		this.lastMain.cls = 'ListT';
 		this.lastMain.tpl = 'ajax';
@@ -64,20 +65,18 @@ var AjaxHandler = Class.create({
 	/* Print response in main frame */
 	showResponseMain: function(originalRequest) {
 		cleanTips();
-		//var newData = originalRequest.responseText;
-		//$('content').insert = newData;
 		this.lastMain = originalRequest.request.options.parameters;
+		this.events.reloadTorrent(this.main.torrentHandler.bindAsEventListener(this.main), this.main.torrentMouseOverHandler.bindAsEventListener(this.main), this.main.torrentMouseOutHandler.bindAsEventListener(this.main));
+		this.events.reloadTorrentTabs(this.main.torrentTabsHandler.bindAsEventListener(this.main));
+		this.events.reloadListButtons(this.main.torrentListButtons.bindAsEventListener(this.main));
+		this.events.reloadSortButtons(this.main.torrentSort.bindAsEventListener(this.main));
 		postAjax();
 	},
 	/* Print response in messages */
 	showResponseMessages: function(originalRequest) {
-		//var newData = originalRequest.responseText;
-		//$('messages').insert(newData);
 	},
 	/* Print tab info */
 	showResponseTorrent: function(id, afterFinish, originalRequest) {
-		//var newData = originalRequest.responseText;
-		//$('tab' + id).insert = newData;
 		$(id).removeClassName('loading');
 		this.display.openTorrent(id);
 		afterFinish();
