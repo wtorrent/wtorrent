@@ -63,8 +63,18 @@ var AjaxHandler = Class.create({
 	},
 	/* Assign response functions */
 	/* Print response in main frame */
-	showResponseMain: function(originalRequest) {
+	showResponseMain: function(originalRequest, json_data) {
 		cleanTips();
+		if(json_data)
+		{
+			var space = $('space');
+			space.down('.space_used_total').update(json_data.space_used_total);
+			space.down('.prog_bar').setStyle({ width: json_data.prog_bar + '%'});
+			space.down('.space_free').update(json_data.space_free);
+			var speed = $('speed');
+			speed.down('.dw_rate').update(json_data.dw_rate);
+			speed.down('.up_rate').update(json_data.up_rate);
+		}
 		this.lastMain = originalRequest.request.options.parameters;
 		this.events.reloadTorrent(this.main.torrentHandler.bindAsEventListener(this.main), this.main.torrentMouseOverHandler.bindAsEventListener(this.main), this.main.torrentMouseOutHandler.bindAsEventListener(this.main));
 		this.events.reloadTorrentTabs(this.main.torrentTabsHandler.bindAsEventListener(this.main));

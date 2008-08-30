@@ -13,7 +13,7 @@
 	<div id="server_info">
 		<div id="space">
 			<div class="space_text">
-				{$str.space} 
+				{$str.space} <span class="space_used_total">{$web->getUsedSpace()}/{$web->getTotalSpace()}</span>
 			</div>
 			<div class="prog_bar_cont">
 				<div class="prog_bar" style="width: {$web->getUsedPercent()}%">
@@ -21,12 +21,12 @@
 				</div>
 			</div>
 			<div class="space_text">
-				{$web->getUsedSpace()}/{$web->getTotalSpace()} {$str.free} {$web->getFreeSpace()}
+				{$str.free} <span class="space_free">{$web->getFreeSpace()}</span>
 			</div>
 		</div>
 		<div id="speed">
-			{$str.dw_rate} {$web->getDownload()}
-			{$str.up_rate} {$web->getUpload()}
+			{$str.dw_rate} <span class="dw_rate">{$web->getDownload()}</span>
+			{$str.up_rate} <span class="up_rate">{$web->getUpload()}</span>
 		</div>
 	</div>
 </div>

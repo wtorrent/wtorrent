@@ -39,6 +39,7 @@ abstract class Web
 	protected $_files			= null;
 	protected $_env				= null;
 	protected $_db				= null;
+	protected $_json			= null;
 	protected $_tpl				= null;
 	protected $_ajax			= false;
 
@@ -69,7 +70,10 @@ abstract class Web
 		$this->_server		= escape( $_SERVER );
 		$this->_files			= escape( $_FILES );
 		$this->_env				= escape( $_ENV );
-
+		
+		// Create json class
+		$this->_json			= new Services_JSON();
+		
 		$this->loadLanguage( $this->getLang( ) );
 		if(isset($this->_request['ajax']))	$this->_ajax = true;
 		if(isset($this->_request['tpl']))		$this->_tpl = $this->_request['tpl'];
@@ -239,7 +243,7 @@ abstract class Web
 		*
 		* @return string
 		*/
-	final public function getLang( )
+	public function getLang( )
 	{
 		return $this->_lang;
 	}
@@ -248,7 +252,7 @@ abstract class Web
 		*
 		* @param string $valor
 		*/
-	final public function setLang( $valor )
+	private function setLang( $valor )
 	{
 		$this->_lang = $valor;
 	}

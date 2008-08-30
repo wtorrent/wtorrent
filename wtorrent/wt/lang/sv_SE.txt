@@ -1,0 +1,183 @@
+err_login = Fel: Felaktig inloggning, kolla ditt användarnamn/lösenord
+err_users_nosel = Fel: Ingen användare markerad för borttagning
+info_users_added = Lade till användare
+err_users_add = Ingen användare/lösenord satt, kolla datan
+info_users_deleted = Användare bortagna
+info_tor_stop = Torrent(s) stoppade
+info_tor_close = Torrent(s) stängda
+info_tor_start = Torrent(s) startade
+info_tor_erase = Torrent(s) borttagna
+info_tor_chash = Torrent(s) hash påbörjad
+info_add_torrent = Torrent tillagd korrekt
+err_add_torrent = Ett fel uppstod vid addning av torrent
+err_add_dir = Fel: Omöjligt att skapa fil i angiven katalog, var snäll att kolla rättigheterna
+err_add_file = Fel: Filen existerar redan i torrent katalogen, kan inte skapa .torrent
+info_add_upload = fullständig sökväg, avsluta med /
+
+low = Låg
+normal = Normal
+high = Hög
+idle = Overksam
+change_pr = Ändra
+err_pr = Felaktig prioritet
+info_pr = Prioritet ändrad
+
+file_off = Hämta ej
+file_normal = Normal
+file_high = Hög
+change_pr = Ändra prioritet
+start_now = Starta nu:
+private = Privat:
+no_torrents = Inga torrents funna
+pl_torrents = offentliga
+pr_torrents = privata
+
+down_limit = Max hämtningshastigheten:
+up_limit = Max sändningshastigheten:
+change_dlimit = Begränsa hämtningshastigheten
+change_ulimit = Begränsa sändningshastigheten
+
+info_down_limit = Hämtningsgräns ändrad
+err_down_limit = Fel: Felaktig hämtningsgräns
+info_up_limit = Sändningsgräns ändrad
+err_up_limit = Fel: Felaktig sändningsgräns
+
+logout = Logga ut
+info_logout = Du är nu utloggad
+
+enable = Aktivera
+disable = Inaktivera
+change_tr = Ändra
+info_ch_trackers = Trackers ändrade
+
+tl_feeds = Kanaler
+edit_feed = Ändra kanal
+erase_feed = Ta bort kanal
+title_feeds = Titel
+desc_feeds = Beskrivning
+view_feed = Visa kanal
+feed_add = Lägg till kanal
+tl_feed_add = Lägg till en ny kanal
+info_add_feed = Lade till ny kanal
+info_erase_feed = Tog bort kanal
+no_feeds = Inga kanaler funna
+feed_torrent = Torrent namn
+feed_date = Datum
+feed_down_tor = Hämta torrentfil
+down_dir = Hämtningskatalog
+download_dir = Ändra katalog
+feed_url = Kanaladress
+
+info_ch_dir = Hämtningskatalog ändrad
+err_ch_dir = Ett fel uppstod vid ändring av hämtningskatalog
+down_started = Hämtning startad
+
+log_in = Du är inte inloggad eller så har din session gått ut, vänligen uppdatera sidan
+command_error = Ett fel uppstod vid utförandet av kommandot, var snäll uppdatera sidan och försök igen
+
+info_ch_files = Ändrade filprioritet
+err_ch_files = Ett fel uppstod vid ändring av filprioritet, var vänlig att kontrollera din inmatning och försök igen
+
+tb_name = Namn
+tb_seeds = Distributörer
+tb_peers = Klienter
+tb_download = Ner
+tb_upload = Upp
+tb_speed_unit = KB/s
+tb_done = Klart
+tb_size = Storlek
+tb_percent = Procent
+tb_ratio = Förhållande
+tb_eta = Färdig om
+
+err_conn = Fel: Kunde inte etablera en anslutning till rtorrent
+conf_erase = Är du säker på att du vill ta bort denna torrent?
+
+check_all = Markera alla
+uncheck_all = Avmarkera alla
+invert_all = Invertera Markering
+action = Tillämpa
+start = Starta
+stop = Stoppa
+close = Stäng
+erase = Ta bort
+
+user = Användare
+admin = Admin
+conf_user_del = Är du säker på att du vill ta bort användaren?
+no_users = Inga användare hittades
+add_user = Lägg till användare
+password = Lösenord
+ch_bandwidth = Ändra bandbreds gräns
+kb_units = KB
+chash = Verifiera fil
+closet = Stäng
+
+cookie_host = Cookie host                                                                                                                                                                                                           
+cookie_value = Cookie värde                                                                                                                                                                                                         
+cookie_add = Lägg till                                                                                                                                                                                                                    
+cookie_edit = Ändra                                                                                                                                                                                                                  
+cookie_erase = Ta bort                                                                                                                                                                                                                
+cookies_hostname = Hostname                                                                                                                                                                                                         
+cookies_value = Värde                                                                                                                                                                                                               
+cookie_no_cookies = Inga cookies                                                                                                                                                                                                      
+cookie_tl_cookie_add = Lägg till                                                                                                                                                                                                          
+tb_uploaded = Skickat                                                                                                                                                                                                              
+no_curl_function = Ingen curl funktion hittad i PHP
+
+default_dir = Standard katalog
+force_default = Tvinga användning av standard katalogen
+
+ip = IP
+speed = Hastighet (KB/s)
+connection = Anslutning
+percent_done = % Klart
+encryption = Krypterad
+client = Klient
+down = Ner (KB/s)
+incoming = Inkommande
+outgoing = Utgående
+yes = Ja
+no = Nej
+up_peer = Upp klient (KB/s)
+down_peer = Ner klient (KB/s)
+no_peers = Inga klienter funna
+
+space = Plats:
+dw_rate = Ner:
+up_rate = Upp:
+free = Ledigt: 
+
+files = Filer
+file_name = Filnamn
+priority = Prioritet
+torrent = Torrent
+torrent_file = Torrentfil
+torrent_url = Torrent url
+data_path = Katalog
+rtorrent_message = rTorrent Meddelande
+min_peers = Min Klienter
+max_peers = Max Klienter
+url = Url
+ul_file = Ladda upp fil
+user = Användare
+password = Lösenord
+login = Logga in
+
+ListT = Huvudsida
+AddT = Lägg till torrent
+Feeds = Kanaler
+Admin = Admin
+Cookie = Cookie
+active = aktiv
+started = startad
+stopped = stoppad
+complete = färdig
+incomplete = ofullständig
+hashing = verifierar
+seeding = distribuerar
+
+invalid_order = Felaktig sortering
+confirm_chash = Vill du verifiera %S?
+confirm_erase = Vill du ta bort %S?
+no_torrents_selected = Ingen torrent markerad

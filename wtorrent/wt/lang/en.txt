@@ -114,17 +114,21 @@ chash = Recheck Hash
 closet = Close
 
 
-cookie_host = Cookie host                                                                                                                                                                                                           
-cookie_value = Cookie value                                                                                                                                                                                                         
-cookie_add = Add                                                                                                                                                                                                                    
-cookie_edit = Edit                                                                                                                                                                                                                  
-cookie_erase = Erase                                                                                                                                                                                                                
-cookies_hostname = Hostname                                                                                                                                                                                                         
-cookies_value = Value                                                                                                                                                                                                               
-cookie_no_cookies = No cookies                                                                                                                                                                                                      
-cookie_tl_cookie_add = Add                                                                                                                                                                                                          
-tb_uploaded = Uploaded                                                                                                                                                                                                              
+cookie_host = Cookie host
+cookie_value = Cookie value
+cookie_add = Add
+cookie_edit = Edit
+cookie_erase = Erase
+cookies_hostname = Hostname
+cookies_value = Value
+cookie_no_cookies = No cookies
+cookie_tl_cookie_add = Add
+tb_uploaded = Uploaded
 no_curl_function = No curl function in php
+err_add_cookie = Cannot add cookie (insufficient information)
+err_erase_cookie = Cannot erase cookie (insufficient information)
+info_add_cookie = Cookie successfully added
+info_erase_cookie = Cookie successfully deleted
 
 default_dir = Default directory
 force_default = Force default dir only
@@ -147,7 +151,7 @@ no_peers = No peers found
 space = Space:
 dw_rate = Download rate:
 up_rate = Upload rate:
-free = Free: 
+free = Free:
 
 files = Files
 file_name = File name

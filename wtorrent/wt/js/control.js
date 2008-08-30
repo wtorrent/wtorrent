@@ -256,7 +256,7 @@ var Control = Class.create({
 			var ids = new Array();
 			params.each(
 				function(e) {
-					ids.push(e.identify());
+					ids.push(e.identify().split('_')[1]);
 				}
 			);
 			var param2 = ids.join('~');     

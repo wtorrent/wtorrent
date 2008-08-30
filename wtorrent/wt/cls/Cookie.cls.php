@@ -17,51 +17,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 class Cookie extends rtorrent
 {
-  private $info = array();
-  public function construct()
-  {
-    if(!$this->setClient())
+	private $info = array();
+	public function construct()
+	{
+		if(!$this->setClient())
+		{
 			return false;
-			
-		if(isset($this->_request['add_cookie']))
-    {
-      if ($this->_request['cookie_host'] and $this->_request['cookie_value']) {
-        $this->addCookie($this->_request['cookie_host'],$this->_request['cookie_value']);
-      }
-      else 
-      {
-        $this->addMessage($this->_str['err_add_cookie']);
-      }
-    }
-    if(isset($this->_request['erase'])) $this->DeleteCookie($this->_request['erase']);
-    $this->fetchCookies();
-  }           
-  public function getCookies() {
-    // Post all the cookies we know for cookies.tpl
-    return $this->info;
-  }
-  public function addCookie($host,$value) {
-    // Insert the new cookie in the database
-    $sql = "INSERT into cookie (userid,hostname,value) values (" . $this->getIdUser() .",'${host}','${value}');";
-    $this->_db->query($sql);
-  }
-  public function fetchCookies() {
-    // Fetching all the cookies
-    $sql = "SELECT id,value, hostname FROM cookie where userid = " . $this->getIdUser() . ";";
-    $res = $this->_db->query( $sql );
-    $result = $res->fetchAll();
-    $i = 0;
-    foreach($result as $cookie) {
-      $this->info[$i]['value']    = $cookie['value'];
-      $this->info[$i]['hostname'] = $cookie['hostname'];
-      $this->info[$i]['id']       = $cookie['id'];
-      $i++;
-    }
-  }
-  public function DeleteCookie($id) {
-    	$sql = "DELETE FROM cookie WHERE userid = '". $this->getIdUser() . "' AND id = '$id';";
-    	$this->_db->query($sql);
-    	$this->addMessage($this->_str['info_erase_cookie']);
-  }
+		}
+
+		$action = empty($this->_post['action']) ? 'listCookies' : $this->_post['action'];
+
+		switch ($action) {
+		case 'eraseCookie':
+		case 'addCookie':
+			$this->$action();
+		break;
+		}
+
+		$this->info = $this->_db->arrayQuery("SELECT * FROM cookie WHERE userid = {$this->getIdUser()}", SQLITE_ASSOC);
+	}
+	public function getCookies()
+	{
+		return $this->info;
+	}
+	private function addCookie()
+	{
+		if (empty($this->_post['cookie_host']) || empty($this->_post['cookie_value']))
+		{
+			$this->addMessage($this->_str['err_add_cookie']);
+			return;
+		}
+		$sql = sprintf(
+			"INSERT INTO cookie (userid, hostname, value) VALUES(%d, '%s', '%s')",
+			$this->getIdUser(),
+			sqlite_escape_string($this->_post['cookie_host']),
+			sqlite_escape_string($this->_post['cookie_value'])
+		);
+		$this->_db->queryExec($sql);
+		$this->addMessage($this->_str['info_add_cookie']);
+	}
+	private function eraseCookie()
+	{
+		if (empty($this->_post['cookie_id']))
+		{
+			$this->addMessage($this->_str['err_erase_cookie']);
+			return;
+		}
+
+		$sql = sprintf(
+			"DELETE FROM cookie WHERE userid = %d AND id = %d",
+			$this->getIdUser(),
+			$this->_post['cookie_id']
+		);
+		$this->_db->query($sql);
+		$this->addMessage($this->_str['info_erase_cookie']);
+	}
 }
 ?>

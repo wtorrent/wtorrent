@@ -86,3 +86,12 @@ function cleanTips()
 			temp.remove();
 	}
 }
+
+/**
+ * Deletes a cookie by submitting the eraseForm
+ */
+function eraseCookie(id)
+{
+	$('eraseId').value = id;
+	return $('eraseForm').submit();
+}

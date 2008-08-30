@@ -1,6 +1,3 @@
-{*<div style="width: 100%; font-family: arial; font-size: 11px; padding: 0px 2px 8px 2px;">
-                        <b style="color: #4C8CC4;">{$str.files}:</b>
-        </div>*}
 <form method="post" action="{$SRC_INDEX}?cls={$web->getCls()}&tpl=details&hash={$web->getHash()}">
 	<table id="file_list" >
 	<tr>
@@ -11,10 +8,16 @@
 		<th>{$str.priority}</th>
 	</tr>	
 	{foreach key=clau item=file from=$web->getFiles()}
+	{assign var=clau value=$web->getHash()|cat:'_'|cat:$clau}
 	<tr>
-                <td class="file_list_first">
-                        <input type="checkbox" id="{$clau}" class="files{$web->getHash()}" />&nbsp;&nbsp;{if $details.file_percent.$clau eq 100}<a href="{$ftp}{$ftp_data_dir|utf8_encode}{$file|utf8_encode}">{/if}{$file.name}{if $details.file_percent.$clau eq 100}</a>{/if}
-                </td>
+		<td class="file_list_first">
+			<input type="checkbox" id="{$clau}" class="files{$web->getHash()}" />&nbsp;&nbsp;
+			{if $details.file_percent.$clau eq 100}
+				<a href="{$ftp}{$ftp_data_dir|utf8_encode}{$file|utf8_encode}">
+			{/if}
+			<label for="{$clau}">{$file.name}</label>
+			{if $details.file_percent.$clau eq 100}</a>{/if}
+		</td>
 		<td>
 			{$web->getDone($clau)}
 		</td>
@@ -27,7 +30,7 @@
 		<td>
 			{$web->getPriorityStr($clau)}
 		</td>
-        </tr>
+	</tr>
 	{/foreach}
 	</table>
 	<div class="filesButtons" style="height: 20px; text-align: left; margin-left: 10px; margin-top: 3px; height: 40px;"><img src="{$DIR_IMG}arrow_ltr.png" alt="arrow" />

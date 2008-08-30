@@ -29,6 +29,7 @@ require_once( 'lib/inc/string.inc.php' );
 require_once( 'lib/bdecode/class.bdecode.php' );
 require_once( 'lib/bdecode/bencode.php' );
 require_once( 'lib/simplepie/simplepie.inc.php' );
+require_once( 'lib/json/json.inc.php' );
 
 error_reporting( E_ALL ^ E_NOTICE);
 
