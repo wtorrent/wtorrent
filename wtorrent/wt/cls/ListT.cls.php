@@ -112,7 +112,7 @@ class ListT extends rtorrent
 	public function setJSON()
 	{
 		$json_data = new stdClass();
-		$json_data->space_used_total = $this->getUsedSpace() . ' / ' . $this->getTotalSpace();
+		$json_data->space_used_total = $this->getUsedSpace() . '/' . $this->getTotalSpace();
 		$json_data->prog_bar = $this->getUsedPercent();
 		$json_data->space_free = $this->getFreeSpace();
 		$json_data->dw_rate = $this->getDownload();

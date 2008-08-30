@@ -32,10 +32,7 @@ class multicall
 	/* Check for errors in xmlrpc repsonse */
 	private function checkError($result)
 	{
-		if($result->errno == '0')
-			return true;
-		else
-			return false;
+		return $result->errno == 0;
 	}
 	/* Add a method to the multicall stack */
 	public function add($message, $hash = null)
@@ -47,9 +44,11 @@ class multicall
 	public function call()
 	{
 		$array_multicall = array();
-		
+	
 		foreach($this->stack as $method)
+		{
 			$array_multicall[] = $method['message'];
+		}
 			
 		$responses = $this->client->multicall($array_multicall);
 
@@ -58,7 +57,9 @@ class multicall
 			if($this->checkError($responses[$key])) // Check errors
 			{
 				$this->data[$method['hash']][$method['message']->methodname] = $responses[$key]->val;
-			} else {
+			}
+			else
+		   	{
 				$return = false;
 			}
 		}
@@ -71,118 +72,78 @@ class multicall
 		}
 		return $return;
 	}
+	private function performMulticall($entrypoint, $params, $methods)
+	{
+		$post = array();
+		foreach ($params as $param)
+	   	{
+			$post[] = new xmlrpcval($param, 'string');
+		}
+		foreach ($methods as $method)
+		{
+			$post[] = new xmlrpcval($method . '=', 'string');
+		}
+		$msg = new xmlrpcmsg($entrypoint, $post);
+		$res = $this->client->send($msg);
+
+		return $this->checkError($res) ? $res : false;
+	}
+
 	/* rTorrent specific multicall methods */
 	public function d_multicall($methods, $view = 'default')
 	{
-		$array_post[] = new xmlrpcval($view, 'string');
-
-		foreach($methods as $param)
-			$array_post[] = new xmlrpcval($param . '=', 'string');
-
-		$message = new xmlrpcmsg("d.multicall", $array_post);
-		$result = $this->client->send($message);
-
-		if($this->checkError($result))
-		{
-			$i = 0;
-			if(!empty($this->data))
-			{
-				foreach($this->data as &$torrent)
-				{
-					$num = count($result->val[$i]);
-					for($j = 0; $j < $num; $j++)
-					{
-						$torrent[$methods[$j]] = $result->val[$i][$j];
-					}
-					$i++;
-				}
-			}
-			$return = true;
-		} else {
-			$return = false;
+		if (empty($this->data))
+	   	{
+			return true;
 		}
-		return $return;
+
+		$result = $this->performMulticall('d.multicall', array($view), $methods);
+		if ($result === false)
+	   	{
+			return false;
+		}
+
+		$i = 0;
+		foreach ($this->data as &$torrent)
+		{
+			$num = sizeof($result->val[$i]);
+			for ($j = 0; $j < $num; ++$j)
+			{
+				$torrent[$methods[$j]] = $result->val[$i][$j];
+			}
+			++$i;
+		}
+		return true;
+		
+	}
+	private function processTorrentMulticall($hash, $entrypoint, $methods)
+	{
+		$result = $this->performMulticall($entrypoint, array($hash, '0'), $methods);
+		if ($result === false)
+	   	{
+			return false;
+		}
+
+		foreach ($result->val as $val)
+		{
+			for ($i = 0, $e = sizeof($val); $i < $e; ++$i)
+			{
+				$this->data[$hash][$methods[$i]][] = $val[$i];
+			}
+		}
+		return true;
 	}
 	public function t_multicall($hash, $methods)
 	{
-		$array_post[] = new xmlrpcval($hash, 'string');
-		$array_post[] = new xmlrpcval('0', 'string'); // Dummy argument
-
-		foreach($methods as $param)
-			$array_post[] = new xmlrpcval($param . '=', 'string');
-
-		$message = new xmlrpcmsg("t.multicall", $array_post);
-		$result = $this->client->send($message);
-		
-		if($this->checkError($result))
-		{
-			foreach($result->val as $val)
-			{
-				$num = count($val);
-				for($j = 0; $j < $num; $j++)
-				{
-					$this->data[$hash][$methods[$j]][] = $val[$j];
-				}
-				$return = true;
-			}
-		} else {
-			$return = false;
-		}
-		return $return;
+		return $this->processTorrentMulticall($hash, 't.multicall', $methods);
 	}
 	public function f_multicall($hash, $methods)
 	{
-		$array_post[] = new xmlrpcval($hash, 'string');
-		$array_post[] = new xmlrpcval('0', 'string'); // Dummy argument
-
-		foreach($methods as $param)
-			$array_post[] = new xmlrpcval($param . '=', 'string');
-
-		$message = new xmlrpcmsg("f.multicall", $array_post);
-		$result = $this->client->send($message);
-
-		if($this->checkError($result))
-		{
-			foreach($result->val as $val)
-			{
-				$num = count($val);
-				for($j = 0; $j < $num; $j++)
-				{
-					$this->data[$hash][$methods[$j]][] = $val[$j];
-				}
-				$return = true;
-			}
-		} else {
-			$return = false;
-		}
-		return $return;
+		return $this->processTorrentMulticall($hash, 'f.multicall', $methods);
 	}
 	public function p_multicall($hash, $methods)
 	{
-		$array_post[] = new xmlrpcval($hash, 'string');
-		$array_post[] = new xmlrpcval('0', 'string'); // Dummy argument
-
-		foreach($methods as $param)
-			$array_post[] = new xmlrpcval($param . '=', 'string');
-
-		$message = new xmlrpcmsg("p.multicall", $array_post);
-		$result = $this->client->send($message);
-		
-		if($this->checkError($result))
-		{
-			foreach($result->val as $val)
-			{
-				$num = count($val);
-				for($j = 0; $j < $num; $j++)
-				{
-					$this->data[$hash][$methods[$j]][] = $val[$j];
-				}
-				$return = true;
-			}
-		} else {
-			$return = false;
-		}
-		return $return;
+		return $this->processTorrentMulticall($hash, 'p.multicall', $methods);
 	}
 }
 ?>
