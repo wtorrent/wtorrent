@@ -45,11 +45,11 @@ class ListT extends rtorrent
 		'd.get_message',
 		'd.get_creation_date',
 		'd.get_left_bytes',
-	       	'd.get_size_bytes'
+		'd.get_size_bytes'
 	);
 	private static $TORRENT_VALUES = array(
 		't.get_scrape_complete',
-	       	't.get_scrape_incomplete'
+		't.get_scrape_incomplete'
 	);
 
 	private $view;

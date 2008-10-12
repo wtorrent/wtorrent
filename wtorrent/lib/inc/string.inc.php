@@ -36,18 +36,24 @@ function is_UTF8( $str )
 		)+%xs', $str );
 }
 
-/**
- * Escapa todos los caracteres conflictivos de la variable mixta $var
- *
- * @param mixed $var
- * @return mixed
- */
-function escape( $var )
+function _unescape_internal($var)
 {
-	if( get_magic_quotes_gpc( ) ) return $var;
-
-	$var = is_array( $var) ? array_map( 'escape', $var ) : addslashes( $var );
-	return $var;
+	switch (gettype($var)) {
+	case 'array':
+		return array_map('_unescape_internal', $var);
+	case 'string':
+		return stripslashes($var);
+	default:
+		return $var;
+	}
+}
+function unescape( $var )
+{
+	if (!get_magic_quotes_gpc())
+	{
+		return;
+	}
+	return _unescape_internal($var);
 }
 function html( $str )
 {

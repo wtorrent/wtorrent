@@ -66,39 +66,21 @@ class rtorrent extends Web
 	}
 	protected function construct( ){}
 
-	public function registrado( )
+	public function isRegistered( )
 	{
-			return !is_null( $this->_sesion->id_user );
-	}
-	public function compLogin($user, $passwd)
-	{
-		$passwd = md5($passwd);
-		$sql = "select id from tor_passwd where user = '$user' and passwd = '$passwd'";
-		$result = $this->_db->query( $sql );
-		if(is_object($result))
-		{
-			$num = $result->numRows();
-
-			if($num > 0)
-				$return = $result->current();
-			else
-				$return = false;
-		} else {
-			$return = false;
-		}
-		return $return;
+			return !is_null( $this->_session->id_user );
 	}
 	public function getUser( )
 	{
-		return $this->_sesion->user;
+		return $this->_session->user;
 	}
 	public function getIdUser( )
 	{
-		return $this->_sesion->id_user;
+		return $this->_session->id_user;
 	}
 	public function getMenu()
 	{
-		if($this->_sesion->admin === true)
+		if($this->_session->admin === true)
 			$return = $this->menu_admin;
 		else 
 			$return = $this->menu;
@@ -113,55 +95,42 @@ class rtorrent extends Web
 	{
 		return floor($total/(count($menu_items)+1)) - 1;
 	}
-	public function Admin($id)
-	{
-		$sql = "select admin from tor_passwd where id = '" . $this->_sesion->id_user . "'";
-		$result = $this->_db->query( $sql );
-		$admin = $result->current();
-		if($admin['admin'] == 1)
-			$return = true;
-		else 
-			$return = false;
-			
-		return $return;
-	}
 	public function login( $user, $password )
 	{	
-		$id = $this->compLogin($user, $password);
-		if($id != false)
+		$record = $this->_db->query(
+			'SELECT id, admin FROM tor_passwd WHERE user = ? AND passwd = ?',
+			$user,
+			md5($password)
+		);
+		if($record !== false)
 		{
-			$this->_sesion->id_user = $id['id'];
-			$this->_sesion->user = $user;
-			$this->_sesion->admin = $this->Admin($id['id']);
-			$return = true;
-		} else {
-			$return = false;
-			$this->addMessage($this->_str['err_login']);
+			$this->_session->id_user = $record['id'];
+			$this->_session->admin = !!$record['admin'];
+			$this->_session->user = $user;
+			return true;
 		}
-		return $return;
+		return false;
 	}
 	public function isAdmin()
 	{
-		return $this->_sesion->admin;
+		return $this->_session->admin;
 	}
-	public function logout( )
+	public function logout()
 	{
-		if($this->registrado())
+		if($this->isRegistered())
 		{
-			$this->_sesion = null;
+			$this->_session = null;
 			$this->addMessage($this->_str['info_logout']);
 		}
 	}
 	private function getPrivate()
 	{
-		$tt = array();
-		$sql = "select hash, user from torrents";
-		$result = $this->_db->query($sql);
-		$torr = $result->fetchAll();
-		foreach($torr as $torrent)
-			$tt[$torrent['hash']] = $torrent['user'];
-			
-		return $tt;
+		$rv = array();
+		foreach ($this->_db->queryAll('SELECT hash, user FROM torrents') as $torrent)
+		{
+			$rv[$torrent['hash']] = $torrent['user']; 
+		}
+		return $rv;
 	}
 	public function setClient()
 	{
@@ -247,8 +216,7 @@ class rtorrent extends Web
 	}
 	protected function erase_db($hash)
 	{
-		$sql = "delete from torrents where hash = '" . $hash . "'";
-		$this->_db->query($sql);
+		$this->_db->modify('DELETE FROM torrents WHERE hash = ?', $hash);
 	}
 	protected function setPerm()
 	{

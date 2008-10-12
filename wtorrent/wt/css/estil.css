@@ -720,3 +720,45 @@ img {
 	-moz-opacity: 0.6;
 	filter:alpha(opacity=60);
 }
+/* Install styles */
+#install #col1, #col2 {
+	width: 50%;
+	float: left;
+}
+#install #wrapper {
+	margin: 20px 0 20px 0;
+}
+#install .row {
+	margin: 10px 0 0 0;
+}
+#install label {
+	width: 200px;
+	display: inline;
+	float: left;
+	clear: left;
+	text-align: right;
+	padding: 5px 10px 0 0;
+	font-size: 12px;
+}
+#install input[type="text"], #install select {
+	width: 230px;
+	display: inline;
+	float: left;
+}
+#install select {
+	width: auto;
+}
+h1 {
+	color: #5699d6;
+	font-size: 18px;
+	font-weight: bold;
+	border-bottom: 2px solid #5699d6;
+	margin-left: 10px;
+}
+h2 {
+	color: #5699d6;
+	font-weight: bold;
+	margin-left: 10px;
+	font-size: 14px;
+	padding-bottom: 10px;
+}

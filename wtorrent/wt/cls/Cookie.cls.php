@@ -34,7 +34,7 @@ class Cookie extends rtorrent
 		break;
 		}
 
-		$this->info = $this->_db->arrayQuery("SELECT * FROM cookie WHERE userid = {$this->getIdUser()}", SQLITE_ASSOC);
+		$this->info = $this->_db->queryAll('SELECT * FROM cookie WHERE userid = ?', $this->getIdUser());
 	}
 	public function getCookies()
 	{
@@ -47,13 +47,14 @@ class Cookie extends rtorrent
 			$this->addMessage($this->_str['err_add_cookie']);
 			return;
 		}
-		$sql = sprintf(
-			"INSERT INTO cookie (userid, hostname, value) VALUES(%d, '%s', '%s')",
+
+		$this->_db->modify(
+			'INSERT INTO cookie (userid, hostname, value) VALUES (?, ?, ?)',
 			$this->getIdUser(),
-			sqlite_escape_string($this->_post['cookie_host']),
-			sqlite_escape_string($this->_post['cookie_value'])
+			$this->_post['cookie_host'],
+			$this->_post['cookie_value']
 		);
-		$this->_db->queryExec($sql);
+
 		$this->addMessage($this->_str['info_add_cookie']);
 	}
 	private function eraseCookie()
@@ -64,12 +65,11 @@ class Cookie extends rtorrent
 			return;
 		}
 
-		$sql = sprintf(
-			"DELETE FROM cookie WHERE userid = %d AND id = %d",
+		$this->_db->modify(
+			'DELETE FROM cookie WHERE userid = ? AND id = ?',
 			$this->getIdUser(),
-			$this->_post['cookie_id']
+			intval($this->_post['cookie_id'])
 		);
-		$this->_db->query($sql);
 		$this->addMessage($this->_str['info_erase_cookie']);
 	}
 }

@@ -186,3 +186,39 @@ invalid_order = Invalid order specified in sort
 confirm_chash = Want to initiate hashing for %S?
 confirm_erase = Want to remove %S?
 no_torrents_selected = No torrents selected
+
+language_err = <b>Error:</b> language file is not readable. Please set proper permissions.
+config_install_err = <b>Error:</b> cannot write user.conf.php please check conf/ folder permissions.
+rt_install_err = <b>Error:</b> cannot connect to rtorrent, please check host, folder and port values (and user/password if you have auth set up).
+dir_torrents_err = <b>Error:</b> cannot write to torrents folder, please check permissions.
+dir_exec_err = <b>Error:</b> execution folder doesn't exists, please set the proper folder.
+db_file_err = <b>Error:</b> cannot create database file, please check permissions.
+db_create_err = <b>Error:</b> cannot open database, please check that you have sqlite PDO extension properly installed.
+missing_user = <b>Error:</b> please set user and password.
+try_ok = Configuration seems fine, you can save it now.
+create_config_ok = Configuration file and database created, enjoy wTorrent and don't forget to delete install.php.
+
+false = False
+true = True
+
+wtorrent_settings = wTorrent Settings
+user_password = Set wTorrent login
+language_info = Language:
+db_file_info = Database file:
+rt_host_info = rTorrent scgi host:
+rt_port_info = rTorrent scgi port:
+rt_dir_info = rTorrent scgi folder:
+rt_auth_info = Enable auth for the scgi folder:
+rt_user_info = rTorrent scgi user:
+rt_passwd_info = rTorrent scgi password:
+no_multicall_info = Don't use multicall:
+effects_info = User scriptaculous effects:
+dir_torrents_info = Folder to save uploaded torrents:
+dir_exec_info = Folder where wTorrent is:
+dir_download_info = Default folder to save torrent data:
+user_info = User:
+passwd_info = Password:
+try_info = Try configuration
+save_info = Save configuration
+install = INSTALL
+ 

@@ -43,38 +43,38 @@ class Admin extends rtorrent
 
 	public function showUsers()
     {
-		$sql = "SELECT user, id, admin, dir, force_dir FROM tor_passwd";
-		$res = $this->_db->query( $sql );
-		$result = $res->fetchAll();
-		$num = count($result);
-		//print_r($result);
-		return $result;
+		return $this->_db->queryAll('SELECT user, id, admin, dir, force_dir FROM tor_passwd');
     }
     public function deleteUsers($users)
     {
-		if(count($users) > 0)
+		if (!count($users) > 0)
 		{
-    		$list=array_keys($users);
-			$sql = "DELETE FROM tor_passwd where id IN (".implode(',',$list).")";
-			$res = $this->_db->query( $sql );
-			$this->addMessage($this->_str['info_users_deleted']);
-		} else {
 			$this->addMessage($this->_str['err_users_nosel']);
+			return;
 		}
+		$list = array_keys($users);
+		$this->_db->modifyMany('DELETE FROM tor_passwd WHERE id = ?', $list);
+		$this->addMessage($this->_str['info_users_deleted']);
     }
     public function addUser($user, $passwd, $admin, $dir, $force_dir)
     {
-		if($user != '' && $passwd != '')
-		{
-			if($admin == 'on') $admin = 1;
-            if($force_dir == 'on') $force_dir = 1;
-    		$sql = "insert into tor_passwd(user, passwd, admin, dir, force_dir) values('$user', '" . md5($passwd) . "', '" . $admin . "', '$dir', '$force_dir')";
-			$this->_db->query( $sql );
-			$this->addMessage($this->_str['info_users_added']);
-		} else {
+		if (empty($user) || empty($passwd))
+	   	{
 			$this->addMessage($this->_str['err_users_add']);
+			return;
 		}
-		
+
+		$admin = $admin == 'on' ? 1 : 0;
+		$force_dir = $force_dir == 'on' ? 1 : 0;
+		$this->db->modify(
+			'INSERT INTO tor_passwd (user, passwd, admin, dir, force_dir',
+			$user,
+			md5($passwd),
+			$admin,
+			$dir,
+			$force_dir
+		);
+		$this->addMessage($this->_str['info_users_added']);
     }
     protected function setPerm()
     {

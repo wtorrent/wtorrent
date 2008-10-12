@@ -29,7 +29,7 @@ abstract class Web
 	private $message			= array( );
 
 	protected $_str				= array( );
-	protected $_sesion		= null;
+	protected $_session		= null;
 	protected $_request		= null;
 	protected $_post			= null;
 	protected $_get				= null;
@@ -43,11 +43,19 @@ abstract class Web
 	protected $_tpl				= null;
 	protected $_ajax			= false;
 
-	public function __construct( )
+	public function __construct($install = false)
 	{
 		// Connect to DB (mysqli)
-		$this->_db = new SQLiteDatabase(DB_FILE);
 
+		// Compat: if DB_FILE instead of the DSN is defined then assume SQLITE and make a DSN out of it
+		if(!$install)
+		{
+			if (!defined('DB_DSN') && defined('DB_FILE'))
+			{
+				define('DB_DSN', 'sqlite:' . DIR_EXEC . DB_FILE);
+			}
+			$this->_db = new PDOe(DB_DSN, null, null, array(PDO::ERRMODE_EXCEPTION));
+		}
 		// Instance of Smarty templates system
 		$this->_smarty								= new Smarty( );
 		$this->_smarty->template_dir	= DIR_TPL;
@@ -61,19 +69,21 @@ abstract class Web
 		// Assign constants with Smarty
 		foreach( $this->_getConstants( ) as $k => $v ) $this->smartyAssign( $k, $v );
 
-		$this->_sesion		= &$_SESSION[APP];
-		$this->_request		= escape( $_REQUEST );
-		$this->_post			= escape( $_POST );
-		$this->_get				= escape( $_GET );
-		$this->_cookie		= escape( $_COOKIE );
-		$this->_globals		= escape( $_GLOBALS );
-		$this->_server		= escape( $_SERVER );
-		$this->_files			= escape( $_FILES );
-		$this->_env				= escape( $_ENV );
+		$this->_session		= &$_SESSION[APP];
+		$this->_request		= unescape($_REQUEST);
+		$this->_post		= unescape($_POST);
+		$this->_get			= unescape($_GET);
+		$this->_cookie		= unescape($_COOKIE);
+		$this->_files		= unescape($_FILES);
+		$this->_server		= &$_SERVER;
+		$this->_env			= &$_ENV;
 		
 		// Create json class
 		$this->_json			= new Services_JSON();
-		
+		if($install)
+		{
+			$this->_lang = 'en';
+		}
 		$this->loadLanguage( $this->getLang( ) );
 		if(isset($this->_request['ajax']))	$this->_ajax = true;
 		if(isset($this->_request['tpl']))		$this->_tpl = $this->_request['tpl'];
@@ -109,13 +119,10 @@ abstract class Web
 	{   
 
 		// Subclass constructor
-		if($this->registrado())
+		if($this->isRegistered())
 		{
 			$this->setPerm();
-			if($this->_sesion->admin && $this->admin) // Avoid execution of orders by unregistered users
-			$this->construct( );
-			elseif($this->admin !== true)
-				$this->construct( );
+			$this->construct();
 		}
 
 		$this->smartyAssign( 'web', $this );

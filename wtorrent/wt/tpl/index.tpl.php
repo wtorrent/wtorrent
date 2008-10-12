@@ -17,7 +17,7 @@
 	<script src="{$DIR_JS}func.js" type="text/javascript" charset="utf-8"></script>
   {include file="loading.tpl.php" assign="loading"}
   {include file="comm_loading.tpl.php" assign="comm_loading"}
-	{if $web->registrado()}
+	{if $web->isRegistered()}
 		{literal}
 			<script type="text/javascript">
 			  <!--
@@ -32,13 +32,13 @@
 </head>
 
 <body>
-{if $web->registrado()}
+{if $web->isRegistered()}
 <div id="menu">
 	{include file="menu.tpl.php" width_total="600"}
 </div>
 {/if}
 {include file="messages.tpl.php"}
-{if $web->registrado()}
+{if $web->isRegistered()}
 	{include file="content.tpl.php"}
 {else}
 	{include file="login.tpl.php"}
