@@ -27,7 +27,7 @@
 		{/foreach}
 	</form>
 	<br />
-	<form method="post" action="">
+	<form method="post" action="{$web->getURL()}">
 		{include file="common/title.tpl.php" text=$str.add_user}
 		<div style="text-align: left; float: none; display: block; padding-left: 40px; margin-bottom: 10px;">
 			{include file="common/forms/input_text.tpl.php" text=$str.user name="user" size='20'}

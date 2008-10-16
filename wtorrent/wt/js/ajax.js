@@ -76,10 +76,7 @@ var AjaxHandler = Class.create({
 			speed.down('.up_rate').update(json_data.up_rate);
 		}
 		this.lastMain = originalRequest.request.options.parameters;
-		this.events.reloadTorrent(this.main.torrentHandler.bindAsEventListener(this.main), this.main.torrentMouseOverHandler.bindAsEventListener(this.main), this.main.torrentMouseOutHandler.bindAsEventListener(this.main));
-		this.events.reloadTorrentTabs(this.main.torrentTabsHandler.bindAsEventListener(this.main));
-		this.events.reloadListButtons(this.main.torrentListButtons.bindAsEventListener(this.main));
-		this.events.reloadSortButtons(this.main.torrentSort.bindAsEventListener(this.main));
+		this.events.rebindAllHandlers();
 		postAjax();
 	},
 	/* Print response in messages */
@@ -89,7 +86,10 @@ var AjaxHandler = Class.create({
 	showResponseTorrent: function(id, afterFinish, originalRequest) {
 		$(id).removeClassName('loading');
 		this.display.openTorrent(id);
-		afterFinish();
+		this.events.rebindAllHandlers();
+		if (afterFinish) {
+			afterFinish();
+		}
 	},
 	/* Reload main frame */
 	reloadMain: function(sort, order) {

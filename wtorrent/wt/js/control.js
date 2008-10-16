@@ -4,22 +4,59 @@ var Control = Class.create({
 	initialize: function(effects) {
 		this.display = new DisplayActions(effects);
 		this.events = new EventHandler();
-		this.ajax = new AjaxHandler('index.php', this.display, this, this.events, {loadingMain: 'loadingMain', loadingMessages: 'loadingMessages', loadingTorrent: 'loadingTorrent'});
+		this.ajax = new AjaxHandler(
+			'index.php',
+			this.display,
+			this,
+			this.events,
+			{
+				loadingMain: 'loadingMain',
+				loadingMessages: 'loadingMessages',
+				loadingTorrent: 'loadingTorrent'
+			}
+		);
 		/* Add all events listeners */
 		/* Torrent event listening */
-		this.events.bindTorrent(this.torrentHandler.bindAsEventListener(this), this.torrentMouseOverHandler.bindAsEventListener(this), this.torrentMouseOutHandler.bindAsEventListener(this));
-		/* Top tabs listener */
-		this.events.reloadViewTabs(this.viewTabsHandler.bindAsEventListener(this));
-		/* Left torrent tabs listener */
-		this.events.bindTorrentTabs(this.torrentTabsHandler.bindAsEventListener(this));
-		/* Torrent List buttons listener */
-		this.events.bindListButtons(this.torrentListButtons.bindAsEventListener(this));
-		/* Torrent change priority listener */
-		this.events.bindPriorityTorrent(this.torrentPriorityHandler.bindAsEventListener(this));
-		/* Sort buttons */
-		this.events.bindSortButtons(this.torrentSort.bindAsEventListener(this));
-		/* Reload Main */
-		this.events.reloadReloadMain(this.ajax.reloadMain.bindAsEventListener(this.ajax));
+		var events = {
+			'.torrent': {
+				'click': 'torrentHandler',
+				'mouseover': 'torrentMouseOverHandler',
+				'mouseout': 'torrentMouseOutHandler'
+			},
+			'#tabs': {
+				'click': 'viewTabsHandler'
+			},
+			'.tabsLeft': {
+				'click': 'torrentTabsHandler'
+			},
+			'#torrentListButtons': {
+				'click': 'torrentListButtons',
+			},
+			'.priority': {
+				'click': 'torrentPriorityHandler'
+			},
+			'#listTorrentsHead': {
+				'click': 'torrentSort'
+			},
+			'#refresh': {
+				'click': 'reloadMain'
+			},
+			'.filesButtons': {
+				'click': 'torrentFilesHandler'
+			},
+			'.trackersButtons': {
+				'click': 'torrentTrackersHandler'
+			}
+		};
+		
+		for (var evt in events) 
+		{
+			var actions = events[evt];
+			for (var action in actions)
+			{
+				this.events.bindHandler(evt, action, this[actions[action]].bind(this));
+			}
+		}
 	},
 	/* Event handlers */
 	/* Torrent event handler */
@@ -35,7 +72,7 @@ var Control = Class.create({
 			if($('tab' + id).innerHTML == "") {
 				/* The tab is empty, prepare content to load */
 				var showLoad = this.ajax.showLoadTorrent.bind(this.ajax, id);
-				var afterFinish = this.events.reloadPriorityTorrent.bind(this.events, this.torrentPriorityHandler.bindAsEventListener(this));
+				var afterFinish = this.events.rebindAllHandlers(this.events);
 				var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id, afterFinish);
 				var url = 'cls=General&tpl=details&hash=' + id;
 				/* Do the call */
@@ -85,21 +122,29 @@ var Control = Class.create({
 		}
 	},
 	confirmTorrentAction: function(el, message) {
-		var torrent_names = '';
-		var t;
+		
+		// make me an array
 		if(!Object.isArray(el)) 
 		{
-			t = el.up('.torrent').down('.name');
-			torrent_names = '"' + (Prototype.Browser.IE ? t.innerText : t.textContent).replace(/^\s+|\s+$/g, '') + '"';
-		} else {
-			el.each(
-				function(el) {
-					t = el.up('.torrent').down('.name');
-					torrent_names = torrent_names + "\n\"" + (Prototype.Browser.IE ? t.innerText : t.textContent).replace(/^\s+|\s+$/g, '') + '"';
-				}
-			);
+			el = [el];
 		}
-		return confirm(message.replace(/%S/g, torrent_names));
+		// Cannot confirm changed for empty list
+		if (!el.length) {
+			return false;
+		}
+		// reduce the elements array to a string
+		var torrents = '\n"' + el.map(
+			function(el ) {
+				el = el.up('.torrent').down('.name');
+				return (Prototype.Browser.IE ? el.innerText : el.textContent).replace(/^\s+|\s+$/g, '');
+			}
+		).join('",\n"') + '"';
+		// remove the initial linebreak, but only if we process just one torrent
+		if (el.length == 1)
+		{
+			torrents = torrents.slice(1);
+		}
+		return confirm(message.replace(/%S/g, torrents));
 	},
 	/* Buttons handler */
 	buttonHandler: function(e) {
@@ -139,7 +184,7 @@ var Control = Class.create({
 		var showResponse = this.ajax.showResponseMessages.bind(this.ajax);
 		/* Do the call */
 		this.ajax.load('messages', url, showLoad, showResponse);
-		this.ajax.reloadMain();
+		this.reloadMain();
 	},
 	/* View tabs handler */
 	viewTabsHandler: function(e) {
@@ -172,7 +217,7 @@ var Control = Class.create({
 		}
 		var url = 'cls=' + cls + '&tpl=details&hash=' + id;
 		var showLoad = this.ajax.showLoadTorrent.bind(this.ajax, id);
-		var afterFinish = this.events.bindTorrentTab.bind(this.events, this.torrentPriorityHandler.bindAsEventListener(this), this.torrentFilesHandler.bindAsEventListener(this), this.torrentTrackersHandler.bindAsEventListener(this));
+		var afterFinish = this.events.rebindAllHandlers.bind(this.events);
 		var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id, afterFinish);
 		this.ajax.load('tab' + id, url, showLoad, showResponse);
 	},
@@ -227,7 +272,7 @@ var Control = Class.create({
 		var showLoad = this.ajax.showLoadMessages.bind(this.ajax);
 		var showResponse = this.ajax.showResponseMessages.bind(this.ajax);
 		this.ajax.load('messages', url, showLoad, showResponse);
-		this.ajax.reloadMain();
+		this.reloadMain();
 	},
 	/* Torrent Priority Handler */
 	torrentPriorityHandler: function(e) {
@@ -242,7 +287,7 @@ var Control = Class.create({
 		/* Reload Torrent Info tab */
 		var url = 'cls=General&tpl=details&hash=' + id;
 		var showLoad = this.ajax.showLoadTorrent.bind(this.ajax, id);
-		var afterFinish = this.events.bindTorrentTab.bind(this.events, this.torrentPriorityHandler.bindAsEventListener(this), this.torrentFilesHandler.bindAsEventListener(this), this.torrentTrackersHandler.bindAsEventListener(this));
+		var afterFinish = this.events.rebindAllHandlers(this.events);
 		var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id, afterFinish);
 		this.ajax.load('tab' + id, url, showLoad, showResponse);
 	},
@@ -252,15 +297,10 @@ var Control = Class.create({
 		var id = el.up('.tbBulk').previous(0).identify();
 		if(el.hasClassName('filesPriority'))
 		{
-			var params = getChecked('.files' + id);
-			var ids = new Array();
-			params.each(
-				function(e) {
-					ids.push(e.identify().split('_')[1]);
-				}
-			);
-			var param2 = ids.join('~');     
+			var ids = getChecked('.files' + id).map(function(e) { return e.identify().split('_')[1]; });
+
 			var param1 = $('sf' + id).options[$('sf' + id).selectedIndex].value;
+			var param2 = ids.join('~');     
 
 			var url = 'cls=commands&tpl=commands&command=files&param=' + id + '&param1=' + param1 + '&param2=' + param2;
 			var showLoad = this.ajax.showLoadMessages.bind(this.ajax);
@@ -269,8 +309,7 @@ var Control = Class.create({
 			/* Reload Torrent Files tab */
 			var url = 'cls=Files&tpl=details&hash=' + id;
 			var showLoad = this.ajax.showLoadTorrent.bind(this.ajax, id);
-			var afterFinish = this.events.bindTorrentTab.bind(this.events, this.torrentPriorityHandler.bindAsEventListener(this), this.torrentFilesHandler.bindAsEventListener(this), this.torrentTrackersHandler.bindAsEventListener(this));
-			var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id, afterFinish);
+			var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id);
 			this.ajax.load('tab' + id, url, showLoad, showResponse);
 		}
 		if(el.hasClassName('filesCheckAll'))
@@ -309,8 +348,7 @@ var Control = Class.create({
 			/* Reload Torrent Trackers tab */
 			var url = 'cls=Tracker&tpl=details&hash=' + id;
 			var showLoad = this.ajax.showLoadTorrent.bind(this.ajax, id);
-			var afterFinish = this.events.bindTorrentTab.bind(this.events, this.torrentPriorityHandler.bindAsEventListener(this), this.torrentFilesHandler.bindAsEventListener(this), this.torrentTrackersHandler.bindAsEventListener(this));
-			var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id, afterFinish);
+			var showResponse = this.ajax.showResponseTorrent.bind(this.ajax, id);
 			this.ajax.load('tab' + id, url, showLoad, showResponse);
 		}
 		if(el.hasClassName('trackersCheckAll'))
@@ -331,11 +369,106 @@ var Control = Class.create({
 		var el = e.element();
 		if(el.hasClassName('asc'))
 		{
-			this.ajax.reloadMain(el.up().identify(), 'asc');
+			this.reloadMain(el.up().identify(), 'asc');
+			return;
 		}
 		if(el.hasClassName('des'))
 		{
-			this.ajax.reloadMain(el.up().identify(), 'desc');
+			this.reloadMain(el.up().identify(), 'desc');
+			return;
+		}
+	},
+	reloadMain: function(sortType, sortOrder)
+	{
+		if (sortType && sortOrder)
+		{
+			this._sortType = sortType;
+			this._sortOrder = sortOrder;
+		}
+		this.ajax.reloadMain(this._sortType, this._sortOrder);
+	}
+});
+
+var EventHandler = Class.create({
+	_bindings: {},
+	/* Initial binding */
+	initialize: function() {
+	},
+	bindHandler: function(cls, type, handler) {
+		if (!(cls in this._bindings)) {
+			this._bindings[cls] = {};
+		}
+		if (!(type in this._bindings[cls])) {
+			this._bindings[cls][type] = [];
+		}
+		this._bindings[cls][type].push(handler);
+		this.rebindHandlers(cls);
+	},
+	rebindHandlers: function(cls) {
+		var elts = $$(cls);
+		if (!elts.length) {
+			return;
+		}
+		if (!(cls in this._bindings)) {
+			return;
+		}
+		var bindings = this._bindings[cls];
+		for (var type in bindings) {
+			bindings[type].each(
+				function(h) {
+					elts.each(
+						function(e) {
+							e.stopObserving(type, h);
+							e.observe(type, h);
+						}
+					);
+				}
+			);
+		}
+					
+	},
+	rebindAllHandlers: function() {
+		for (var cls in this._bindings) {
+			this.rebindHandlers(cls);
+		}
+	}
+});
+
+var DisplayActions = Class.create({
+	/* Use scriptaculous or not */
+	initialize: function(effects) {
+		if(effects == null)
+		{
+			this.effects = true;
+		} else {
+			this.effects = effects;
+		}
+	},
+	/* Toggle torrent frame */
+	toggleTorrent: function(id) {
+		if(this.effects)
+		{
+			new Effect.toggle('ttab' + id, 'blind', {duration:0.5});
+		} else {
+			$('ttab' + id).toggle();
+		}
+	},
+	/* Open torrent info */
+	openTorrent: function(id) {
+		if(this.effects)
+		{
+			new Effect.BlindDown('ttab' + id, {duration:0.5});
+		} else {
+			$('ttab' + id).show();
+		}
+	},
+	/* Close torrent info */
+	closeTorrent: function(id) {
+		if(this.effects)
+		{
+			new Effect.BlindUp('ttab' + id, {duration:0.5});
+		} else {
+			$('ttab' + id).hide();
 		}
 	}
 });

@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Original class done by David Marco Martinez
-Modified by Roger Pau MonnÃ©
+Modified by Roger Pau Monné
 */
 abstract class Web
 {
@@ -165,7 +165,7 @@ abstract class Web
 		*/
 	public function getURL()
 	{
-		return $_SERVER['REQUEST_URI'];
+		return $this->_server['REQUEST_URI'];
 	}
 	/**
 		* Is this a AJAX call?
@@ -321,7 +321,6 @@ abstract class Web
 	{
 		$this->message[] = $message; 
 	}
-
 	abstract protected function construct( );
 }
 ?>

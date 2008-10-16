@@ -26,11 +26,10 @@ function stringForJavascript($in_string) {
 }
 function autoload( )
 {
-	//$str  = 'if( file_exists( \'../lib/cls/\'.$file ) ) require_once( \'../lib/cls/\'.$file );';
-	$str  = 'if( false );';
 	foreach( func_get_args( ) as $dir )
-		$str .= 'elseif( file_exists( \''.$dir.'\'.$file ) ) require_once( \''.$dir.'\'.$file );';
-
+	{
+		$str .= 'if(file_exists(\'' . $dir . '/\' . $file)) require_once(\'' . $dir . '/\' . $file);';
+	}
 	$cmd =
 	'function __autoload( $cls )
 	{

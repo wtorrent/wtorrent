@@ -9,11 +9,8 @@
 	<script src="{$DIR_JS}prototype.js" type="text/javascript" charset="utf-8"></script>
 	<script src="{$DIR_JS}scriptaculous/scriptaculous.js?load=effects" type="text/javascript" charset="utf-8"></script>
 	<script src="{$DIR_JS}prototip.js" type="text/javascript" charset="utf-8"></script>
-	{*<script src="{$DIR_JS}javasc.js" type="text/javascript" charset="utf-8"></script>*}
 	<script src="{$DIR_JS}control.js" type="text/javascript" charset="utf-8"></script>
 	<script src="{$DIR_JS}ajax.js" type="text/javascript" charset="utf-8"></script>
-	<script src="{$DIR_JS}display.js" type="text/javascript" charset="utf-8"></script>
-	<script src="{$DIR_JS}events.js" type="text/javascript" charset="utf-8"></script>
 	<script src="{$DIR_JS}func.js" type="text/javascript" charset="utf-8"></script>
   {include file="loading.tpl.php" assign="loading"}
   {include file="comm_loading.tpl.php" assign="comm_loading"}

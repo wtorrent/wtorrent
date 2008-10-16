@@ -3,7 +3,7 @@
 </div>
 <div id="login_m">
   <div id="login">
-    <form id="form-login" action="" method="post">
+    <form id="form-login" action="{$web->getURL()}" method="post">
       <p id="login-username">
 	<label for="userf">{$str.user}:</label>
 	<input name="userf" id="userf" type="text" />

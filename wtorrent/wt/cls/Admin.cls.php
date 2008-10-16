@@ -21,10 +21,10 @@ class Admin extends rtorrent
 	{
 		if(isset($this->_request['adduser'])) $this->addUser($this->_request['user'], $this->_request['passwd'], $this->_request['admin'], $this->_request['default_dir'], $this->_request['force_dir']);
 		if(isset($this->_request['delete'])) $this->deleteUsers($this->_request['users']);
-		
+
 		if(!$this->setClient())
 			return false;
-		
+
 		if(isset($this->_request['ch_dw'])) $this->setDownLimit($this->_request['down_rate']);
 		if(isset($this->_request['ch_up'])) $this->setUploadLimit($this->_request['up_rate']);
 	}
@@ -42,11 +42,11 @@ class Admin extends rtorrent
 	}
 
 	public function showUsers()
-    {
+	{
 		return $this->_db->queryAll('SELECT user, id, admin, dir, force_dir FROM tor_passwd');
-    }
-    public function deleteUsers($users)
-    {
+	}
+	public function deleteUsers($users)
+	{
 		if (!count($users) > 0)
 		{
 			$this->addMessage($this->_str['err_users_nosel']);
@@ -55,48 +55,47 @@ class Admin extends rtorrent
 		$list = array_keys($users);
 		$this->_db->modifyMany('DELETE FROM tor_passwd WHERE id = ?', $list);
 		$this->addMessage($this->_str['info_users_deleted']);
-    }
-    public function addUser($user, $passwd, $admin, $dir, $force_dir)
-    {
+	}
+	public function addUser($user, $passwd, $admin, $dir, $force_dir)
+	{
 		if (empty($user) || empty($passwd))
-	   	{
+		{
 			$this->addMessage($this->_str['err_users_add']);
 			return;
 		}
 
 		$admin = $admin == 'on' ? 1 : 0;
 		$force_dir = $force_dir == 'on' ? 1 : 0;
-		$this->db->modify(
-			'INSERT INTO tor_passwd (user, passwd, admin, dir, force_dir',
+		$this->_db->modify('INSERT INTO tor_passwd(user, passwd, admin, dir, force_dir) VALUES(?, ?, ?, ?, ?)',
 			$user,
 			md5($passwd),
 			$admin,
 			$dir,
 			$force_dir
-		);
+			);
 		$this->addMessage($this->_str['info_users_added']);
-    }
-    protected function setPerm()
-    {
-    	$this->admin = true;
-    }
-    private function setDownLimit($limit)
-    {
-    	$message = new xmlrpcmsg("set_download_rate", array(new xmlrpcval($limit*1024, 'int')));
+	}
+	protected function setPerm()
+	{
+		$this->admin = true;
+	}
+	private function setDownLimit($limit)
+	{
+		$message = new xmlrpcmsg("set_download_rate", array(new xmlrpcval($limit*1024, 'int')));
 		$result = $this->client->send($message);
 		//print_r($result);
 		if($result->errno == 0)
 			$this->addMessage($this->_str['info_down_limit']);
 		else
 			$this->addMessage($this->_str['err_down_limit']);	
-    }
-    private function setUploadLimit($limit)
-    {
-    	$message = new xmlrpcmsg("set_upload_rate", array(new xmlrpcval($limit*1024, 'int')));
+	}
+	private function setUploadLimit($limit)
+	{
+		$message = new xmlrpcmsg("set_upload_rate", array(new xmlrpcval($limit*1024, 'int')));
 		$result = $this->client->send($message);
 		if($result->errno == 0)
 			$this->addMessage($this->_str['info_up_limit']);
 		else
 			$this->addMessage($this->_str['err_up_limit']);	
-    }
+	}
 }

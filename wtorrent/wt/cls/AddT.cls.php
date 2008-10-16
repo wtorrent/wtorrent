@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 class AddT extends rtorrent
 {
-
 	public function construct()
 	{
 		if(!$this->setClient())
@@ -144,9 +143,9 @@ class AddT extends rtorrent
 		// Getting cookie depends on hostname
 		$purl = parse_url( $url );
 		return implode(
-			'; ',
+			';',
 			$this->_db->queryColumnAll(
-				'SELECT id, value, hostname FROM cookie WHERE userid = ? AND hostname LIKE ?',
+				'SELECT value FROM cookie WHERE userid = ? AND hostname LIKE ?',
 				$this->getIdUser(),
 				"%{$purl['host']}%"
 			)
