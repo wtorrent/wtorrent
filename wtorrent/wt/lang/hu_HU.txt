@@ -1,0 +1,224 @@
+﻿err_login = </b>Hiba:</b> A belépés sikertelen, ellenőrizd a felhasználói nevet/jelszót
+err_users_nosel = </b>Hiba:</b> nem jelöltél ki törlendő felhasználót
+info_users_added = Felhasználó sikeresen hozzáadva
+err_users_add = Nincs beállítva felhasználónév/jelszó, ellenőrizd a megadott adatokat
+info_users_deleted = Felhasználó(k) sikeresen törölve
+info_tor_stop = Torrent(ek) sikeresen megállítva
+info_tor_close = Torrent(ek) sikeresen lezárva
+info_tor_start = Torrent(ek) sikeresen elindítva
+info_tor_erase = Torrent(ek) sikeresen törölve
+info_tor_chash = Torrent(ek) hash ellenőrzése sikeresen elindítva
+info_add_torrent = Torrent sikeresen hozzáadva
+err_add_torrent = Hiba a torrent hozzáadásakor
+err_add_dir = </b>Hiba:</b> Lehetetlen a megadott könyvtárba menteni, ellenőrizd a jogosultságokat
+err_add_file = </b>Hiba:</b> Ilyen torrent már a könyvtárban, nem lehet létrehozni ismét
+info_add_upload = A teljes elérési út, a végén /
+
+low = Alacsony
+normal = Átlagos
+high = Magas
+idle = Várakozik
+change_pr = Változtat
+err_pr = Hiba a priorításban 
+info_pr = Priorítás sikeresen megváltoztatva
+
+file_off = Nélkülözhető
+file_normal = Átlagos
+file_high = Magas
+change_pr = Prioritás váltása
+start_now = Azonnali indítás:
+private = Privát:
+no_torrents = Nem található Torrent
+pl_torrents = publikus
+pr_torrents = privát
+
+down_limit = Letöltési limit:
+up_limit = Feltöltési limit:
+change_dlimit = Letöltési limit átállítása
+change_ulimit = Feltöltési limit átállítása
+
+info_down_limit = Letöltési limit sikeresen átállítva
+err_down_limit = <b>Hiba</b>: a letöltési limit hibás
+info_up_limit = Feltöltési limit sikeresen átállítva
+err_up_limit = <b>Hiba</b>: a feltöltési limit hibás
+
+logout = Kilépés
+info_logout = Sikeres kilépés
+
+enable = Engedélyezés
+disable = Letiltás
+change_tr = Változtatás
+info_ch_trackers = Tracker sikeresen megváltoztatva
+
+tl_feeds = RSS csatorna
+edit_feed = Szerkesztés
+erase_feed = Törlés
+title_feeds = Megnevezés
+desc_feeds = Leírás
+view_feed = Megtekintés
+feed_add = RSS csatorna hozzáadása
+tl_feed_add = Új RSS csatorna hozzáadása
+info_add_feed = Sikeres új RSS csatorna hozzáadás
+info_erase_feed = Sikeres RSS csatorna törlés
+no_feeds = Nem találok RSS csatornát, adj hozzá újat
+feed_torrent = Torrent neve
+feed_date = Dátum
+feed_down_tor = Torrent letöltése
+down_dir = Letöltési könyvtár
+download_dir = Könyvtárváltás
+feed_url = RSS csatorna url
+
+info_ch_dir = Sikeres letöltési könyvtár változtatás
+err_ch_dir = Hiba a letöltési könyvtár megváltoztatásakor
+down_started = Letöltés elindítva
+
+log_in = Nem vagy bejelentkezve vagy a hozzáférési időd lejárt, frissítsd az oldalt
+command_error = Hiba a végrehajtáskor, frissítsd az oldalt, és próbáld meg újra.
+
+info_ch_files = Sikeres állomány priorítás váltás
+err_ch_files = Hiba a priorítás megváltoztatásakor, ellenőrizd a beállítást, majd próbáld újra
+
+tb_name = Név
+tb_seeds = Megosztók
+tb_peers = Letöltők
+tb_download = LE
+tb_upload = FEL
+tb_speed_unit = KB/s
+tb_done = Kész
+tb_size = Méret
+tb_percent = Százalék
+tb_ratio = Arány
+tb_eta = Várhatóan
+
+err_conn = </b>Hiba:</b> nem lehet az rtorrenthez csatlakozni
+conf_erase = Biztosan törölni akarod ezt a torrentet?
+
+check_all = Összes kijelölése
+uncheck_all = Kijeölések törlése
+invert_all = Kijelölés megfordítása
+action = Elfogad
+start = Indít
+stop = Megállít
+close = Zárol
+erase = Töröl
+
+user = Felhasználó
+admin = Kiemelt
+conf_user_del = Biztosan törölni akarod ezeket a felhasználó(kat)?
+no_users = Nem található felhasználó
+add_user = Felhasználó hozzáadása
+password = Jelszó
+ch_bandwidth = Sávszélesség korlátozás megváltoztatása
+kb_units = KB
+chash = Hash újraellenőrzése
+closet = Zárolás
+
+
+cookie_host = Sütit (cookie) használó oldal 
+cookie_value = Süti (cookie) tartalma 
+cookie_add = Hozzáad
+cookie_edit = Átír
+cookie_erase = Töröl
+cookies_hostname = Oldal címe
+cookies_value = tartalma
+cookie_no_cookies = Nincsenek sütik (cookie)
+cookie_tl_cookie_add = Hozzáad
+tb_uploaded = Feltöltött
+no_curl_function = Nincs curl funció a php-ben
+err_add_cookie = Nem lehet a sütit (cookie) hozzáadni (kevés információ)
+err_erase_cookie = Nem lehet a sütit (cookie) eltávolítani (kevés információ)
+info_add_cookie = Süti (cookie) sikeresen hozzáadva
+info_erase_cookie = Süti (cookie) sikeresen törölve
+
+default_dir = Alapértelmezett könyvtár
+force_default = Csak az alapért. könytár használata
+
+ip = IP
+speed = Sebesség (KB/s)
+connection = Kapcsolat
+percent_done = % Kész
+encryption = Kódolt
+client = Kliens
+down = DL (KB/s)
+incoming = Bejövő
+outgoing = Kimenő
+yes = Igen
+no = Nem
+up_peer = FEL/kapcsolat (KB/s)
+down_peer = LE/kapcsolat (KB/s)
+no_peers = Nincs aktív kapcsolat
+
+space = Hely:
+dw_rate = Letöltés:
+up_rate = Feltöltés:
+free = Szabad hely:
+
+files = Állományok
+file_name = Állomány neve
+priority = Priorítás
+torrent = Torrent
+torrent_file = Torrent állomány
+torrent_url = Torrent url
+data_path = Adatok elérési útja
+rtorrent_message = rTorrent üzenet
+min_peers = Min kapcsolat
+max_peers = Max kapcsolat
+url = Url
+ul_file = Állomány feltöltése
+user = Felhasználó
+password = Jelszó
+login = Belépés
+
+ListT = Főoldal
+AddT = <b>+</b> torrent 
+Feeds = RSS csat.
+Admin = Felhsználók
+Cookie = Sütik
+active = aktív
+started = elindítva
+stopped = leállítva
+complete = letöltött
+incomplete = folyamatban
+hashing = hash ellenőrzés alatt
+seeding = feltöltés
+
+invalid_order = Hibás parancs kiadás rendezés közben
+confirm_chash = Biztosan ellenőriztetni akarod a hash-t ezen: %S?
+confirm_erase = Biztosan el akarod távolítani ezt: %S?
+no_torrents_selected = Nincs kiválasztott torrent
+
+language_err = <b>Hiba:</b> a nyelvi állomány nem olvasható. Állítsd be a megfelelő jogosultságokat.
+config_install_err = <b>Hiba:</b> nem lehet a user.conf.php-t szerkeszteni, ellenőrizd a conf/ mappa jogosultságait.
+rt_install_err = <b>Hiba:</b> nem lehet az rtorrenthez csatlakozni, ellenőrizd a kiszolgáló, mappa és port beállítást (felhasználónevet/jelszót is, ha az azonosítás be van állítva).
+dir_torrents_err = <b>Hiba:</b> nem lehet írni a torrent könyvtárba, ellenőrizd a jogosultságokat.
+dir_exec_err = <b>Hiba:</b> a végrehajtási könyvtár nem létezik, állítsd be megfelelően.
+db_file_err = <b>Hiba:</b> nem lehet létrehozni az adatbázist, ellenőrizd a jogosultságokat.
+db_create_err = <b>Hiba:</b> nem lehet megnyitni az adatbázist, ellenőrizd hogy az sqlite PDO kiegészítő megfelelően van-e telepítve.
+missing_user = <b>Hiba:</b> állítsd be a felhasználónevet és jelszót.
+try_ok = A konfiguráció sikeresen tesztelve, most már elmenthető.
+create_config_ok = A konfigurációs állomány és adatbázis sikeresen elkészítve, használd a wTorrentet és ne felejtsd törölni az install.php-t.
+
+false = Tiltva
+true = Engedélyezve
+
+wtorrent_settings = wTorrent beállítások
+user_password = wTorrent bejelentkezés beállítása
+language_info = Nyelv:
+db_file_info = Adatbázis állomány:
+rt_host_info = rTorrent scgi kiszolgáló:
+rt_port_info = rTorrent scgi port:
+rt_dir_info = rTorrent scgi könyvtár:
+rt_auth_info = Felhasználó azonosítás bekapcsolása scgi könytárra:
+rt_user_info = rTorrent scgi felhasználó:
+rt_passwd_info = rTorrent scgi jelszó:
+no_multicall_info = Ne használja a multicall-t:
+effects_info = Felhasználó scriptaculous effektusok:
+dir_torrents_info = A feltöltött torrentek könyvtára:
+dir_exec_info = A wTorrent könyvtára:
+dir_download_info = A letöltések alapértelmezett könyvtára:
+user_info = Felhasználó:
+passwd_info = Jelszó:
+try_info = Konfiguráció tesztelése
+save_info = Konfiguráció mentése
+install = Beállítás
+ 
