@@ -10,7 +10,7 @@
 	{/if}
 	{include file="list/cell.tpl.php" hash=$hash clau=$clau}
 	{if $smarty.foreach.listT.last}
-		<div id="torentListButtons" style="clear: both; height: 25px; text-align: left; margin-left: 43px; margin-top: 3px;"><img src="{$DIR_IMG}arrow_ltr.png" alt="arrow" />
+		<div id="torrentListButtons" style="clear: both; height: 25px; text-align: left; margin-left: 43px; margin-top: 3px;"><img src="{$DIR_IMG}arrow_ltr.png" alt="arrow" />
 			<select id="actions">
 				<option value="0">{$str.stop}</option>
 				<option value="4">{$str.closet}</option>
