@@ -27,39 +27,38 @@ class Commands extends rtorrent
 			switch($this->_request['command'])
 			{
 				case 'start':
-				$this->start($this->_request['param']);
-				break;
+					$this->start($this->_request['param']);
+					break;
 				case 'stop':
-				$this->stop($this->_request['param']);
-				break;
+					$this->stop($this->_request['param']);
+					break;
 				case 'close':
-				$this->close($this->_request['param']);
-				break;
+					$this->close($this->_request['param']);
+					break;
 				case 'erase':
-				$this->erase($this->_request['param']);
-				break;
+					$this->erase($this->_request['param']);
+					break;
 				case 'chash':
-				$this->chash($this->_request['param']);
-				break;
+					$this->chash($this->_request['param']);
+					break;
 				case 'set_down_limit':
-				$this->setDownLimit($this->_request['param']);
-				break;
+					$this->setDownLimit($this->_request['param']);
+					break;
 				case 'set_up_limit':
-				$this->setUploadLimit($this->_request['param']);
-				break;
+					$this->setUploadLimit($this->_request['param']);
+					break;
 				case 'files':
-				$this->changeFiles($this->_request['param'], $this->_request['param1'], $this->_request['param2']);
-				break;
+					$this->changeFiles($this->_request['param'], $this->_request['param1'], $this->_request['param2']);
+					break;
 				case 'info':
-				$this->changePriority($this->_request['param'], $this->_request['param1']);
-				break;
+					$this->changePriority($this->_request['param'], $this->_request['param1']);
+					break;
 				case 'trackers':
-				$this->changeTrackers($this->_request['param'], $this->_request['param1'], $this->_request['param2']);
-				break;
+					$this->changeTrackers($this->_request['param'], $this->_request['param1'], $this->_request['param2']);
+					break;
 				default:
-				$this->addMessage($this->_str['command_error']);
-				break;
-
+					$this->addMessage($this->_str['command_error']);
+					break;
 			}
 		} else {
 			$this->addMessage($this->_str['command_error']);
@@ -87,6 +86,7 @@ class Commands extends rtorrent
 
 		foreach($hashes as $hash)
 		{
+			$this->torrents[$hash]->stop(true);
 			$this->torrents[$hash]->close(true);
 		}
 		$this->multicall->call();

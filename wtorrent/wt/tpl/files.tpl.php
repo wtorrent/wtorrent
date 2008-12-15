@@ -8,15 +8,11 @@
 		<th>{$str.priority}</th>
 	</tr>	
 	{foreach key=clau item=file from=$web->getFiles()}
-	{assign var=clau value=$web->getHash()|cat:'_'|cat:$clau}
+	{assign var=clau value=$clau}
 	<tr>
 		<td class="file_list_first">
-			<input type="checkbox" id="{$clau}" class="files{$web->getHash()}" />&nbsp;&nbsp;
-			{if $details.file_percent.$clau eq 100}
-				<a href="{$ftp}{$ftp_data_dir|utf8_encode}{$file|utf8_encode}">
-			{/if}
-			<label for="{$clau}">{$file.name}</label>
-			{if $details.file_percent.$clau eq 100}</a>{/if}
+			<input type="checkbox" id="{$web->getHash()|cat:'_'|cat:$clau}" class="files{$web->getHash()}" />&nbsp;&nbsp;
+			<label for="{$web->getHash()|cat:'_'|cat:$clau}">{$file.name}</label>
 		</td>
 		<td>
 			{$web->getDone($clau)}

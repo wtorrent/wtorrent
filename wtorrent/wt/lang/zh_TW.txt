@@ -1,0 +1,224 @@
+err_login = 錯誤：輸入錯誤，請檢查你的使用者名稱與密碼
+err_users_nosel = 錯誤：沒有選擇要刪除的使用者
+info_users_added = 使用者新增成功
+err_users_add = 沒有設定使用者名和密碼，請檢查資料庫
+info_users_deleted = 選擇要刪除的使用者
+info_tor_stop = 下載項目暫停
+info_tor_close = 下載項目關閉
+info_tor_start = 下載項目開始
+info_tor_erase = 下載項目清除
+info_tor_chash = 開始檢查種子目錄
+info_add_torrent = 已成功加載種子
+err_add_torrent = 加載種子錯誤
+err_add_dir = 錯誤：無法在目錄建立種子文件，請檢查目錄權限
+err_add_file = 錯誤：文件已經存在種子目錄中，無法建立種子
+info_add_upload = 目錄路徑，結尾必須是“/“
+
+low = 低
+normal = 正常
+high = 高
+idle = 閒置
+change_pr = 修改
+err_pr = 優先順序設置錯誤
+info_pr = 已正確的改變優先順序
+
+file_off = 無法下載
+file_normal = 正常
+file_high = 高
+change_pr = 優先順序改變
+start_now = 開始執行:
+private = 使用者私有種子:
+no_torrents = 沒有找到種子
+pl_torrents = 瀏覽
+pr_torrents = 個人
+
+down_limit = 下載限制：
+up_limit = 上傳限制：
+change_dlimit = 修改
+change_ulimit = 修改
+
+info_down_limit = 您已成功改變下載速度
+err_down_limit = 錯誤：下載速度設置錯誤
+info_up_limit = 已成功更改上傳速度
+err_up_limit = 錯誤：上傳速度設置錯誤
+
+logout = 登出
+info_logout = 您已經順利登出
+
+enable = 輸入
+disable = 關閉
+change_tr = 更改
+info_ch_trackers = 正確變更 Trackers
+
+tl_feeds = RSS 訂閱
+edit_feed =  編輯 Feed 地址 
+erase_feed = 清除 Feed 地址
+title_feeds = 標題
+desc_feeds = 描述
+view_feed = 查看 Feed
+feed_add = 新增 Feed
+tl_feed_add = 新增一個新的 Feed 地址
+info_add_feed = 已成功新增新的 Feed
+info_erase_feed = 已成功清除 Feed
+no_feeds = 沒有種子，請新增
+feed_torrent = 種子名稱
+feed_date = 資料
+feed_down_tor = 下載種子
+down_dir = 下載目錄
+download_dir = 修改下載目錄
+feed_url = Feed 來源地址
+
+info_ch_dir = 更改下載目錄
+err_ch_dir = 更改下載目錄錯誤
+down_started = 開始下載
+
+log_in = 您尚未登入，請返回
+command_error = 程式指令錯誤，請返回重試
+
+info_ch_files = 更改文件優先順序成功
+err_ch_files = 更改優先順序失敗，請檢查並返回重試
+
+tb_name = 名稱
+tb_seeds = 做種
+tb_peers = 使用者
+tb_download = 下載
+tb_upload = 上傳
+tb_speed_unit = KB/s
+tb_done = 完成
+tb_size = 值
+tb_percent = 百分比(%)
+tb_ratio = 比例
+tb_eta = 剩餘時間
+
+err_conn = 錯誤：無法下載種子
+conf_erase = 確認刪除種子？
+
+check_all = 全選
+uncheck_all = 取消全選
+invert_all = 反向全選
+action = 套用
+start = 開始
+stop = 停止
+close = 關閉
+erase = 清除資料
+
+user = 使用者名稱
+admin = 管理者
+conf_user_del = 確認要刪除使用者嗎?
+no_users =  沒有找到使用者
+add_user = 新增使用者
+password = 密碼
+ch_bandwidth = 修改頻寬限制
+kb_units = KB
+chash = 強制重新檢查已完成的部份
+closet = 關閉
+
+
+cookie_host = Cookie 名稱
+cookie_value = Cookie 值
+cookie_add = 新增
+cookie_edit = 編輯
+cookie_erase = 清除
+cookies_hostname = 主機名
+cookies_value = 值
+cookie_no_cookies = 沒有 cookies
+cookie_tl_cookie_add = 新增
+tb_uploaded = 上傳
+no_curl_function = 沒有 curl 函數
+err_add_cookie = 無法新增 cookie（沒有訊息）
+err_erase_cookie = 無法清除 cookie（沒有訊息）
+info_add_cookie = 成功新增 cookie
+info_erase_cookie = 成功刪除 cookie
+
+default_dir = 預設目錄
+force_default = 指定下載至一個預設目錄
+
+ip = IP 位址
+speed = 速度 (KB/s)
+connection = 連接
+percent_done = 完成率
+encryption = 密碼
+client = 客戶端
+down = 下載 (KB/s)
+incoming = 輸入
+outgoing = 輸出
+yes = 是
+no = 否
+up_peer = 上傳連接 (KB/s)
+down_peer = 下載連接 (KB/s)
+no_peers = 無資源連接
+
+space = 磁碟容量：
+dw_rate = 下載速度：
+up_rate = 上傳速度：
+free = 剩餘：
+
+files = 文件
+file_name = 文件名稱
+priority = 優先順序
+torrent = 種子
+torrent_file = 下載種子文件
+torrent_url = 種子來源
+data_path = 下載資料保存目錄
+rtorrent_message = 系統信息
+min_peers = 最小連接數
+max_peers = 最大連接數
+url = 來源
+ul_file = 上傳種子文件
+user = 帳號
+password = 密碼
+login = 登入
+
+ListT = 主選單
+AddT = 新增種子
+Feeds = RSS 訂閱
+Admin = 管理者
+Cookie = Cookie 設定
+active = 狀態
+started = 開始
+stopped = 停止
+complete = 已完成
+incomplete = 未完成
+hashing = 檢查中
+seeding = 做種中
+
+invalid_order = 放入指定文件夾中
+confirm_chash = 確認開始檢查 %S?
+confirm_erase = 確認刪除 %S?
+no_torrents_selected = 沒有選擇種子
+
+language_err = <b>錯誤：</b> 語系檔無法讀取，請為其設定正確的權限。
+config_install_err = <b>錯誤：</b> 無法寫入 user.conf.php ，請檢查 conf/ 資料夾權限。
+rt_install_err = <b>錯誤：</b> 無法連接 rtorrent，請檢查伺服器、資料夾旱連接埠值（或是使用者/密碼，如果您有此設定權限）。
+dir_torrents_err = <b>錯誤：</b> 無法寫入種子檔資料夾，請檢查權限設定。
+dir_exec_err = <b>錯誤：</b> 執行檔資料夾不存在，請設定正確的資料夾。
+db_file_err = <b>錯誤：</b> 無法建立資料庫檔，請檢查權限設定。
+db_create_err = <b>錯誤：</b> 無法開啓資料庫，請檢查是否已正確安裝 sqlite PDO 模組。
+missing_user = <b>錯誤：</b> 請設定使用者及密碼。
+try_ok = 設定似乎沒有問題，您現在可以保存設定。
+create_config_ok = 設定檔與資料夾已經建立，您可以開始使用 wTorrent 並別忘了刪除 install.php。
+
+false = 否
+true = 是
+
+wtorrent_settings = wTorrent 設定
+user_password = 設定 wTorrent 登入資訊
+language_info = 語言：
+db_file_info = 資料庫檔案：
+rt_host_info = rTorrent scgi 主機：
+rt_port_info = rTorrent scgi 連接埠：
+rt_dir_info = rTorrent scgi 資料夾：
+rt_auth_info = 啓用 scgi 資料夾認證：
+rt_user_info = rTorrent scgi 使用者：
+rt_passwd_info = rTorrent scgi 密碼：
+no_multicall_info = 停用 multicall：
+effects_info = 動態特效：
+dir_torrents_info = 預設上傳種子存放資料夾：
+dir_exec_info = wTorrent 所在資料夾：
+dir_download_info = 預設下載存放資料夾：
+user_info = 使用者：
+passwd_info = 密碼：
+try_info = 測試設定
+save_info = 保存設定
+install = 安裝
+ 
