@@ -258,5 +258,9 @@ class install extends Web
 	{
 		return false;
 	}
+	protected function setPerm()
+	{
+		$this->admin = false;
+	}
 }
 ?>
