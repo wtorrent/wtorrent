@@ -118,10 +118,10 @@ abstract class Web
 	final public function display( $tpl )
 	{   
 
+		$this->setPerm();
 		// Subclass constructor
 		if($this->isRegistered())
 		{
-			$this->setPerm();
 			$this->construct();
 		}
 

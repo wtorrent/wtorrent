@@ -68,7 +68,14 @@ class rtorrent extends Web
 
 	public function isRegistered( )
 	{
+		if($this->admin && $this->_session->admin)
+		{
 			return !is_null( $this->_session->id_user );
+		} elseif(!$this->admin) {
+			return !is_null( $this->_session->id_user );
+		} else {
+			return false;
+		}
 	}
 	public function getUser( )
 	{

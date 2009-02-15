@@ -536,28 +536,6 @@ img {
 	clear: both;
 	margin: 5px auto 0 auto;
 }
-
-#user_table_header
-{
-  width: 815px; 
-  height: 24px;
-  margin: 0px auto;
-  margin-bottom: 0px;
-  background-color: #d7e4ef;
-  border: 1px solid #d4d4d4;
-  font-size: 11px;
-}
-
-.user_table_row
-{
-  width: 815px;
-  height: 24px;
-  margin: 0px auto;
-  margin-bottom: 0px;
-  border: 1px solid #d4d4d4;
-  border-width: 0px 1px 0px 1px;
-  font-size: 11px;
-}
 /* Torrent list styles */
 .listTorrentsHead {
 	margin: 0 0 0 41px;
@@ -761,4 +739,120 @@ h2 {
 	margin-left: 10px;
 	font-size: 14px;
 	padding-bottom: 10px;
+}
+/* Admin styles */
+.th_header
+{
+	background-color: #d7e4ef;
+	border-bottom: 1px solid #d4d4d4;
+}
+#user_table
+{
+	width: 815px; 
+	height: 24px;
+	margin: 0px auto;
+	margin-bottom: 0px;
+	border: 1px solid #d4d4d4;
+	font-size: 11px;
+}
+.user_table_row
+{
+  width: 815px;
+  height: 24px;
+  margin: 0px auto;
+  margin-bottom: 0px;
+  border: 1px solid #d4d4d4;
+  border-width: 0px 1px 0px 1px;
+  font-size: 11px;
+}
+.th_user
+{
+	text-align: left; 
+	padding: 5px; 
+	padding-left: 30px; 
+	font-weight: bold; 
+	width: 200px;
+}
+.th_dir
+{
+	text-align: left; 
+	padding: 5px; 
+	font-weight: bold; 
+	width: 310px;
+}
+.th_default
+{
+	text-align: center; 
+	padding: 5px; 
+	font-weight: bold; 
+	width: 200px;
+}
+.th_admin
+{
+	text-align: center; 
+	padding: 5px; 
+	font-weight: bold; 
+	width: 40px;
+}
+.tb_ckbox
+{
+	text-align: center; 
+	padding: 3px 0px 0px 0px; 
+	width: 30px;
+}
+.tb_user
+{
+	text-align: left; 
+	padding: 5px; 
+	width: 170px;
+}
+.tb_dir
+{
+	text-align: left; 
+	padding: 5px; 
+	width: 310px;
+}
+.tb_force
+{
+	text-align: center; 
+	padding: 5px; 
+	width: 220px;
+}
+.tb_admin
+{
+	text-align: center; 
+	padding: 5px; 
+	width: 40px;
+}
+.delete_sign
+{
+	height: 20px; 
+	text-align: left; 
+	margin-left: 85px; 
+	margin-top: 3px;
+}
+.no_users
+{
+	font-size: 12px; 
+	font-style: italic;
+}
+.user_form
+{
+	text-align: left; 
+	float: none; 
+	display: block; 
+	padding-left: 40px; 
+	margin-bottom: 10px;
+}
+.speeds
+{
+	width: 100%; 
+	font-size: 12px; 
+	height: 40px; 
+	margin-top: 10px;
+}
+.sp_rates
+{
+	width: 50%; 
+	float: left;
 }

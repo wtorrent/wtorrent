@@ -46,6 +46,9 @@ var Control = Class.create({
 			},
 			'.trackersButtons': {
 				'click': 'torrentTrackersHandler'
+			},
+			'.torrentFolders': {
+				'click': 'torrentFolderSelect'
 			}
 		};
 		
@@ -324,6 +327,17 @@ var Control = Class.create({
 		{
 			invertAllByClass('.files' + id);
 		}
+	},
+	/* Torrent folder select */
+	torrentFolderSelect: function(e) {
+		var el = e.element();
+		var ckIds = el.classNames();
+		ckIds.remove(0);
+		ckIds.each(
+			function(e) {
+				e.checked = !e.checked;
+			}
+		);
 	},
 	/* Torrent Tracker Handler */
 	torrentTrackersHandler: function(e) {
