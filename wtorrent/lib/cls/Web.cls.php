@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Original class done by David Marco Martinez
-Modified by Roger Pau Monné
+Modified by Roger Pau MonnÃ©
 */
 abstract class Web
 {
@@ -321,6 +321,29 @@ abstract class Web
 	{
 		$this->message[] = $message; 
 	}
+        /**
+         * Get a string parameter or $default if not set
+         */
+        protected function getParam($name, $default = '', $realm = null)
+        {
+                if ($realm == null)
+                {
+                        $realm = $this->_request;
+                }
+                return strval(empty($realm[$name]) ? $default : $realm[$name]);
+        }
+        /**
+         * Get an int parameter or $default if not set
+         */
+        protected function getParamInt($name, $default = '', $realm = null)
+        {
+                if ($realm == null)
+                {
+                        $realm = $this->_request;
+                }
+                return intval(!isset($realm[$name]) ? $default : $realm[$name]);
+        }
+
 	abstract protected function construct( );
 }
 ?>

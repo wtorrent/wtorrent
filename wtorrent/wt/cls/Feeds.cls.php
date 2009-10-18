@@ -18,62 +18,92 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Feeds extends rtorrent
 {
 	private $info = array();
-	private $feeds = array();
+	private $feed;
+	private $feed_title;
+	private $feed_url;
 	private $view_feed = false;
+
+	const FEED_MAX_DAYS = 14;
+	const FEED_MAX_ITEMS = 30;
 
 	public function construct()
 	{
 		if(!$this->setClient())
+		{
 			return false;
-		
-		if(isset($this->_request['download'])) $this->Download($this->_request['download']);
-		if(isset($this->_request['feed_add'])) $this->AddFeed($this->_request['feed_url']);
-		if(isset($this->_request['erase'])) $this->DeleteFeed($this->_request['erase']);
-		if(isset($this->_request['ch_dir'])) $this->changeDir($this->_request['down_dir']);
-		if(isset($this->_request['view'])) $this->viewFeed($this->_request['view']);
+		}
+		$action = $this->getParam('action', 'view');
+
+		switch ($action)
+		{
+		case 'download':
+		case 'add':
+		case 'erase':
+		case 'changeDir':
+		case 'viewFeed':
+		case 'edit':
+			$this->$action();
+			break;
+		}
 		
 		if($this->view_feed === false)
 		{
-			$this->setFeeds();
-			$this->fetchFeeds();
+			$this->view();
 		}
 	}
-	private function viewFeed($id)
+	private function viewFeed()
 	{
+		$id = $this->getParamInt('feed_id');
+		if ($id == 0) {
+			return;
+		}
 		$this->view_feed = $id;
-		$url = $this->_db->queryColumn(
-			'SELECT url FROM feeds WHERE user = ? AND id = ?',
+		$feed = $this->_db->query(
+			'SELECT url, title FROM feeds WHERE user = ? AND id = ?',
 			$this->getIdUser(),
 			$id
 		);
-		$this->feeds = new SimplePie();
-		$this->feeds->set_feed_url($url);
-		$this->feeds->set_cache_location(DIR_TPL_COMPILE);
-		$this->feeds->init();
-		$this->feeds->handle_content_type();
+		$this->feed = new SimplePie();
+		$this->feed->set_feed_url($this->feed_url = $feed['url']);
+		$this->feed->set_cache_location(DIR_TPL_COMPILE);
+		$this->feed->init();
+		$this->feed->handle_content_type();
+		$this->feed_title = $feed['title'];
 	}
-	private function setFeeds()
+	private function view()
 	{	
 		$feeds = $this->_db->queryAll(
-			'SELECT id, url FROM feeds WHERE user = ?',
+			'SELECT id, url, title FROM feeds WHERE user = ? ORDER BY title, url',
 			$this->getIdUser()
 		);
-		for ($i = 0, $e = sizeof($feeds); $i < $e; ++$i)
-		{
-			$feed = $feeds[$i];
+		$this->info = array();
+		foreach ($feeds as $feed) {
 			$pie = new SimplePie();
 			$pie->set_feed_url($feed['url']);
 			$pie->set_cache_location(rtrim(DIR_TPL_COMPILE, '/'));
 			$pie->init();
 			$pie->handle_content_type();
-			$this->feeds[] = array(
-				'feed' => $pie,
-				'id' => $feed['id']
+			$items = $pie->get_items(0, self::FEED_MAX_ITEMS);
+			$now = time();
+			for ($i = count($items) - 1; $i != 0; --$i)
+			{
+				$time = $items[$i]->get_date('U');				
+				if ($time && $now - $time > self::FEED_MAX_DAYS * 86400)
+				{
+					array_pop($items);
+				}
+			}
+			$this->info[] = array(
+				'title' => (empty($feed['title']) ? $pie->get_title() : $feed['title']),
+				'id' => $feed['id'],
+				'description' => $pie->get_description(),
+				'news' => $items,
 			);
 		}
 	}
-	private function changeDir($dir)
+	private function changeDir()
 	{
+		$dir = $this->getParam('dir');
 		$message = new xmlrpcmsg("set_directory", array(new xmlrpcval($dir , 'string')));
 		$result = $this->client->send($message);
 		if($result->errno == 0)
@@ -85,8 +115,12 @@ class Feeds extends rtorrent
 			$this->addMessage($this->_str['err_ch_dir']);
 		}
 	}
-	private function Download($uri)
+	private function download()
 	{
+		$uri = $this->getParam('uri');
+		if (empty($uri)) {
+			return;
+		}
 		$message = new xmlrpcmsg("load_start", array(new xmlrpcval($uri , 'string')));
 		$result = $this->client->send($message);
 		$this->addMessage($this->_str['down_started']);
@@ -107,7 +141,13 @@ class Feeds extends rtorrent
 	}
 	public function getFeed()
 	{
-		return $this->feeds;
+		return $this->feed;
+	}
+	public function getFeedTitle() {
+		return empty($this->feed_title) ? $this->feed->get_title() : $this->feed_title;
+	}
+	public function getFeedUrl() {
+		return $this->feed_url;
 	}
 	public function getView()
 	{
@@ -117,33 +157,38 @@ class Feeds extends rtorrent
 	{
 		return $this->info[$index]['title'];
 	}
-	private function fetchFeeds()
- 	{
-	 	$num_feeds = count($this->feeds);
-	 	for($i = 0; $i < $num_feeds;$i++)
-	 	{
-	 		$this->info[$i]['title'] = $this->feeds[$i]['feed']->get_title();
-	 		$this->info[$i]['description'] = $this->feeds[$i]['feed']->get_description();
-	 		$this->info[$i]['id'] = $this->feeds[$i]['id'];
-	 	}
-	}
-	private function AddFeed($feed_url)
+	private function add()
 	{
-		$this->_db->modify(
-			'INSERT INTO feeds (url, user) VALUES (?, ?)',
-			$feed_url,
-			$this->getIdUser()
-		);
-	 	$this->addMessage($this->_str['info_add_feed']);
+		$url = $this->getParam('feed_url', '', $this->_post);
+		$title = $this->getParam('feed_title', '', $this->_post);
+		if (!empty($url))
+	   	{
+			$this->_db->modify(
+				'INSERT INTO feeds (url, title, user) VALUES(?, ?, ?)',
+				$url,
+				$title,
+				$this->getIdUser()
+			);
+			$this->addMessage($this->_str['info_add_feed']);
+		}
 	}
-	private function DeleteFeed($id)
+
+	private function erase()
+   	{
+		$id = $this->getParamInt('feed_id', 0);
+		if ($id)
+		{
+			$this->_db->modify(
+				'DELETE FROM feeds WHERE user = ? AND id = ?',
+				$this->getIdUser(),
+				$id
+			);
+			$this->addMessage($this->_str['info_erase_feed']);
+		}
+	}
+	private function edit()
 	{
-		$this->_db->modify(
-			'DELETE FROM feeds WHERE user = ? AND id = ?',
-			$this->getIdUser(),
-			$id
-		);
-	 	$this->addMessage($this->_str['info_erase_feed']);
+		$this->addMessage($this->_str['not_implemented']);
 	}
 }
 ?>

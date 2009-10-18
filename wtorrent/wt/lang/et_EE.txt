@@ -12,6 +12,7 @@ info_add_torrent = Torrent edukalt lisatud
 err_add_torrent = Viga torrenti lisamisel
 err_add_dir = VIGA: Ei õnnestu valitud kataloogi faili luua, palun kontrolli õigusi
 err_add_file = VIGA: Fail on juba torrenti kataloogis olemas, ei saa .torrent luua
+err_not_torrent = VIGA: See ei ole torrenti fail
 info_add_upload = täis kataloogi rada, lõpus /
 
 low = Madal
@@ -59,7 +60,7 @@ view_feed = Vaata voogu
 feed_add = Lisa voog
 tl_feed_add = Lisa uus voog
 info_add_feed = Voo lisamine õnnestus
-info_erase_feed = Voo kustutamine õnnestu
+info_erase_feed = Voo kustutamine õnnestus
 no_feeds = Ühtegi voogu ei leitud, palun lisa mõni
 feed_torrent = Torrenti nimi
 feed_date = Kuupäev
@@ -113,23 +114,28 @@ chash = Kontrolli räsi
 closet = Sulge
 
 
-cookie_host = Küpsise host                                                                                                                                                                                                           
-cookie_value = Küpsise väärtus                                                                                                                                                                                                         
-cookie_add = Lisa                                                                                                                                                                                                                     
-cookie_edit = Muuda                                                                                                                                                                                                                  
-cookie_erase = Kustuta                                                                                                                                                                                                                
-cookies_hostname = Hosti nimi                                                                                                                                                                                                         
-cookies_value = Väärtus                                                                                                                                                                                                               
-cookie_no_cookies = Küpsiseid pole                                                                                                                                                                                                      
-cookie_tl_cookie_add = Lisa                                                                                                                                                                                                          
-tb_uploaded = Üles laetud                                                                                                                                                                                                              
+cookie_host = Küpsise host
+cookie_value = Küpsise väärtus
+cookie_add = Lisa
+cookie_edit = Muuda
+cookie_erase = Kustuta
+cookies_hostname = Hosti nimi
+cookies_value = Väärtus
+cookie_no_cookies = Küpsiseid pole
+cookie_tl_cookie_add = Lisa
+tb_uploaded = Üles laetud
 no_curl_function = PHPs pole curli funktsiooni
+err_add_cookie = Ei saa küpsist lisada (liiga vähe infot)
+err_erase_cookie = Ei saa küpsist kustutada (liiga vähe infot)
+info_add_cookie = Küpsis edukalt lisatud
+info_erase_cookie = Küpsis edukalt kustutatud
 
 default_dir = Vaikimisi kataloog
 force_default = Sunni vaikekataloogi kasutus
 
 ip = IP
 speed = Kiirus (KB/s)
+tb_speed_unit = KB/s
 connection = Ühendus
 percent_done = % valmis
 encryption = Krüpteeritud
@@ -215,4 +221,4 @@ passwd_info = Parool:
 try_info = Proovi konfiguratsiooni
 save_info = Salvesta konfiguratsioon
 install = PAIGALDA 
-
+not_implemented = See võimalus pole veel päris valmis

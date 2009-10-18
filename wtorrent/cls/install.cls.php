@@ -190,7 +190,7 @@ class install extends Web
 			$db->modify('CREATE TABLE tor_passwd(id integer primary key, user text, passwd text, admin integer, dir text, force_dir integer)');
 			$db->modify('INSERT INTO tor_passwd VALUES(1, ?, ?, 1, \'\', 0)', $options['user'], md5($options['passwd']));
 			$db->modify('CREATE TABLE torrents(hash string, user int, private int)');
-			$db->modify('CREATE TABLE feeds(id integer primary key, url text, user integer)');
+			$db->modify('CREATE TABLE feeds(id integer primary key, url text, title text, user integer)');
 			$db->modify('CREATE TABLE cookie(id integer primary key, userid integer, value text, hostname text)');
 		} else {
 			$this->addMessage($this->_str['db_create_err']);

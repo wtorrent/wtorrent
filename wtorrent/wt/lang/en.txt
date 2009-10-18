@@ -12,6 +12,7 @@ info_add_torrent = Torrent added correctly
 err_add_torrent = Error adding torrent
 err_add_dir = Error: Impossible to create file on given directory, please check permisions
 err_add_file = Error: File already exists in torrent directory, can't create .torrent
+err_not_torrent = This is not a torrent file
 info_add_upload = full directory path, end with /
 
 low = Low
@@ -67,6 +68,7 @@ feed_down_tor = Download torrent
 down_dir = Download directory
 download_dir = Change directory
 feed_url = Feed url
+feed_title = Feed title
 
 info_ch_dir = Download directory changed correctly
 err_ch_dir = Error changing download directory
@@ -221,4 +223,5 @@ passwd_info = Password:
 try_info = Try configuration
 save_info = Save configuration
 install = INSTALL
- 
+not_implemented = Not implemented!
+err_not_writable = is not writable

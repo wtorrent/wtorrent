@@ -1,5 +1,5 @@
 <div id="login_t">
-	
+
 </div>
 <div id="login_m">
   <div id="login">
@@ -21,3 +21,8 @@
 <div id="login_b">
 	
 </div>
+<script type="text/javascript">
+  <!--
+    document.getElementById("userf").focus()
+  //-->
+</script>

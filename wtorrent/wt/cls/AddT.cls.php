@@ -50,8 +50,14 @@ class AddT extends rtorrent
 		if($this->getForceDir() == 1)
 		{
 			$dir = $this->getDir();
-		}
 
+		}
+		// Check if download directory is writable
+		if (!is_writable(DIR_EXEC . DIR_TORRENTS))
+		{
+			$this->addMessage(DIR_EXEC . DIR_TORRENTS . $this->_str['err_not_writable']);
+			return false;
+		}
 		// Parsing url
 		$purl = parse_url($url);
 		$uploadfile = DIR_EXEC . DIR_TORRENTS . sha1( $url ) . md5($url) . ".torrent";
@@ -95,6 +101,22 @@ class AddT extends rtorrent
 		// Execute the query
 		curl_close($ua);
 		fclose($fh);
+		
+		// Needed due to bug #48676 (see bonsai.php.net)
+		if (is_resource($fh))
+			fclose($fh);
+
+		$cfh = @fopen($uploadfile, 'r');
+		if ($cfh) {
+			$cfhbuffer = fgets($cfh, 13);
+			if (stristr($cfhbuffer, ':announce') === FALSE )
+			{
+				 @unlink($uploadfile);
+				 $this->addMessage($this->_str['err_not_torrent']);
+				 return false;
+			}
+			fclose($cfh);
+		}
 		chmod( $uploadfile, PERM_TORRENTS);
 		// Setting up the permissions
 		$torrent = new BDECODE($uploadfile);
@@ -161,6 +183,16 @@ class AddT extends rtorrent
 	}
 	private function uploadTorrent($fileU, $dir, $start_now, $private)
 	{
+		if (end(explode(".", strtolower(basename($fileU['name'])))) != "torrent")
+		{
+			$this->addMessage($this->_str['err_not_torrent']);
+			return false;
+		}
+		if (stristr($fileU['type'], "torrent") === FALSE)
+		{
+			$this->addMessage($this->_str['err_not_torrent']);
+			return false;
+		}
 		if ($this->getForceDir() == 1)
 		{
 			$dir = $this->getDir();
