@@ -31,7 +31,11 @@ require_once( 'conf/system.conf.php' );
 // Build the base of the app
 $web = Web::getClass( 'install' );
 // Page specific operations and display
+if (is_writable(DIR_TPL_COMPILE)) {
 $web->display( 'install/index' );
+} else {
+  echo "Template dir ".DIR_TPL_COMPILE." is not writable for webserver. Please change permissions and reload this page.";
+}
 
 // Record end time
 $ftime = microtime( true );

@@ -24,8 +24,12 @@ $mtime = microtime( true );
 // Start php session BEFORE ANY output
 session_start();
 // Load conf
-require_once( 'conf/user.conf.php' );
-require_once( 'conf/system.conf.php' );
+if (is_readable('conf/user.conf.php') && is_readable('conf/system.conf.php')) {
+  require_once( 'conf/user.conf.php' );
+  require_once( 'conf/system.conf.php' );
+} else {
+  echo "One of the required configuration files is not readable, please check permissions or run <a href=\"install.php\">install.php</a> to set up wTorrent";
+}
 
 // Build the base of the app
 $web = Web::getClass( 'ListT' );
