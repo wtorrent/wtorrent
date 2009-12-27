@@ -50,6 +50,8 @@
 	// Milosch: 2005/08/07 - explicitly request these via $GLOBALS where used.
 	$GLOBALS['xmlrpcI4']='i4';
 	$GLOBALS['xmlrpcInt']='int';
+	$GLOBALS['xmlrpcI8']='i8';
+	$GLOBALS['xmlrpcApache']='ex.i8';
 	$GLOBALS['xmlrpcBoolean']='boolean';
 	$GLOBALS['xmlrpcDouble']='double';
 	$GLOBALS['xmlrpcString']='string';
@@ -62,6 +64,8 @@
 	$GLOBALS['xmlrpcTypes']=array(
 		$GLOBALS['xmlrpcI4']       => 1,
 		$GLOBALS['xmlrpcInt']      => 1,
+		$GLOBALS['xmlrpcI8']       => 1,
+		$GLOBALS['xmlrpcApache']   => 1,
 		$GLOBALS['xmlrpcBoolean']  => 1,
 		$GLOBALS['xmlrpcString']   => 1,
 		$GLOBALS['xmlrpcDouble']   => 1,
@@ -75,6 +79,8 @@
 		'VALUE' => array('MEMBER', 'DATA', 'PARAM', 'FAULT'),
 		'BOOLEAN' => array('VALUE'),
 		'I4' => array('VALUE'),
+		'I8' => array('VALUE'),
+		'EX.I8' => array('VALUE'),
 		'INT' => array('VALUE'),
 		'STRING' => array('VALUE'),
 		'DOUBLE' => array('VALUE'),
@@ -433,6 +439,8 @@
 					$GLOBALS['_xh']['php_class']=null;
 					break;
 				case 'I4':
+				case 'I8':
+				case 'EX.I8':
 				case 'INT':
 				case 'STRING':
 				case 'BOOLEAN':
@@ -600,6 +608,8 @@
 					break;
 				case 'BOOLEAN':
 				case 'I4':
+				case 'I8':
+				case 'EX.I8':
 				case 'INT':
 				case 'STRING':
 				case 'DOUBLE':
@@ -2728,6 +2738,8 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 						$this->me['string']=$val;
 						break;
 					case 'i4':
+					case 'i8':
+					case 'ex.i8':
 					case 'int':
 					case 'double':
 					case 'string':
@@ -2944,6 +2956,8 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 							break;
 						case $GLOBALS['xmlrpcInt']:
 						case $GLOBALS['xmlrpcI4']:
+						case $GLOBALS['xmlrpcI8']:
+						case $GLOBALS['xmlrpcApache']:
 							$rs.="<${typ}>".(int)$val."</${typ}>";
 							break;
 						case $GLOBALS['xmlrpcDouble']:
@@ -3159,7 +3173,7 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 		{
 			reset($this->me);
 			list($a,)=each($this->me);
-			if($a==$GLOBALS['xmlrpcI4'])
+			if($a==$GLOBALS['xmlrpcI4'] || $a==$GLOBALS['xmlrpcI8'] || $a==$GLOBALS['xmlrpcApache'])
 			{
 				$a=$GLOBALS['xmlrpcInt'];
 			}
