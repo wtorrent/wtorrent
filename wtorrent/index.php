@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Modified version of class done by David Marco Martinez
 */
 
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_DEPRECATED);  // changing it from E_ALL, ticket: #414
 // Record the start time of execution
 $mtime = microtime( true );
 // Start php session BEFORE ANY output
