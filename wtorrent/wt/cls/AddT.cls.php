@@ -72,6 +72,8 @@ class AddT extends rtorrent
 		if (!function_exists("curl_init"))
 		{
 			$this->addMessage( $this->_str['no_curl_function'] );
+			@fclose($fh);
+			@unlink($uploadfile);
 			return;
 		}
 		$ua = curl_init();
