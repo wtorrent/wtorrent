@@ -1,0 +1,227 @@
+err_login = Errore:Dati non corretti, controlla user/password
+err_users_nosel = Errore: Nessun utente selezionato per la rimozione
+info_users_added = Utente aggiunto correttamente
+err_users_add = Nessuna user/password inserita, controlla i dati immessi
+info_users_deleted = Utenti cancellati correttamente
+info_tor_stop = Torrent fermati correttamente
+info_tor_close = Torrent chiusi correttamente
+info_tor_start = Torrent avviati correttamente
+info_tor_erase = Torrent cancellati correttamente
+info_tor_chash = Inizializzato correttamente il controllo hash
+info_add_torrent = Torrent aggiunto correttamente
+err_add_torrent = Si è verificato un errore nell'aggiungere il torrent
+err_add_dir = Errore: Impossibile  creare il file nella data cartella, controlla i permessi
+err_add_file = Errore: Il file esiste già nella cartella torrent, non si può creare il .torrent
+err_not_torrent = Questo non è un file torrent
+info_add_upload = percorso completo della cartella, finisce con /
+
+low = Bassa
+normal = Normale
+high = Alta
+idle = Minima
+change_pr = Cambia
+err_pr = Errata impostazione priorità
+info_pr = La priorità è stata cambiata correttamente
+
+file_off = Non scaricarlo
+file_normal = Normale
+file_high = Alta
+change_pr = Cambia priorità
+start_now = Inizia ora:
+private = Privato:
+no_torrents = Nessun torrent trovato
+pl_torrents = pubblici
+pr_torrents = privati
+
+down_limit = Limite Download:
+up_limit = Limite Upload:
+change_dlimit = Cambia limite download
+change_ulimit = Cambia limite upload
+
+info_down_limit = Limite download cambiato correttamente
+err_down_limit = Errore: limite download non corretto
+info_up_limit = Limite upload cambiato correttamente
+err_up_limit = Errore: limite upload non corretto
+
+logout = Esci
+info_logout = Adesso ti sei disconnesso
+
+enable = Abilitato
+disable = Disabilitato
+change_tr = Cambia
+info_ch_trackers = Tracker cambiato correttamente
+
+tl_feeds = Feed
+edit_feed = Modifica Feed
+erase_feed = Cancella Feed
+title_feeds = Titolo
+desc_feeds = Descrizione
+view_feed = Vedi Feed
+feed_add = Aggiungi Feed
+tl_feed_add = Aggiungi un nuovo Feed
+info_add_feed = Nuovo feed aggiunto correttamente
+info_erase_feed = Feed cancellato correttamente
+no_feeds = Nessun Feed trovato, aggiungine uno nuovo
+feed_torrent = Nome del Torrent
+feed_date = Data
+feed_down_tor = Scarica torrent
+down_dir = Cartella di Download
+download_dir = Cambia cartella
+feed_url = Indirizzo Feed
+feed_title = Titolo Feed
+
+info_ch_dir = Cartella di Download cambiata correttamente
+err_ch_dir = Si è verificato un errore nel cambiare la cartella di download
+down_started = Download iniziato
+
+log_in = Non sei loggato oppure la tua sessione è scaduta, ricarica la pagina
+command_error = Impossibile applicare i comandi, ricarica la pagina e prova di nuovo
+
+info_ch_files = Priorità del file cambiata correttamente
+err_ch_files = Si è verificato un errore nel cambiare la priorità, controlla i dati inseriti e prova di nuovo
+
+tb_name = Nome
+tb_seeds = Seed
+tb_peers = Utenti
+tb_download = DL
+tb_upload = UP
+tb_speed_unit = KB/s
+tb_done = Finito
+tb_size = Dimens.
+tb_percent = Percent.
+tb_ratio = Ratio
+tb_eta = ETA'
+
+err_conn = Errore: non riesco a collegarmi con rtorrent
+conf_erase = Sei sicuro di voler cancellare questo Torrent?
+
+check_all = Seleziona tutti
+uncheck_all = Deseleziona tutti
+invert_all = Inverti la selezione
+action = Applica
+start = Avvia
+stop = Ferma
+close = Chiudi
+erase = Cancella
+
+user = Utente
+admin = Admin
+conf_user_del = Sei sicuro di voler eliminare questi utenti?
+no_users = Nessun utente trovato
+add_user = Aggiungi Utente
+password = Password
+ch_bandwidth = Cambia limiti di banda
+kb_units = KB
+chash = Ricontrolla Hash
+closet = Chiudi
+
+
+cookie_host = Sito Cookie
+cookie_value = Valore Cookie
+cookie_add = Aggiungi
+cookie_edit = Modifica
+cookie_erase = Cancella
+cookies_hostname = Sito
+cookies_value = Valore
+cookie_no_cookies = Nessun cookie
+cookie_tl_cookie_add = Aggiungi
+tb_uploaded = Inviato
+no_curl_function = Nessuna funzione curl in php
+err_add_cookie = Impossibile aggiungere Cookie (informazioni insufficienti)
+err_erase_cookie = Impossibile cancellare cookie (informazioni insufficienti)
+info_add_cookie = Cookie aggiunto con successo
+info_erase_cookie = Cookie cancellato con successo
+
+default_dir = Cartella predefinita
+force_default = Imponi l'uso della cartella predefinita
+
+ip = IP
+speed = Velocità (KB/s)
+connection = Connessione
+percent_done = % Fatto
+encryption = Cifratura
+client = Client
+down = DL (KB/s)
+incoming = In ingresso
+outgoing = In uscita
+yes = Si
+no = No
+up_peer = UP Utente (KB/s)
+down_peer = DL Utente (KB/s)
+no_peers = Nessun utente trovato
+
+space = Spazio:
+dw_rate = Velocità di Download:
+up_rate = Velocità di Upload:
+free = Libero:
+
+files = File
+file_name = Nome del file
+priority = Priorità
+torrent = Torrent
+torrent_file = File Torrent
+torrent_url = Indirizzo Torrent
+data_path = Percorso dei dati
+rtorrent_message = Messaggio rTorrent
+min_peers = Utenti Min. 
+max_peers = Utenti Max.
+url = Url
+ul_file = Invia File
+user = Utente
+password = Password
+login = Login
+
+ListT = Indice
+AddT = Agg. Torrent
+Feeds = Feed
+Admin = Admin
+Cookie = Cookie
+active = attivi
+started = avviati
+stopped = fermati
+complete = completati
+incomplete = incompleti
+hashing = in verifica
+seeding = in invio
+
+invalid_order = Comando non valido specificato in sort
+confirm_chash = Vuoi iniziare il controllo per %S?
+confirm_erase = Vuoi rimuovere %S?
+no_torrents_selected = Nessun torrent selezionato
+
+language_err = <b>Errore:</b> il file di liguaggio è illeggibile. Assegna i necessari permessi.
+config_install_err = <b>Errore:</b> non riesco a salvare user.conf.php, verifica i permessi della cartella conf/
+rt_install_err = <b>Errore:</b> impossibile comunicare con rtorrent, controlla l'host, la crtella e il numnero di porta (e utente/password se hai scelto di autenticarti).
+dir_torrents_err = <b>Errore:</b> impossibile scrivere nella cartella torrent, controlla i permessi.
+dir_exec_err = <b>Errore:</b> la cartella di esecuzione del programma non esiste, inserisci la cartella corretta.
+db_file_err = <b>Errore:</b> impossibile creare il database, verifica i permessi.
+db_create_err = <b>Errore:</b> impossibile aprire il database, verifica di avere installato correttamente l'estensione sqlite PDO.
+missing_user = <b>Errore:</b> inserisci username e password.
+try_ok = La configurazione è andata a buon fine, adesso puoi salvarla.
+create_config_ok = Il file di configurazione e il database sono stati creati,<br>prova wTorrent e non dimenticare di cancellare il file install.php.
+
+false = Falso
+true = Vero
+
+wtorrent_settings = Impostazioni wTorrent
+user_password = Credenziali di accesso wTorrent
+language_info = Lingua:
+db_file_info = Database file:
+rt_host_info = rTorrent scgi host:
+rt_port_info = Porta rTorrent scgi:
+rt_dir_info = Cartella rTorrent scgi:
+rt_auth_info = Abilita autenticazione per scgi:
+rt_user_info = Utente rTorrent scgi:
+rt_passwd_info = Password rTorrent scgi:
+no_multicall_info = Non usare la "chiamata multipla":
+effects_info = Usa effetti scriptaculous:
+dir_torrents_info = Cartella in cui salvare i torrent inviati:
+dir_exec_info = La cartella dove si trova wTorrent:
+dir_download_info = Cartella predefinita dove salvare i download:
+user_info = Utente:
+passwd_info = Password:
+try_info = Prova configurazione
+save_info = Salva configurazione
+install = INSTALLA
+not_implemented = Non disponibile!
+err_not_writable = non è modificabile
