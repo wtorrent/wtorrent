@@ -190,7 +190,7 @@ class AddT extends rtorrent
 			$this->addMessage($this->_str['err_not_torrent']);
 			return false;
 		}
-		if (stristr($fileU['type'], "torrent") === FALSE)
+		if (!$this->validateTorrentType($fileU['tmp_name'])) //fix bug #379
 		{
 			$this->addMessage($this->_str['err_not_torrent']);
 			return false;
@@ -245,6 +245,19 @@ class AddT extends rtorrent
 		}
 		$message = new xmlrpcmsg("set_directory", array(new xmlrpcval(DIR_DOWNLOAD, 'string')));
 		$result1 = $this->client->send($message);
+	}
+	private function validateTorrentType($filename)
+	{
+		$file = @fopen($filename, "rb");
+		$bin = fread($file, 2);
+		fclose($file);
+		$strArray = @unpack("C2chars", $bin);
+		$typeCode = intval($strArray['chars1'].$strArray['chars2']);
+		if ($typeCode == 10056) //10056 is defined as BitTorrent file
+		{
+			return true;
+		}
+		return false;
 	}
 }
 ?>
