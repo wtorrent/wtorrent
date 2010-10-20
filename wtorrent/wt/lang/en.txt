@@ -171,11 +171,21 @@ user = User
 password = Password
 login = Login
 
+ch_passwd = Change password
+old_passwd = Old password
+new_passwd1 = New password
+new_passwd2 = Confirm password
+old_passwd_wrong = Invalid old password
+new_passwd_wrong = Minimum length of the password is 6 characters
+passwd_differ = Passwords differ
+passwd_changed = Password changed correctly
+
 ListT = Main
 AddT = Add Torrent
 Feeds = Feeds
 Admin = Admin
 Cookie = Cookie
+Settings = Settings
 active = active
 started = started
 stopped = stopped

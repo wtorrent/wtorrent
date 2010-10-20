@@ -40,11 +40,14 @@ class rtorrent extends Web
 						'Main' => 'ListT',
 						'Add Torrent' => 'AddT',
 						'Feeds' => 'Feeds',
-						'Cookie' => 'Cookie');
-	private $menu_admin = array('Main' => 'ListT',
+						'Cookie' => 'Cookie',
+						'Settings' => 'Settings');
+	private $menu_admin = array(
+						'Main' => 'ListT',
 						'Add Torrent' => 'AddT',
 						'Feeds' => 'Feeds',
 						'Cookie' => 'Cookie',
+						'Settings' => 'Settings',
 						'Admin' => 'Admin');
 	private $submenu	= array('General' => 'General&tpl=details',
 						'Files' => 'Files&tpl=details',

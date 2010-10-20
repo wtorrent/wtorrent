@@ -31,7 +31,7 @@
 <body>
 {if $web->isRegistered()}
 <div id="menu">
-	{include file="menu.tpl.php" width_total="600"}
+	{include file="menu.tpl.php" width_total="700"}
 </div>
 {/if}
 {include file="messages.tpl.php"}

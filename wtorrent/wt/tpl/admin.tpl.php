@@ -57,7 +57,7 @@
 	{include file="common/title.tpl.php" text=$str.add_user}
 	<div class="user_form">
 		{include file="common/forms/input_text.tpl.php" text=$str.user name="user" size='20'}
-		{include file="common/forms/input_text.tpl.php" text=$str.password name="passwd" size='20'}
+		{include file="common/forms/input_password.tpl.php" text=$str.password name="passwd" size='20'}
 		{include file="common/forms/input_checkbox.tpl.php" text=$str.admin name="admin"}
 		{include file="common/forms/input_text.tpl.php" text=$str.default_dir name="default_dir" size='40'}
 		{include file="common/forms/input_checkbox.tpl.php" text=$str.force_default name="force_dir"}

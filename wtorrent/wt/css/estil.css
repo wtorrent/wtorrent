@@ -118,7 +118,7 @@ img {
 
 /* Menu */
 #menu {
-	width:678px; 
+	width:778px; 
 	color:#5699d6;
 	text-align: center;
   font-family: Verdana, Arial;
@@ -143,7 +143,7 @@ img {
 	clear: none;
 	background: transparent url(../img/menu/bg_menu_c.png) repeat-x;
 	height: 95px;
-	width: 600px;
+	width: 700px;
 }
 #menu_r
 {
@@ -507,7 +507,7 @@ img {
 }
 #server_info {
 	clear: both;
-	width: 600px;
+	width: 700px;
 	padding: 10px 0 0 0;
 }
 .prog_bar_cont {
@@ -855,4 +855,13 @@ h2 {
 {
 	width: 50%; 
 	float: left;
+}
+/* Change password */
+.ch_passwd_form
+{
+	text-align: left;
+	float: none;
+	display: block;
+	padding-left: 40px;
+#	margin-bottom: 10px;
 }
