@@ -33,6 +33,14 @@ class AddT extends rtorrent
 				$this->_request['private']
 		   	);
 		}
+		else if(!empty($this->_request['torrenturl']) && strpos($this->_request['torrenturl'], "magnet:") === 0)
+		{
+			$this->addMagnet(
+				$this->_request['torrenturl'],
+				$this->_request['start_now'],
+				$this->_request['private']
+			);
+		}
 		else if(!empty($this->_request['torrenturl']))
 	   	{ 
 			$this->addRemoteTorrent(
@@ -43,6 +51,31 @@ class AddT extends rtorrent
 		   	);
 		}	 
 	}
+	// Add magnet link
+	private function addMagnet( $url, $start_now, $private )
+	{
+		if($start_now == 'on')
+		{
+			$method = 'load_start';
+		}
+		else
+		{
+			$method = 'load';
+		}
+		$message = new xmlrpcmsg($method, array(new xmlrpcval($url , 'string')));
+		$result1 = $this->client->send($message);
+		// not sure how to implement private :)
+		if ($result1->errno == 0)
+		{
+			$this->addMessage($this->_str['info_add_torrent']);
+		}
+		else
+		{
+			$this->addMessage($this->_str['err_add_torrent']);
+		}
+		$this->client->send($message);
+	}
+
 	// Add remote torrent
 	private function addRemoteTorrent( $url, $dir, $start_now, $private ) 
 	{
